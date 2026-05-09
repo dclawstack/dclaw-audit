@@ -1,35 +1,33 @@
-export interface AuditTrail {
-  id: string;
-  system_name: string;
-  events_captured: number;
-  anomalies_detected: number;
-  compliance_status: string;
-  created_at: string;
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
+
+class ApiError extends Error {
+  status: number;
+  constructor(message: string, status: number) {
+    super(message);
+    this.status = status;
+  }
 }
 
-export interface AuditEvent {
-  id: string;
-  trail_id: string;
-  event_type: string;
-  description: string;
-  severity: string;
-  timestamp: string;
-}
-
-export async function api<T>(
-  endpoint: string,
-  options: RequestInit = {}
-): Promise<T> {
-  const url = `/api/v1${endpoint}`;
-  const res = await fetch(url, {
-    ...options,
+async function fetchJson<T>(path: string, options?: RequestInit): Promise<T> {
+  const url = `${API_BASE}${path}`;
+  const response = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
-      ...(options.headers || {}),
+      ...options?.headers,
     },
+    ...options,
   });
-  if (!res.ok) {
-    throw new Error(`API error: ${res.status} ${res.statusText}`);
+  if (!response.ok) {
+    const error = await response.text();
+    throw new ApiError(`API error ${response.status}: ${error}`, response.status);
   }
-  return res.json() as Promise<T>;
+  return response.json();
 }
+
+export async function getHealth() {
+  return fetchJson<{ status: string }>("/health/");
+}
+
+// TODO: Add app-specific API functions here
+
+export { ApiError };
