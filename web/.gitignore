@@ -1,0 +1,10 @@
+# Dependencies
+node_modules/
+.next/
+
+# Environment
+.env
+.env.local
+
+# OS
+.DS_Store

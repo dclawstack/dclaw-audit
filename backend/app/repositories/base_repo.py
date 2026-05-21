@@ -1,7 +1,8 @@
+from typing import Generic, TypeVar
 from uuid import UUID
+
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, func
-from typing import TypeVar, Generic
 
 from app.models.base import Base
 
@@ -38,6 +39,13 @@ class BaseRepository(Generic[T]):
 
     async def create(self, obj: T) -> T:
         self.db.add(obj)
+        await self.db.commit()
+        await self.db.refresh(obj)
+        return obj
+
+    async def update(self, obj: T, data: dict) -> T:
+        for field, value in data.items():
+            setattr(obj, field, value)
         await self.db.commit()
         await self.db.refresh(obj)
         return obj
