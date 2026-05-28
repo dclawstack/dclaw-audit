@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     from app.models.evidence_request import EvidenceRequest
     from app.models.finding import Finding
     from app.models.report import SavedReport
+    from app.models.risk_item import RiskItem
 
 
 class EngagementStatus(str, Enum):
@@ -64,6 +65,11 @@ class AuditEngagement(Base):
         cascade="all, delete-orphan",
     )
     saved_reports: Mapped[list["SavedReport"]] = relationship(
+        back_populates="engagement",
+        lazy="selectin",
+        cascade="all, delete-orphan",
+    )
+    risk_items: Mapped[list["RiskItem"]] = relationship(
         back_populates="engagement",
         lazy="selectin",
         cascade="all, delete-orphan",

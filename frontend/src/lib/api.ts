@@ -513,5 +513,432 @@ export async function deleteSavedReport(reportId: string) {
   return fetchJson<void>(`/api/v1/saved-reports/${reportId}`, { method: "DELETE" });
 }
 
+// ─── Risk Items (v1.3 §1.1) ─────────────────────────────────────────────────
+
+export type RiskItemStatus = "open" | "mitigated" | "accepted";
+
+export interface RiskItem {
+  id: string;
+  engagement_id: string;
+  title: string;
+  description: string | null;
+  category: string | null;
+  likelihood: number;
+  impact: number;
+  risk_score: number;
+  residual_likelihood: number | null;
+  residual_impact: number | null;
+  residual_score: number | null;
+  owner_name: string | null;
+  status: RiskItemStatus;
+  mitigation_notes: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface RiskItemListResponse {
+  items: RiskItem[];
+  total: number;
+}
+
+export interface CreateRiskItemPayload {
+  engagement_id: string;
+  title: string;
+  description?: string;
+  category?: string;
+  likelihood?: number;
+  impact?: number;
+  residual_likelihood?: number;
+  residual_impact?: number;
+  owner_name?: string;
+  status?: RiskItemStatus;
+  mitigation_notes?: string;
+}
+
+export interface UpdateRiskItemPayload {
+  title?: string;
+  description?: string;
+  category?: string;
+  likelihood?: number;
+  impact?: number;
+  residual_likelihood?: number;
+  residual_impact?: number;
+  owner_name?: string;
+  status?: RiskItemStatus;
+  mitigation_notes?: string;
+}
+
+export async function listRiskItems(engagementId?: string, status?: RiskItemStatus) {
+  const params = new URLSearchParams();
+  if (engagementId) params.append("engagement_id", engagementId);
+  if (status) params.append("status", status);
+  const suffix = params.toString() ? `?${params.toString()}` : "";
+  return fetchJson<RiskItemListResponse>(`/api/v1/risk-items${suffix}`);
+}
+
+export async function createRiskItem(payload: CreateRiskItemPayload) {
+  return fetchJson<RiskItem>("/api/v1/risk-items", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function updateRiskItem(itemId: string, payload: UpdateRiskItemPayload) {
+  return fetchJson<RiskItem>(`/api/v1/risk-items/${itemId}`, {
+    method: "PATCH",
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function deleteRiskItem(itemId: string) {
+  return fetchJson<void>(`/api/v1/risk-items/${itemId}`, { method: "DELETE" });
+}
+
+// ─── Activity Events (v1.3 §1.6) ────────────────────────────────────────────
+
+export interface ActivityEvent {
+  id: string;
+  engagement_id: string | null;
+  entity_type: string;
+  entity_id: string | null;
+  action: string;
+  actor_name: string | null;
+  details: string | null;
+  created_at: string;
+}
+
+export interface ActivityEventListResponse {
+  items: ActivityEvent[];
+  total: number;
+}
+
+export async function listActivityEvents(engagementId?: string, entityType?: string) {
+  const params = new URLSearchParams();
+  if (engagementId) params.append("engagement_id", engagementId);
+  if (entityType) params.append("entity_type", entityType);
+  const suffix = params.toString() ? `?${params.toString()}` : "";
+  return fetchJson<ActivityEventListResponse>(`/api/v1/activity-events${suffix}`);
+}
+
+export async function createActivityEvent(payload: {
+  engagement_id?: string;
+  entity_type: string;
+  entity_id?: string;
+  action: string;
+  actor_name?: string;
+  details?: string;
+}) {
+  return fetchJson<ActivityEvent>("/api/v1/activity-events", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+// ─── Anomaly Detection (v1.3 §2.2) ──────────────────────────────────────────
+
+export type AnomalyFlagType = "statistical" | "rule_based";
+export type AnomalyFlagStatus = "flagged" | "reviewed" | "cleared" | "escalated";
+
+export interface AnomalyFlag {
+  id: string;
+  transaction_id: string;
+  flag_type: AnomalyFlagType;
+  severity: string;
+  description: string;
+  confidence_score: number | null;
+  status: AnomalyFlagStatus;
+  analyst_notes: string | null;
+  reviewed_by: string | null;
+  reviewed_at: string | null;
+  created_at: string;
+}
+
+export interface AnomalyTransaction {
+  id: string;
+  engagement_id: string | null;
+  transaction_date: string | null;
+  amount: number | null;
+  description: string | null;
+  account_code: string | null;
+  party_name: string | null;
+  source_system: string | null;
+  batch_id: string | null;
+  created_at: string;
+  flags: AnomalyFlag[];
+}
+
+export interface AnomalyTransactionListResponse {
+  items: AnomalyTransaction[];
+  total: number;
+}
+
+export interface AnomalyFlagListResponse {
+  items: AnomalyFlag[];
+  total: number;
+}
+
+export interface BulkIngestPayload {
+  transactions: {
+    engagement_id?: string;
+    transaction_date?: string;
+    amount?: number;
+    description?: string;
+    account_code?: string;
+    party_name?: string;
+    source_system?: string;
+    batch_id?: string;
+  }[];
+  run_detection?: boolean;
+}
+
+export interface BulkIngestResponse {
+  ingested: number;
+  flags_created: number;
+}
+
+export async function listAnomalyTransactions(engagementId?: string, batchId?: string) {
+  const params = new URLSearchParams();
+  if (engagementId) params.append("engagement_id", engagementId);
+  if (batchId) params.append("batch_id", batchId);
+  const suffix = params.toString() ? `?${params.toString()}` : "";
+  return fetchJson<AnomalyTransactionListResponse>(`/api/v1/anomaly-transactions${suffix}`);
+}
+
+export async function bulkIngestTransactions(payload: BulkIngestPayload) {
+  return fetchJson<BulkIngestResponse>("/api/v1/anomaly-transactions/bulk-ingest", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function listAnomalyFlags(status?: AnomalyFlagStatus, flagType?: AnomalyFlagType) {
+  const params = new URLSearchParams();
+  if (status) params.append("status", status);
+  if (flagType) params.append("flag_type", flagType);
+  const suffix = params.toString() ? `?${params.toString()}` : "";
+  return fetchJson<AnomalyFlagListResponse>(`/api/v1/anomaly-flags${suffix}`);
+}
+
+export async function reviewAnomalyFlag(flagId: string, payload: { status?: AnomalyFlagStatus; analyst_notes?: string; reviewed_by?: string }) {
+  return fetchJson<AnomalyFlag>(`/api/v1/anomaly-flags/${flagId}`, {
+    method: "PATCH",
+    body: JSON.stringify(payload),
+  });
+}
+
+// ─── Control Tests (v1.3 §2.4) ───────────────────────────────────────────────
+
+export type ControlTestType = "manual" | "automated" | "sample_based";
+export type ControlTestStatus = "planned" | "in_progress" | "completed" | "exception";
+export type ControlTestResult = "pass" | "fail" | "exception" | "not_applicable";
+
+export interface ControlTestSample {
+  id: string;
+  test_id: string;
+  item_reference: string;
+  item_description: string | null;
+  result: ControlTestResult | null;
+  exception_notes: string | null;
+  created_at: string;
+}
+
+export interface ControlTest {
+  id: string;
+  engagement_id: string;
+  control_id: string | null;
+  title: string;
+  test_type: ControlTestType;
+  scheduled_date: string | null;
+  completed_date: string | null;
+  status: ControlTestStatus;
+  overall_result: ControlTestResult | null;
+  sample_size: number | null;
+  exceptions_found: number | null;
+  test_objective: string | null;
+  test_procedure: string | null;
+  test_notes: string | null;
+  owner_name: string | null;
+  reviewer_name: string | null;
+  created_at: string;
+  updated_at: string;
+  samples: ControlTestSample[];
+}
+
+export interface ControlTestListResponse {
+  items: ControlTest[];
+  total: number;
+}
+
+export interface CreateControlTestPayload {
+  engagement_id: string;
+  control_id?: string;
+  title: string;
+  test_type?: ControlTestType;
+  scheduled_date?: string;
+  test_objective?: string;
+  test_procedure?: string;
+  sample_size?: number;
+  owner_name?: string;
+  reviewer_name?: string;
+}
+
+export interface UpdateControlTestPayload {
+  title?: string;
+  test_type?: ControlTestType;
+  scheduled_date?: string;
+  completed_date?: string;
+  status?: ControlTestStatus;
+  overall_result?: ControlTestResult;
+  sample_size?: number;
+  exceptions_found?: number;
+  test_objective?: string;
+  test_procedure?: string;
+  test_notes?: string;
+  owner_name?: string;
+  reviewer_name?: string;
+}
+
+export async function listControlTests(engagementId?: string, controlId?: string, status?: ControlTestStatus) {
+  const params = new URLSearchParams();
+  if (engagementId) params.append("engagement_id", engagementId);
+  if (controlId) params.append("control_id", controlId);
+  if (status) params.append("status", status);
+  const suffix = params.toString() ? `?${params.toString()}` : "";
+  return fetchJson<ControlTestListResponse>(`/api/v1/control-tests${suffix}`);
+}
+
+export async function createControlTest(payload: CreateControlTestPayload) {
+  return fetchJson<ControlTest>("/api/v1/control-tests", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function updateControlTest(testId: string, payload: UpdateControlTestPayload) {
+  return fetchJson<ControlTest>(`/api/v1/control-tests/${testId}`, {
+    method: "PATCH",
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function deleteControlTest(testId: string) {
+  return fetchJson<void>(`/api/v1/control-tests/${testId}`, { method: "DELETE" });
+}
+
+export async function createTestSample(testId: string, payload: { item_reference: string; item_description?: string; result?: ControlTestResult; exception_notes?: string }) {
+  return fetchJson<ControlTestSample>(`/api/v1/control-tests/${testId}/samples`, {
+    method: "POST",
+    body: JSON.stringify({ test_id: testId, ...payload }),
+  });
+}
+
+// ─── Audit Signals (v1.3 §2.3) ───────────────────────────────────────────────
+
+export type SignalSource = "erp" | "iam" | "ticketing" | "cloud" | "manual";
+export type SignalType = "control_deviation" | "access_change" | "config_change" | "threshold_breach" | "anomaly";
+export type SignalStatus = "new" | "reviewed" | "dismissed" | "escalated";
+
+export interface AuditSignal {
+  id: string;
+  signal_source: SignalSource;
+  signal_type: SignalType;
+  title: string;
+  description: string | null;
+  entity_ref: string | null;
+  severity: string;
+  status: SignalStatus;
+  engagement_id: string | null;
+  finding_id: string | null;
+  reviewed_by: string | null;
+  reviewed_at: string | null;
+  created_at: string;
+}
+
+export interface AuditSignalListResponse {
+  items: AuditSignal[];
+  total: number;
+}
+
+export interface CreateAuditSignalPayload {
+  signal_source: SignalSource;
+  signal_type: SignalType;
+  title: string;
+  description?: string;
+  entity_ref?: string;
+  severity?: string;
+  engagement_id?: string;
+  raw_payload?: string;
+}
+
+export async function listAuditSignals(opts?: { engagementId?: string; status?: SignalStatus; source?: SignalSource; type?: SignalType }) {
+  const params = new URLSearchParams();
+  if (opts?.engagementId) params.append("engagement_id", opts.engagementId);
+  if (opts?.status) params.append("status", opts.status);
+  if (opts?.source) params.append("signal_source", opts.source);
+  if (opts?.type) params.append("signal_type", opts.type);
+  const suffix = params.toString() ? `?${params.toString()}` : "";
+  return fetchJson<AuditSignalListResponse>(`/api/v1/audit-signals${suffix}`);
+}
+
+export async function createAuditSignal(payload: CreateAuditSignalPayload) {
+  return fetchJson<AuditSignal>("/api/v1/audit-signals", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function updateAuditSignal(signalId: string, payload: { status?: SignalStatus; engagement_id?: string; finding_id?: string; reviewed_by?: string }) {
+  return fetchJson<AuditSignal>(`/api/v1/audit-signals/${signalId}`, {
+    method: "PATCH",
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function deleteAuditSignal(signalId: string) {
+  return fetchJson<void>(`/api/v1/audit-signals/${signalId}`, { method: "DELETE" });
+}
+
+// ─── Intelligence (v1.3 §2.5) ────────────────────────────────────────────────
+
+export interface RecurringControlFailure {
+  control_id: string | null;
+  control_title: string;
+  total_tests: number;
+  failed_tests: number;
+  failure_rate: number;
+}
+
+export interface OwnerResponsiveness {
+  owner_name: string;
+  total_requests: number;
+  overdue_requests: number;
+  avg_days_open: number;
+  responsiveness_score: number;
+}
+
+export interface CycleTimeBenchmark {
+  engagement_id: string;
+  title: string;
+  status: string;
+  days_open: number;
+  findings_count: number;
+  open_findings: number;
+}
+
+export interface IntelligenceSummary {
+  recurring_control_failures: RecurringControlFailure[];
+  owner_responsiveness: OwnerResponsiveness[];
+  cycle_time_benchmarks: CycleTimeBenchmark[];
+  total_open_engagements: number;
+  avg_finding_age_days: number;
+  high_risk_engagement_count: number;
+  findings_trend_30d: number;
+  findings_trend_60d: number;
+}
+
+export async function getIntelligenceSummary() {
+  return fetchJson<IntelligenceSummary>("/api/v1/intelligence/summary");
+}
+
 export { ApiError };
 export const api = fetchJson;
