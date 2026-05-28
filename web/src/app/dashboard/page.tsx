@@ -399,18 +399,15 @@ export default function DashboardPage() {
             Track engagements, evidence, findings, and controls in one workspace.
           </p>
         </div>
-        <div className="flex items-center gap-3">
-          <Link href="/reports">
-            <Button type="button" variant="outline">
-              Reports
-            </Button>
-          </Link>
-          <Link href="/controls">
-            <Button type="button" variant="outline">
-              Controls &amp; Frameworks
-            </Button>
-          </Link>
-          <Button type="button" variant="outline" onClick={() => void loadData()} disabled={loading}>
+        <div className="flex flex-wrap items-center gap-2">
+          <Link href="/risk"><Button type="button" variant="outline" size="sm">Risk Register</Button></Link>
+          <Link href="/testing"><Button type="button" variant="outline" size="sm">Control Testing</Button></Link>
+          <Link href="/anomalies"><Button type="button" variant="outline" size="sm">Anomalies</Button></Link>
+          <Link href="/signals"><Button type="button" variant="outline" size="sm">Signals</Button></Link>
+          <Link href="/intelligence"><Button type="button" variant="outline" size="sm">Intelligence</Button></Link>
+          <Link href="/reports"><Button type="button" variant="outline" size="sm">Reports</Button></Link>
+          <Link href="/controls"><Button type="button" variant="outline" size="sm">Controls</Button></Link>
+          <Button type="button" variant="outline" size="sm" onClick={() => void loadData()} disabled={loading}>
             Refresh
           </Button>
         </div>
