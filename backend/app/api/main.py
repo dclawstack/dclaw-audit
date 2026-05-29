@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.core.database import init_db
 from app.api.routes import health
-from app.api.v1 import audit, ai, report, risk, activity, anomalies, testing, signals, intelligence
+from app.api.v1 import audit, ai, report, risk, activity, anomalies, testing, signals, intelligence, demo
 
 
 @asynccontextmanager
@@ -38,3 +38,4 @@ app.include_router(anomalies.router, prefix="/api/v1", tags=["anomalies"])
 app.include_router(testing.router, prefix="/api/v1", tags=["testing"])
 app.include_router(signals.router, prefix="/api/v1", tags=["signals"])
 app.include_router(intelligence.router, prefix="/api/v1", tags=["intelligence"])
+app.include_router(demo.router, prefix="/api/v1", tags=["demo"])

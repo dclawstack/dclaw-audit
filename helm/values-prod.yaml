@@ -1,0 +1,25 @@
+# Cloud / production overrides. Use with:
+#   helm install dclaw-audit ./helm -n <ns> -f values-prod.yaml
+image:
+  backend:
+    repository: ghcr.io/dclawstack/dclaw-audit-backend
+    tag: latest
+    pullPolicy: IfNotPresent
+  frontend:
+    repository: ghcr.io/dclawstack/dclaw-audit-frontend
+    tag: latest
+    pullPolicy: IfNotPresent
+service:
+  frontend:
+    type: ClusterIP
+    port: 3037
+ingress:
+  enabled: true
+  className: traefik
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  host: audit.dclawstack.io
+  tls:
+    - secretName: dclaw-audit-tls
+      hosts:
+        - audit.dclawstack.io

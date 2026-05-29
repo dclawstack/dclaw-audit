@@ -21,6 +21,10 @@ class Settings(BaseSettings):
     ollama_url: str = "http://localhost:11434"
     ollama_model: str = "llama3.1"
 
+    # Demo mode (landing-page seed/reset). Off by default; enable with ENABLE_DEMO_MODE=true.
+    enable_demo_mode: bool = False
+    demo_owner_email: str = "demo@dclawstack.io"
+
 
 @lru_cache()
 def get_settings() -> Settings:
