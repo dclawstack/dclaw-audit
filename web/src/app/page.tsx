@@ -28,6 +28,7 @@ import {
   Download,
   Menu,
   X,
+  Github,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -104,6 +105,15 @@ function Nav() {
 
         {/* CTA */}
         <div className="hidden items-center gap-3 md:flex">
+          <a
+            href="https://github.com/dclawstack/dclaw-audit"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 transition-colors hover:text-slate-900"
+          >
+            <Github className="h-4 w-4" />
+            GitHub
+          </a>
           <Link href="/dashboard">
             <Button size="sm" className="bg-slate-900 text-white hover:bg-slate-700">
               Launch App
@@ -890,6 +900,15 @@ function Footer() {
                 {l.label}
               </Link>
             ))}
+            <a
+              href="https://github.com/dclawstack/dclaw-audit"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 hover:text-slate-900"
+            >
+              <Github className="h-4 w-4" />
+              GitHub
+            </a>
           </div>
         </div>
       </div>
