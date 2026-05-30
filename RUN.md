@@ -97,7 +97,7 @@ The `-v` flag removes the Postgres volume (wipes all data). Omit it to keep data
 
 ## Vercel Deployment
 
-The Vercel-native frontend lives in the `web/` directory (separate from the Docker `frontend/`).
+The frontend is a single Next.js app in the `web/` directory, used for **both** the Vercel deployment and the Docker/Helm container build (`web/Dockerfile`, `output: 'standalone'`).
 
 ### Deploy to Vercel
 

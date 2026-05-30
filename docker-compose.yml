@@ -71,7 +71,7 @@ services:
 
   frontend:
     build:
-      context: ./frontend
+      context: ./web
       dockerfile: Dockerfile
       args:
         NEXT_PUBLIC_API_URL: http://localhost:8037

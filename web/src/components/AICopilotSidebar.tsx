@@ -67,7 +67,7 @@ export default function AICopilotSidebar() {
       {/* Floating trigger button */}
       <button
         onClick={() => setOpen(true)}
-        className={`fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-gray-900 px-4 py-3 text-white shadow-lg hover:bg-gray-700 transition-all ${open ? "hidden" : ""}`}
+        className={`fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-[#7030A0] px-4 py-3 text-white shadow-lg hover:bg-[#B180F8] transition-all ${open ? "hidden" : ""}`}
         aria-label="Open AI Copilot"
       >
         <Bot className="h-5 w-5" />
@@ -78,11 +78,11 @@ export default function AICopilotSidebar() {
       {open && (
         <div className="fixed bottom-0 right-0 z-50 flex h-[600px] w-[380px] flex-col rounded-tl-2xl border border-gray-200 bg-white shadow-2xl">
           {/* Header */}
-          <div className="flex items-center justify-between rounded-tl-2xl bg-gray-900 px-4 py-3 text-white">
+          <div className="flex items-center justify-between rounded-tl-2xl bg-[#7030A0] px-4 py-3 text-white">
             <div className="flex items-center gap-2">
               <Bot className="h-5 w-5" />
               <span className="font-semibold">AI Copilot</span>
-              <Badge className="bg-gray-700 text-xs text-gray-200">Beta</Badge>
+              <Badge className="bg-[#682899] text-xs text-purple-100">Beta</Badge>
             </div>
             <button onClick={() => setOpen(false)} aria-label="Close">
               <X className="h-4 w-4 hover:text-gray-300" />
@@ -96,7 +96,7 @@ export default function AICopilotSidebar() {
                 <div
                   className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm leading-relaxed ${
                     m.role === "user"
-                      ? "bg-gray-900 text-white"
+                      ? "bg-[#7030A0] text-white"
                       : "bg-gray-100 text-gray-800"
                   }`}
                 >
@@ -137,7 +137,7 @@ export default function AICopilotSidebar() {
               className="flex-1 text-sm"
               disabled={loading}
             />
-            <Button type="submit" size="icon" disabled={loading || !input.trim()} className="bg-gray-900 hover:bg-gray-700">
+            <Button type="submit" size="icon" disabled={loading || !input.trim()}>
               <Send className="h-4 w-4" />
             </Button>
           </form>

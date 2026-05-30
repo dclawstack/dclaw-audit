@@ -1,70 +1,72 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&family=Poppins:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&family=Poppins:wght@400;500;600&family=Open+Sans:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* ─────────────────────────────────────────────
-   One Convergence Design System
+   DClaw Audit — One Convergence Design System
    Signature: Purple #7030A0 · White #FFFFFF
+   Mirrors dclaw-finance for cross-product consistency.
    ───────────────────────────────────────────── */
 @layer base {
   :root {
+    /* ── Core surfaces ── */
     --background:         0 0% 100%;
-    --foreground:         0 0% 8%;            /* #141414 ink */
+    --foreground:         0 0% 27%;          /* #444444 */
 
+    /* ── Card / Popover ── */
     --card:               0 0% 100%;
-    --card-foreground:    0 0% 8%;
+    --card-foreground:    0 0% 27%;
     --popover:            0 0% 100%;
-    --popover-foreground: 0 0% 8%;
+    --popover-foreground: 0 0% 27%;
 
-    /* Primary — Purple #7030A0 */
+    /* ── Primary — Purple #7030A0 ── */
     --primary:            281 53% 41%;
     --primary-foreground: 0 0% 100%;
 
+    /* ── Secondary — Light Gray #f7f7f7 ── */
     --secondary:          0 0% 97%;
-    --secondary-foreground: 0 0% 8%;
+    --secondary-foreground: 0 0% 27%;
 
+    /* ── Muted ── */
     --muted:              0 0% 97%;
-    --muted-foreground:   0 0% 35%;
+    --muted-foreground:   0 0% 47%;          /* #777777 */
 
-    /* Accent — Light Purple */
-    --accent:             270 90% 96%;
+    /* ── Accent — Light Purple #E7EDFF ── */
+    --accent:             228 100% 95%;
     --accent-foreground:  281 53% 41%;
 
-    --destructive:        11 82% 48%;
+    /* ── Destructive ── */
+    --destructive:        11 82% 48%;        /* #ed3c0d */
     --destructive-foreground: 0 0% 100%;
 
-    --border:             0 0% 90%;
-    --input:              0 0% 90%;
+    /* ── Border / Input / Ring ── */
+    --border:             0 0% 93%;          /* #ededed */
+    --input:              0 0% 93%;
     --ring:               281 53% 41%;
 
-    --radius:             0.5rem;
+    /* ── Shape ── */
+    --radius:             0.625rem;          /* 10px cards */
 
-    /* OC purple scale */
-    --purple-25:          #FAF6FD;
-    --purple-50:          #F5EEFB;
-    --purple-100:         #E7D8F4;
-    --purple-300:         #B180F8;
-    --purple-500:         #7030A0;
-    --purple-700:         #4A1F6C;
-    --purple-900:         #2B0E45;
-
-    --ink:                #141414;
-    --ink-2:              #2A2A2A;
-    --ink-3:              #5A5A5A;
-    --ink-4:              #8A8A8A;
-    --rule:               #E5E5E5;
-    --paper:              #FFFFFF;
-    --paper-cool:         #F6F5F7;
-    --paper-warm:         #FAF8F4;
-
-    --success:            150 77% 35%;
+    /* ── Semantic tokens ── */
+    --success:            150 77% 45%;       /* #18d26e */
+    --success-foreground: 0 0% 100%;
     --success-subtle:     150 60% 96%;
-    --warning:            38 85% 45%;
+
+    --warning:            38 92% 50%;
+    --warning-foreground: 0 0% 100%;
     --warning-subtle:     48 96% 95%;
-    --error:              0 78% 40%;
-    --error-subtle:       0 90% 96%;
+
+    --info:               217 91% 60%;
+    --info-foreground:    0 0% 100%;
+    --info-subtle:        214 100% 97%;
+
+    /* ── One Convergence purple scale ── */
+    --purple-light:       270 90% 74%;       /* #B180F8 */
+    --purple-base:        281 53% 41%;       /* #7030A0 */
+    --purple-dark:        281 58% 37%;       /* #682899 */
+    --purple-subtle:      270 100% 97%;      /* very light lavender bg */
   }
 
   * {
@@ -73,12 +75,67 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Open Sans', ui-sans-serif, system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Raleway', ui-sans-serif, system-ui, sans-serif;
+    color: hsl(0 0% 21%);
+  }
+
+  .font-numeric, [data-numeric] {
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+}
+
+@layer components {
+  /* ── Typography Scale ── */
+  .type-display-lg  { @apply text-5xl font-bold tracking-tighter leading-none; }
+  .type-display     { @apply text-4xl font-bold tracking-tight leading-none; }
+  .type-heading-xl  { @apply text-2xl font-semibold tracking-tight leading-tight; }
+  .type-heading-lg  { @apply text-xl font-semibold tracking-tight leading-snug; }
+  .type-heading     { @apply text-lg font-semibold leading-snug; }
+  .type-heading-sm  { @apply text-base font-semibold leading-snug; }
+  .type-label-lg    { @apply text-sm font-semibold tracking-wide uppercase text-muted-foreground; }
+  .type-label       { @apply text-xs font-semibold tracking-wider uppercase text-muted-foreground; }
+  .type-body-lg     { @apply text-base font-normal leading-relaxed; }
+  .type-body        { @apply text-sm font-normal leading-normal; }
+  .type-body-sm     { @apply text-xs font-normal leading-normal text-muted-foreground; }
+
+  /* ── Semantic color helpers ── */
+  .text-success { color: hsl(var(--success)); }
+  .text-warning { color: hsl(var(--warning)); }
+  .text-info    { color: hsl(var(--info)); }
+
+  .bg-success-subtle { background-color: hsl(var(--success-subtle)); }
+  .bg-warning-subtle { background-color: hsl(var(--warning-subtle)); }
+  .bg-info-subtle    { background-color: hsl(var(--info-subtle)); }
+
+  /* ── Status badge variants ── */
+  .badge-success { @apply bg-success-subtle text-success border-transparent; }
+  .badge-pending { @apply bg-warning-subtle text-warning border-transparent; }
+  .badge-error   { @apply bg-destructive/10 text-destructive border-transparent; }
+  .badge-draft   { @apply bg-muted text-muted-foreground border-transparent; }
+
+  /* ── One Convergence card hover (purple on hover) ── */
+  .card-oc {
+    @apply transition-all duration-300 ease-in-out cursor-pointer;
+  }
+  .card-oc:hover {
+    background-color: hsl(var(--purple-base));
+    color: white;
+    box-shadow: 0px 2px 20px rgba(112, 48, 160, 0.3);
+  }
+  .card-oc:hover h1,
+  .card-oc:hover h2,
+  .card-oc:hover h3,
+  .card-oc:hover h4,
+  .card-oc:hover h5,
+  .card-oc:hover h6,
+  .card-oc:hover p,
+  .card-oc:hover span {
+    color: white;
   }
 }

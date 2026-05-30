@@ -106,15 +106,22 @@ export default function WorkpapersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-gray-900 text-white px-6 py-4 flex items-center gap-3">
-        <ShieldCheck className="h-6 w-6" />
-        <span className="font-bold text-lg">DClaw Audit</span>
-        <span className="text-gray-400 mx-2">|</span>
-        <span className="text-gray-200">Workpapers</span>
+    <div className="min-h-screen bg-[#f7f7f7]">
+      <header
+        className="flex items-center gap-3 border-b border-[#ededed] bg-white px-6 py-4"
+        style={{ boxShadow: "0 2px 15px rgba(0,0,0,0.06)" }}
+      >
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#7030A0]">
+          <ShieldCheck className="h-4 w-4 text-white" />
+        </div>
+        <span className="text-lg font-extrabold tracking-tight text-[#444444]" style={{ fontFamily: "'Raleway', sans-serif" }}>
+          <span className="text-[#7030A0]">DClaw</span> Audit
+        </span>
+        <span className="mx-2 text-[#cccccc]">|</span>
+        <span className="text-[#545454]">Workpapers</span>
         <div className="ml-auto">
           <Link href="/dashboard">
-            <Button variant="outline" size="sm" className="border-gray-600 text-gray-200 hover:bg-gray-800">
+            <Button variant="outline" size="sm">
               <ArrowLeft className="h-4 w-4 mr-1" /> Dashboard
             </Button>
           </Link>
@@ -263,7 +270,7 @@ export default function WorkpapersPage() {
                     <Label>Notes</Label>
                     <Input value={form.notes} onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))} placeholder="Optional notes" />
                   </div>
-                  <Button type="submit" disabled={loading || !form.engagement_id || !form.title} className="bg-gray-900 hover:bg-gray-700 text-white">
+                  <Button type="submit" disabled={loading || !form.engagement_id || !form.title}>
                     Create Workpaper
                   </Button>
                 </form>

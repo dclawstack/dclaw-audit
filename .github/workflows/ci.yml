@@ -58,10 +58,10 @@ jobs:
         with:
           node-version: "20"
       - name: Install dependencies
-        working-directory: ./frontend
+        working-directory: ./web
         run: npm ci
       - name: Build
-        working-directory: ./frontend
+        working-directory: ./web
         env:
           NEXT_PUBLIC_API_URL: http://localhost:8000
         run: npm run build
