@@ -1,7 +1,7 @@
 "use client";
 
 import { type FormEvent, useEffect, useState } from "react";
-import { ArrowLeft, FileText, Plus, Trash2 } from "lucide-react";
+import { ArrowLeft, Download, FileText, Plus, Trash2 } from "lucide-react";
 import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
@@ -30,6 +30,7 @@ import {
   listSavedReports,
   updateSavedReport,
   deleteSavedReport,
+  getReportExportUrl,
 } from "@/lib/api";
 
 function formatLabel(value: string) {
@@ -259,6 +260,16 @@ export default function ReportsPage() {
                       >
                         Edit
                       </Button>
+                      <a
+                        href={getReportExportUrl(report.id)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        download
+                      >
+                        <Button type="button" size="sm" variant="ghost" title="Export HTML">
+                          <Download className="h-4 w-4 text-blue-600" />
+                        </Button>
+                      </a>
                       <Button
                         type="button"
                         size="sm"

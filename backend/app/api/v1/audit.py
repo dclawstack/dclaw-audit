@@ -1,7 +1,12 @@
+import os
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile, status
 from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.core.config import settings
+from app.repositories.evidence_file_repository import EvidenceFileRepository
+from app.schemas.evidence_file import EvidenceFileRead
 
 from app.core.database import get_db
 from app.models.control import FrameworkName
@@ -532,3 +537,53 @@ async def delete_control_mapping(
 async def get_dashboard_summary(db: AsyncSession = Depends(get_db)):
     repository = AuditEngagementRepository(db)
     return await repository.get_dashboard_summary()
+
+
+# ── Evidence File Upload ──────────────────────────────────────────────────────
+
+@router.get("/evidence-files", response_model=list[EvidenceFileRead])
+async def list_evidence_files(
+    request_id: UUID = Query(...),
+    db: AsyncSession = Depends(get_db),
+):
+    repo = EvidenceFileRepository(db)
+    return await repo.list_by_request(request_id)
+
+
+@router.post("/evidence-files/upload", response_model=EvidenceFileRead, status_code=status.HTTP_201_CREATED)
+async def upload_evidence_file(
+    request_id: UUID = Form(...),
+    uploaded_by: str | None = Form(None),
+    notes: str | None = Form(None),
+    file: UploadFile = File(...),
+    db: AsyncSession = Depends(get_db),
+):
+    os.makedirs(settings.upload_dir, exist_ok=True)
+    safe_name = os.path.basename(file.filename or "upload")
+    dest = os.path.join(settings.upload_dir, f"{request_id}_{safe_name}")
+    content = await file.read()
+    if len(content) > settings.max_upload_size_mb * 1024 * 1024:
+        raise HTTPException(status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE, detail="File too large")
+    with open(dest, "wb") as f_out:
+        f_out.write(content)
+    repo = EvidenceFileRepository(db)
+    return await repo.create_file(
+        request_id=request_id,
+        filename=safe_name,
+        content_type=file.content_type,
+        file_size=len(content),
+        storage_path=dest,
+        uploaded_by=uploaded_by,
+        notes=notes,
+    )
+
+
+@router.delete("/evidence-files/{file_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_evidence_file(file_id: UUID, db: AsyncSession = Depends(get_db)):
+    repo = EvidenceFileRepository(db)
+    ef = await repo.get_by_id(file_id)
+    if ef is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Evidence file not found")
+    if ef.storage_path and os.path.exists(ef.storage_path):
+        os.remove(ef.storage_path)
+    await repo.delete(ef)

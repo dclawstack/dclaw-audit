@@ -8,3 +8,5 @@
 # Environment
 .env
 .env.local
+
+testsprite_tests/tmp/config.json

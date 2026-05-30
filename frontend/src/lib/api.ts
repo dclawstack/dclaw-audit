@@ -940,5 +940,208 @@ export async function getIntelligenceSummary() {
   return fetchJson<IntelligenceSummary>("/api/v1/intelligence/summary");
 }
 
+// ─── Workpapers ──────────────────────────────────────────────────────────────
+
+export type WorkpaperStatus = "draft" | "in_review" | "approved" | "archived";
+
+export interface Workpaper {
+  id: string;
+  engagement_id: string;
+  title: string;
+  content: string | null;
+  status: WorkpaperStatus;
+  preparer_name: string | null;
+  reviewer_name: string | null;
+  reviewed_at: string | null;
+  approved_at: string | null;
+  version: number;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface WorkpaperListResponse { items: Workpaper[]; total: number; }
+
+export interface CreateWorkpaperPayload {
+  engagement_id: string;
+  title: string;
+  content?: string;
+  status?: WorkpaperStatus;
+  preparer_name?: string;
+  reviewer_name?: string;
+  notes?: string;
+}
+
+export interface UpdateWorkpaperPayload {
+  title?: string;
+  content?: string;
+  status?: WorkpaperStatus;
+  preparer_name?: string;
+  reviewer_name?: string;
+  reviewed_at?: string;
+  approved_at?: string;
+  notes?: string;
+}
+
+export async function listWorkpapers(engagementId?: string, status?: WorkpaperStatus) {
+  const params = new URLSearchParams();
+  if (engagementId) params.append("engagement_id", engagementId);
+  if (status) params.append("status", status);
+  const suffix = params.toString() ? `?${params.toString()}` : "";
+  return fetchJson<WorkpaperListResponse>(`/api/v1/workpapers${suffix}`);
+}
+
+export async function createWorkpaper(payload: CreateWorkpaperPayload) {
+  return fetchJson<Workpaper>("/api/v1/workpapers", { method: "POST", body: JSON.stringify(payload) });
+}
+
+export async function updateWorkpaper(id: string, payload: UpdateWorkpaperPayload) {
+  return fetchJson<Workpaper>(`/api/v1/workpapers/${id}`, { method: "PATCH", body: JSON.stringify(payload) });
+}
+
+export async function deleteWorkpaper(id: string) {
+  return fetchJson<void>(`/api/v1/workpapers/${id}`, { method: "DELETE" });
+}
+
+// ─── Remediation Plans ───────────────────────────────────────────────────────
+
+export type RemediationStatus = "open" | "in_progress" | "completed" | "overdue" | "cancelled";
+
+export interface RemediationPlan {
+  id: string;
+  finding_id: string;
+  engagement_id: string;
+  title: string;
+  action_items: string | null;
+  owner_name: string | null;
+  due_date: string | null;
+  status: RemediationStatus;
+  progress_pct: number;
+  ai_generated: boolean;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface RemediationPlanListResponse { items: RemediationPlan[]; total: number; }
+
+export interface CreateRemediationPlanPayload {
+  finding_id: string;
+  engagement_id: string;
+  title: string;
+  action_items?: string;
+  owner_name?: string;
+  due_date?: string;
+  status?: RemediationStatus;
+  progress_pct?: number;
+  notes?: string;
+}
+
+export interface UpdateRemediationPlanPayload {
+  title?: string;
+  action_items?: string;
+  owner_name?: string;
+  due_date?: string;
+  status?: RemediationStatus;
+  progress_pct?: number;
+  notes?: string;
+}
+
+export async function listRemediationPlans(opts?: { engagementId?: string; findingId?: string; status?: RemediationStatus }) {
+  const params = new URLSearchParams();
+  if (opts?.engagementId) params.append("engagement_id", opts.engagementId);
+  if (opts?.findingId) params.append("finding_id", opts.findingId);
+  if (opts?.status) params.append("status", opts.status);
+  const suffix = params.toString() ? `?${params.toString()}` : "";
+  return fetchJson<RemediationPlanListResponse>(`/api/v1/remediation-plans${suffix}`);
+}
+
+export async function createRemediationPlan(payload: CreateRemediationPlanPayload) {
+  return fetchJson<RemediationPlan>("/api/v1/remediation-plans", { method: "POST", body: JSON.stringify(payload) });
+}
+
+export async function updateRemediationPlan(id: string, payload: UpdateRemediationPlanPayload) {
+  return fetchJson<RemediationPlan>(`/api/v1/remediation-plans/${id}`, { method: "PATCH", body: JSON.stringify(payload) });
+}
+
+export async function deleteRemediationPlan(id: string) {
+  return fetchJson<void>(`/api/v1/remediation-plans/${id}`, { method: "DELETE" });
+}
+
+export async function aiGenerateRemediationPlan(findingId: string, engagementId: string) {
+  return fetchJson<{ title: string; action_items: string; owner_name?: string; estimated_days?: number; notes?: string }>(
+    "/api/v1/ai/generate-remediation-plan",
+    { method: "POST", body: JSON.stringify({ finding_id: findingId, engagement_id: engagementId }) }
+  );
+}
+
+// ─── Evidence Files ───────────────────────────────────────────────────────────
+
+export interface EvidenceFile {
+  id: string;
+  request_id: string;
+  filename: string;
+  content_type: string | null;
+  file_size: number | null;
+  uploaded_by: string | null;
+  version: number;
+  notes: string | null;
+  created_at: string;
+}
+
+export async function listEvidenceFiles(requestId: string) {
+  return fetchJson<EvidenceFile[]>(`/api/v1/evidence-files?request_id=${requestId}`);
+}
+
+export async function uploadEvidenceFile(requestId: string, file: File, uploadedBy?: string, notes?: string) {
+  const form = new FormData();
+  form.append("request_id", requestId);
+  form.append("file", file);
+  if (uploadedBy) form.append("uploaded_by", uploadedBy);
+  if (notes) form.append("notes", notes);
+  const base = process.env.NEXT_PUBLIC_API_URL || "";
+  const res = await fetch(`${base}/api/v1/evidence-files/upload`, { method: "POST", body: form });
+  if (!res.ok) throw new ApiError(`Upload failed: ${res.status}`, res.status);
+  return res.json() as Promise<EvidenceFile>;
+}
+
+export async function deleteEvidenceFile(id: string) {
+  return fetchJson<void>(`/api/v1/evidence-files/${id}`, { method: "DELETE" });
+}
+
+// ─── AI extras ───────────────────────────────────────────────────────────────
+
+export interface EvidenceCompletenessResponse {
+  completeness_score: number;
+  missing_areas: string[];
+  recommendations: string[];
+  overall_assessment: string;
+}
+
+export interface PrioritizeFindingsResponse {
+  prioritized_findings: { finding_id: string; priority_rank: number; reason: string }[];
+  critical_path: string[];
+  summary: string;
+}
+
+export async function aiCheckEvidenceCompleteness(engagementId: string) {
+  return fetchJson<EvidenceCompletenessResponse>("/api/v1/ai/check-evidence-completeness", {
+    method: "POST",
+    body: JSON.stringify({ engagement_id: engagementId }),
+  });
+}
+
+export async function aiPrioritizeFindings(engagementId: string) {
+  return fetchJson<PrioritizeFindingsResponse>("/api/v1/ai/prioritize-findings", {
+    method: "POST",
+    body: JSON.stringify({ engagement_id: engagementId }),
+  });
+}
+
+export function getReportExportUrl(reportId: string): string {
+  const base = process.env.NEXT_PUBLIC_API_URL || "";
+  return `${base}/api/v1/saved-reports/${reportId}/export`;
+}
+
 export { ApiError };
 export const api = fetchJson;

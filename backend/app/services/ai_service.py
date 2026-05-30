@@ -48,6 +48,37 @@ _SYSTEM_PROMPT_GENERATE_REPORT = (
     "'executive_summary' (string), 'key_observations' (list of strings), 'overall_risk_rating' (string)."
 )
 
+_SYSTEM_PROMPT_EVIDENCE_COMPLETENESS = (
+    "You are an audit quality reviewer. Given the engagement scope and list of evidence requests, "
+    "assess whether the evidence collected is complete and sufficient. "
+    "Output a JSON object with keys: "
+    "'completeness_score' (integer 0-100), "
+    "'missing_areas' (list of strings — what is missing), "
+    "'recommendations' (list of strings — what to request next), "
+    "'overall_assessment' (string)."
+)
+
+_SYSTEM_PROMPT_PRIORITIZE_FINDINGS = (
+    "You are an audit manager prioritizing findings for remediation. "
+    "Given a list of findings with severity, status, root causes, and due dates, "
+    "rank them and provide a prioritized action plan. "
+    "Output a JSON object with keys: "
+    "'prioritized_findings' (list of objects, each with: 'finding_id' string, 'priority_rank' integer, 'reason' string), "
+    "'critical_path' (list of strings — immediate actions required), "
+    "'summary' (string)."
+)
+
+_SYSTEM_PROMPT_REMEDIATION_PLAN = (
+    "You are an audit remediation specialist. Given a finding with its root cause and recommendation, "
+    "generate a structured remediation plan. "
+    "Output a JSON object with keys: "
+    "'title' (string), "
+    "'action_items' (string — newline-separated list of concrete steps), "
+    "'owner_name' (string — suggested owner role), "
+    "'estimated_days' (integer), "
+    "'notes' (string)."
+)
+
 
 class AIServiceError(Exception):
     pass
@@ -241,6 +272,52 @@ class AIService:
             {"role": "user", "content": context},
         ]
         response = await self._call_llm(messages, temperature=0.6)
+        return self._try_parse_json(response)
+
+    async def check_evidence_completeness(self, db: AsyncSession, engagement_id: UUID) -> dict:
+        context = await self._build_engagement_context(db, engagement_id)
+        messages = [
+            {"role": "system", "content": _SYSTEM_PROMPT_EVIDENCE_COMPLETENESS},
+            {"role": "user", "content": context},
+        ]
+        response = await self._call_llm(messages, temperature=0.4)
+        return self._try_parse_json(response)
+
+    async def prioritize_findings(self, db: AsyncSession, engagement_id: UUID) -> dict:
+        context = await self._build_engagement_context(db, engagement_id)
+        finding_repo = FindingRepository(db)
+        findings, _ = await finding_repo.list_findings(limit=200, engagement_id=engagement_id)
+        findings_text = "\n".join(
+            f"- ID:{f.id} [{f.severity.value.upper()}] {f.title} | status:{f.status.value} | due:{f.due_date}"
+            for f in findings
+        )
+        messages = [
+            {"role": "system", "content": _SYSTEM_PROMPT_PRIORITIZE_FINDINGS},
+            {"role": "user", "content": f"{context}\n\n## Findings to Prioritize:\n{findings_text}"},
+        ]
+        response = await self._call_llm(messages, temperature=0.3)
+        return self._try_parse_json(response)
+
+    async def generate_remediation_plan(
+        self, db: AsyncSession, finding_id: UUID, engagement_id: UUID
+    ) -> dict:
+        from app.repositories.finding_repository import FindingRepository as FR
+        fr = FR(db)
+        finding = await fr.get_by_id(finding_id)
+        if finding is None:
+            raise AIServiceError("Finding not found")
+        finding_text = (
+            f"Finding: {finding.title}\n"
+            f"Severity: {finding.severity.value}\n"
+            f"Description: {finding.description or 'N/A'}\n"
+            f"Root Cause: {finding.root_cause or 'N/A'}\n"
+            f"Recommendation: {finding.recommendation or 'N/A'}\n"
+        )
+        messages = [
+            {"role": "system", "content": _SYSTEM_PROMPT_REMEDIATION_PLAN},
+            {"role": "user", "content": finding_text},
+        ]
+        response = await self._call_llm(messages, temperature=0.5)
         return self._try_parse_json(response)
 
     async def list_controls_for_engagement(

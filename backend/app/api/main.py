@@ -4,8 +4,9 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
 from app.core.database import init_db
+from app.core.auth import AuthMiddleware
 from app.api.routes import health
-from app.api.v1 import audit, ai, report, risk, activity, anomalies, testing, signals, intelligence, demo
+from app.api.v1 import audit, ai, report, risk, activity, anomalies, testing, signals, intelligence, demo, workpapers, remediation
 
 
 @asynccontextmanager
@@ -20,6 +21,7 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+app.add_middleware(AuthMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -39,3 +41,5 @@ app.include_router(testing.router, prefix="/api/v1", tags=["testing"])
 app.include_router(signals.router, prefix="/api/v1", tags=["signals"])
 app.include_router(intelligence.router, prefix="/api/v1", tags=["intelligence"])
 app.include_router(demo.router, prefix="/api/v1", tags=["demo"])
+app.include_router(workpapers.router, prefix="/api/v1", tags=["workpapers"])
+app.include_router(remediation.router, prefix="/api/v1", tags=["remediation"])

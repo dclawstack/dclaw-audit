@@ -125,3 +125,84 @@ async def ai_generate_report(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail=str(exc),
         ) from exc
+
+
+class EvidenceCompletenessResponse(BaseModel):
+    completeness_score: int
+    missing_areas: list[str]
+    recommendations: list[str]
+    overall_assessment: str
+
+
+class PrioritizeFindingsResponse(BaseModel):
+    prioritized_findings: list[dict]
+    critical_path: list[str]
+    summary: str
+
+
+class RemediationPlanAIResponse(BaseModel):
+    title: str
+    action_items: str
+    owner_name: str | None
+    estimated_days: int | None
+    notes: str | None
+
+
+class RemediationPlanAIRequest(BaseModel):
+    finding_id: UUID
+    engagement_id: UUID
+    provider: str | None = "openrouter"
+
+
+@router.post("/ai/check-evidence-completeness", response_model=EvidenceCompletenessResponse)
+async def ai_check_evidence_completeness(
+    payload: AIRunRequest,
+    db: AsyncSession = Depends(get_db),
+):
+    try:
+        service = AIService(provider=payload.provider or "openrouter")
+        result = await service.check_evidence_completeness(db, payload.engagement_id)
+        return EvidenceCompletenessResponse(
+            completeness_score=result.get("completeness_score", 0),
+            missing_areas=result.get("missing_areas", []),
+            recommendations=result.get("recommendations", []),
+            overall_assessment=result.get("overall_assessment", ""),
+        )
+    except AIServiceError as exc:
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=str(exc)) from exc
+
+
+@router.post("/ai/prioritize-findings", response_model=PrioritizeFindingsResponse)
+async def ai_prioritize_findings(
+    payload: AIRunRequest,
+    db: AsyncSession = Depends(get_db),
+):
+    try:
+        service = AIService(provider=payload.provider or "openrouter")
+        result = await service.prioritize_findings(db, payload.engagement_id)
+        return PrioritizeFindingsResponse(
+            prioritized_findings=result.get("prioritized_findings", []),
+            critical_path=result.get("critical_path", []),
+            summary=result.get("summary", ""),
+        )
+    except AIServiceError as exc:
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=str(exc)) from exc
+
+
+@router.post("/ai/generate-remediation-plan", response_model=RemediationPlanAIResponse)
+async def ai_generate_remediation_plan(
+    payload: RemediationPlanAIRequest,
+    db: AsyncSession = Depends(get_db),
+):
+    try:
+        service = AIService(provider=payload.provider or "openrouter")
+        result = await service.generate_remediation_plan(db, payload.finding_id, payload.engagement_id)
+        return RemediationPlanAIResponse(
+            title=result.get("title", "Remediation Plan"),
+            action_items=result.get("action_items", ""),
+            owner_name=result.get("owner_name"),
+            estimated_days=result.get("estimated_days"),
+            notes=result.get("notes"),
+        )
+    except AIServiceError as exc:
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=str(exc)) from exc

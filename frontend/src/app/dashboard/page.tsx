@@ -407,6 +407,8 @@ export default function DashboardPage() {
           <Link href="/intelligence"><Button type="button" variant="outline" size="sm">Intelligence</Button></Link>
           <Link href="/reports"><Button type="button" variant="outline" size="sm">Reports</Button></Link>
           <Link href="/controls"><Button type="button" variant="outline" size="sm">Controls</Button></Link>
+          <Link href="/workpapers"><Button type="button" variant="outline" size="sm">Workpapers</Button></Link>
+          <Link href="/remediation"><Button type="button" variant="outline" size="sm">Remediation</Button></Link>
           <Button type="button" variant="outline" size="sm" onClick={() => void loadData()} disabled={loading}>
             Refresh
           </Button>

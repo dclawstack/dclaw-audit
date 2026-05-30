@@ -11,6 +11,9 @@ from app.models.activity_event import ActivityEvent
 from app.models.anomaly import AnomalyTransaction, AnomalyFlag, AnomalyFlagType, AnomalyFlagStatus
 from app.models.control_test import ControlTest, ControlTestSample, ControlTestType, ControlTestStatus, ControlTestResult
 from app.models.audit_signal import AuditSignal, SignalSource, SignalType, SignalStatus
+from app.models.workpaper import Workpaper, WorkpaperStatus
+from app.models.remediation_plan import RemediationPlan, RemediationStatus
+from app.models.evidence_file import EvidenceFile
 
 __all__ = [
     "AuditEngagement",
@@ -48,4 +51,9 @@ __all__ = [
     "SignalSource",
     "SignalType",
     "SignalStatus",
+    "Workpaper",
+    "WorkpaperStatus",
+    "RemediationPlan",
+    "RemediationStatus",
+    "EvidenceFile",
 ]
