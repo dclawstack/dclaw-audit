@@ -1,0 +1,298 @@
+version: "2"
+type: frontend
+tech_stack:
+  - language: TypeScript
+  - framework: Next.js 14 (App Router)
+  - ui_library: Tailwind CSS, shadcn/ui components, lucide-react icons
+  - other: React 18, class-variance-authority, clsx, tailwind-merge
+
+routes:
+  - path: /
+    file: src/app/page.tsx
+    auth_required: false
+    description: Root redirect — re-exports the dashboard page
+  - path: /dashboard
+    file: src/app/dashboard/page.tsx
+    auth_required: false
+    description: Main audit dashboard with engagements, evidence requests, findings, and AI copilot
+  - path: /controls
+    file: src/app/controls/page.tsx
+    auth_required: false
+    description: Control library and framework mapping (SOX, ISO 27001, NIST, PCI-DSS) with gap analysis
+  - path: /risk
+    file: src/app/risk/page.tsx
+    auth_required: false
+    description: Risk register — create and manage risk items per engagement with likelihood/impact scoring
+  - path: /anomalies
+    file: src/app/anomalies/page.tsx
+    auth_required: false
+    description: Anomaly detection — bulk-ingest transactions, view flags, review and clear anomalies
+  - path: /testing
+    file: src/app/testing/page.tsx
+    auth_required: false
+    description: Control testing — create test plans, record samples, track pass/fail/exception results
+  - path: /signals
+    file: src/app/signals/page.tsx
+    auth_required: false
+    description: Audit signals — ingest and triage signals from ERP, IAM, cloud, and ticketing systems
+  - path: /intelligence
+    file: src/app/intelligence/page.tsx
+    auth_required: false
+    description: Audit intelligence — cross-engagement trends, recurring control failures, owner responsiveness, cycle benchmarks
+  - path: /reports
+    file: src/app/reports/page.tsx
+    auth_required: false
+    description: Report builder — manage report templates and generate AI-assisted saved reports per engagement
+
+features:
+  - name: Audit Dashboard
+    description: Central hub showing summary stats, engagement list, evidence request board, findings register, and AI copilot panel
+    files:
+      - src/app/dashboard/page.tsx
+      - src/lib/api.ts
+    entry_route: /dashboard
+    user_interactions:
+      - View summary cards for total engagements, in-progress, critical-risk, overdue requests, and open findings
+      - View recent engagements, evidence requests, and findings in feed tabs
+      - Click Create Engagement to open form and fill title, client name, status, risk level, owner, description, and audit period
+      - Submit Create Engagement form to add a new engagement
+      - Click Create Evidence Request to open form, select engagement, fill title, owner, due date, status
+      - Submit Create Evidence Request form
+      - Click Create Finding to open form, select engagement, fill title, severity, status, root cause, recommendation
+      - Submit Create Finding form
+      - Update finding status via dropdown in the findings table
+      - Click AI Draft Requests button to trigger AI-generated evidence request list for a selected engagement
+      - Click AI Risk Copilot button to get AI-suggested risks, controls, and test ideas
+      - Click AI Draft Finding button with an observation text to get a drafted finding
+      - Click AI Generate Report button to get an executive summary for an engagement
+      - View evidence version log for a specific evidence request
+    api_calls:
+      - method: GET
+        endpoint: /api/v1/dashboard/summary
+      - method: GET
+        endpoint: /api/v1/engagements
+      - method: POST
+        endpoint: /api/v1/engagements
+      - method: GET
+        endpoint: /api/v1/evidence-requests
+      - method: POST
+        endpoint: /api/v1/evidence-requests
+      - method: GET
+        endpoint: /api/v1/findings
+      - method: POST
+        endpoint: /api/v1/findings
+      - method: PATCH
+        endpoint: /api/v1/findings/{id}
+      - method: GET
+        endpoint: /api/v1/evidence-requests/{id}/version-log
+      - method: POST
+        endpoint: /api/v1/ai/draft-evidence
+      - method: POST
+        endpoint: /api/v1/ai/risk-copilot
+      - method: POST
+        endpoint: /api/v1/ai/draft-finding
+      - method: POST
+        endpoint: /api/v1/ai/generate-report
+    auth_required: false
+
+  - name: Controls & Framework Mapping
+    description: Manage the control library, define framework requirements, map controls to requirements, and view gap analysis by framework
+    files:
+      - src/app/controls/page.tsx
+      - src/lib/api.ts
+    entry_route: /controls
+    user_interactions:
+      - View control list with name, framework, owner, frequency, and automated flag
+      - Create a new control by filling name, description, framework, owner, frequency, and automated toggle
+      - Delete a control from the list
+      - View framework requirements list filtered by framework tab (SOX, ISO 27001, NIST, PCI-DSS)
+      - Create a new framework requirement with code, title, description, and framework
+      - Delete a framework requirement
+      - View control mappings table showing control-to-requirement links and coverage status
+      - Create a control mapping by selecting a control, requirement, and coverage status
+      - Delete a control mapping
+      - View gap analysis tab showing unmapped or partially-mapped requirements
+    api_calls:
+      - method: GET
+        endpoint: /api/v1/controls
+      - method: POST
+        endpoint: /api/v1/controls
+      - method: DELETE
+        endpoint: /api/v1/controls/{id}
+      - method: GET
+        endpoint: /api/v1/framework-requirements
+      - method: POST
+        endpoint: /api/v1/framework-requirements
+      - method: DELETE
+        endpoint: /api/v1/framework-requirements/{id}
+      - method: GET
+        endpoint: /api/v1/control-mappings
+      - method: POST
+        endpoint: /api/v1/control-mappings
+      - method: DELETE
+        endpoint: /api/v1/control-mappings/{id}
+      - method: GET
+        endpoint: /api/v1/controls/gap-analysis
+    auth_required: false
+
+  - name: Risk Register
+    description: Create and manage risk items per engagement with likelihood/impact scoring and mitigation tracking
+    files:
+      - src/app/risk/page.tsx
+      - src/lib/api.ts
+    entry_route: /risk
+    user_interactions:
+      - Select an engagement from the dropdown to filter risks
+      - View risk items table with title, category, likelihood, impact, risk score, owner, and status
+      - Create a new risk item by filling title, description, category, likelihood (1-5), impact (1-5), owner, and status
+      - Update risk item residual likelihood, residual impact, and mitigation notes via edit
+      - Delete a risk item
+      - View computed inherent and residual risk scores
+    api_calls:
+      - method: GET
+        endpoint: /api/v1/engagements
+      - method: GET
+        endpoint: /api/v1/risk-items
+      - method: POST
+        endpoint: /api/v1/risk-items
+      - method: PATCH
+        endpoint: /api/v1/risk-items/{id}
+      - method: DELETE
+        endpoint: /api/v1/risk-items/{id}
+    auth_required: false
+
+  - name: Anomaly Detection
+    description: Bulk-ingest financial transactions, run detection, review flagged anomalies, and update analyst disposition
+    files:
+      - src/app/anomalies/page.tsx
+      - src/lib/api.ts
+    entry_route: /anomalies
+    user_interactions:
+      - View transactions tab with list of ingested transactions and their flags
+      - Paste/enter bulk transaction data and click Ingest to submit transactions with optional run_detection flag
+      - View anomaly flags tab showing flagged items with flag type, severity, confidence score, and status
+      - Click Review on a flag to set status (reviewed, cleared, escalated) and add analyst notes
+      - Filter flags by status or flag type
+    api_calls:
+      - method: GET
+        endpoint: /api/v1/anomaly-transactions
+      - method: POST
+        endpoint: /api/v1/anomaly-transactions/bulk-ingest
+      - method: GET
+        endpoint: /api/v1/anomaly-flags
+      - method: PATCH
+        endpoint: /api/v1/anomaly-flags/{id}
+    auth_required: false
+
+  - name: Control Testing
+    description: Plan and record control tests with sample-level results, exceptions, and overall pass/fail outcomes
+    files:
+      - src/app/testing/page.tsx
+      - src/lib/api.ts
+    entry_route: /testing
+    user_interactions:
+      - View control tests list filtered by engagement
+      - Create a new control test by filling title, type, engagement, control, scheduled date, objective, procedure, sample size, owner, and reviewer
+      - Update test status, result, exceptions found, and test notes
+      - Delete a control test
+      - Add test samples to a test with item reference, description, and result
+      - View samples tab for a selected test
+    api_calls:
+      - method: GET
+        endpoint: /api/v1/engagements
+      - method: GET
+        endpoint: /api/v1/controls
+      - method: GET
+        endpoint: /api/v1/control-tests
+      - method: POST
+        endpoint: /api/v1/control-tests
+      - method: PATCH
+        endpoint: /api/v1/control-tests/{id}
+      - method: DELETE
+        endpoint: /api/v1/control-tests/{id}
+      - method: POST
+        endpoint: /api/v1/control-tests/{id}/samples
+    auth_required: false
+
+  - name: Audit Signals
+    description: Ingest and triage signals from ERP, IAM, cloud, and ticketing sources; link signals to engagements or findings
+    files:
+      - src/app/signals/page.tsx
+      - src/lib/api.ts
+    entry_route: /signals
+    user_interactions:
+      - View signals list with source, type, title, severity, status, and timestamp
+      - Filter signals by status, source, or type
+      - Create a new signal by filling source, type, title, description, entity reference, severity, and optionally linking to an engagement
+      - Update signal status (reviewed, dismissed, escalated) and link to an engagement or finding
+      - Delete a signal
+    api_calls:
+      - method: GET
+        endpoint: /api/v1/audit-signals
+      - method: POST
+        endpoint: /api/v1/audit-signals
+      - method: PATCH
+        endpoint: /api/v1/audit-signals/{id}
+      - method: DELETE
+        endpoint: /api/v1/audit-signals/{id}
+      - method: GET
+        endpoint: /api/v1/engagements
+    auth_required: false
+
+  - name: Audit Intelligence
+    description: Cross-engagement analytics showing recurring control failures, owner responsiveness scores, and cycle time benchmarks
+    files:
+      - src/app/intelligence/page.tsx
+      - src/lib/api.ts
+    entry_route: /intelligence
+    user_interactions:
+      - View summary KPI cards for open engagements, average finding age, high-risk count, and 30/60-day finding trends
+      - View recurring control failures table with failure rate per control
+      - View owner responsiveness table with overdue request counts and responsiveness scores
+      - View cycle time benchmarks table showing days open, findings count, and open findings per engagement
+    api_calls:
+      - method: GET
+        endpoint: /api/v1/intelligence/summary
+    auth_required: false
+
+  - name: Report Builder
+    description: Manage report templates and generate AI-assisted saved reports per engagement with editable sections
+    files:
+      - src/app/reports/page.tsx
+      - src/lib/api.ts
+    entry_route: /reports
+    user_interactions:
+      - View report templates list with name, sections, and description
+      - Create a new report template with name, description, and comma-separated section names
+      - View saved reports list filtered by engagement
+      - Generate a new report by selecting an engagement, template, and title, then clicking Generate
+      - View generated report sections inline
+      - Update a saved report's status or sections
+      - Delete a saved report
+    api_calls:
+      - method: GET
+        endpoint: /api/v1/report-templates
+      - method: POST
+        endpoint: /api/v1/report-templates
+      - method: GET
+        endpoint: /api/v1/saved-reports
+      - method: POST
+        endpoint: /api/v1/saved-reports/generate
+      - method: PATCH
+        endpoint: /api/v1/saved-reports/{id}
+      - method: DELETE
+        endpoint: /api/v1/saved-reports/{id}
+      - method: GET
+        endpoint: /api/v1/engagements
+    auth_required: false
+
+known_limitations:
+  - issue: No authentication or role-based access control — all routes are publicly accessible
+    location: src/app/layout.tsx
+    impact: Any user can read or modify all audit data; not suitable for multi-tenant production use
+  - issue: API base URL falls back to empty string when NEXT_PUBLIC_API_URL is not set, relying on Next.js proxy or same-origin assumption
+    location: src/lib/api.ts
+    impact: API calls may silently fail in environments where the backend is on a different origin
+  - issue: Evidence file upload is metadata-only; no actual file binary upload UI is implemented
+    location: src/app/dashboard/page.tsx
+    impact: Users cannot attach real files; only text-based version log entries are supported

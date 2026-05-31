@@ -1,0 +1,1540 @@
+[
+  {
+    "id": "TC001",
+    "title": "Create a new engagement on the dashboard",
+    "description": "This test verifies that a user can create an engagement from the dashboard and see it added to the engagement list.",
+    "category": "Audit Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Open the engagement creation form"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the engagement title with a unique name"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the client name with a unique value"
+      },
+      {
+        "type": "action",
+        "description": "Select an active engagement status"
+      },
+      {
+        "type": "action",
+        "description": "Select a valid risk level"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the engagement owner with a valid name"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the audit period with a valid period"
+      },
+      {
+        "type": "action",
+        "description": "Submit the form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new engagement appears in the engagement list"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC002",
+    "title": "Ingest bulk transactions and generate anomaly flags",
+    "description": "This test verifies that a user can enter bulk transaction data, run anomaly detection, and see both the ingested transactions and generated flags appear.",
+    "category": "Anomaly Detection",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /anomalies"
+      },
+      {
+        "type": "action",
+        "description": "Paste valid bulk transaction data into the bulk ingest input"
+      },
+      {
+        "type": "action",
+        "description": "Enable anomaly detection for the ingest"
+      },
+      {
+        "type": "action",
+        "description": "Ingest the transactions"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the ingested transactions are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify generated anomaly flags are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC003",
+    "title": "Create a risk item",
+    "description": "This test verifies that a user can create a new risk item and see it added to the risk table.",
+    "category": "Risk Register",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /risk"
+      },
+      {
+        "type": "action",
+        "description": "Open the risk creation form"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the risk title with a unique name"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the risk description with a valid description"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the risk category with a valid category"
+      },
+      {
+        "type": "action",
+        "description": "Select a likelihood value"
+      },
+      {
+        "type": "action",
+        "description": "Select an impact value"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the risk owner with a valid name"
+      },
+      {
+        "type": "action",
+        "description": "Select an active risk status"
+      },
+      {
+        "type": "action",
+        "description": "Submit the form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new risk item appears in the risk table"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC004",
+    "title": "Add samples to a control test",
+    "description": "This test verifies that a user can add samples to an existing control test and see the samples recorded in the test detail view.",
+    "category": "Control Testing",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /testing"
+      },
+      {
+        "type": "action",
+        "description": "Open an existing control test"
+      },
+      {
+        "type": "action",
+        "description": "Add a sample to the test"
+      },
+      {
+        "type": "action",
+        "description": "Add another sample to the test"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the samples are displayed in the test detail view"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC005",
+    "title": "Create an evidence request for an engagement",
+    "description": "This test verifies that a user can create an evidence request for a selected engagement and see it added to the evidence request board.",
+    "category": "Audit Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Open the evidence request form"
+      },
+      {
+        "type": "action",
+        "description": "Select an engagement"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the evidence request title with a unique name"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the request owner with a valid name"
+      },
+      {
+        "type": "action",
+        "description": "Fill in a valid due date"
+      },
+      {
+        "type": "action",
+        "description": "Select an active request status"
+      },
+      {
+        "type": "action",
+        "description": "Submit the form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new evidence request appears in the evidence request board"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC006",
+    "title": "Create a control test for an engagement",
+    "description": "This test verifies that a user can create a new control test with the required details and see it added to the control tests list.",
+    "category": "Control Testing",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /testing"
+      },
+      {
+        "type": "action",
+        "description": "Select an engagement filter"
+      },
+      {
+        "type": "action",
+        "description": "Create a new control test"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the test title and control test details"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the owner and reviewer"
+      },
+      {
+        "type": "action",
+        "description": "Select a valid scheduled date"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the objective procedure and sample size"
+      },
+      {
+        "type": "action",
+        "description": "Submit the form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new control test is displayed in the list"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC007",
+    "title": "Generate a saved report for an engagement",
+    "description": "This test verifies that a user can generate a report for an engagement from a template and see the saved report available for review.",
+    "category": "Report Builder",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /reports"
+      },
+      {
+        "type": "action",
+        "description": "Select an engagement"
+      },
+      {
+        "type": "action",
+        "description": "Select a report template"
+      },
+      {
+        "type": "action",
+        "description": "Request report generation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the saved report is displayed for review"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC008",
+    "title": "Create a finding on the dashboard",
+    "description": "This test verifies that a user can create a finding for an engagement and see it added to the findings register.",
+    "category": "Audit Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Open the finding creation form"
+      },
+      {
+        "type": "action",
+        "description": "Select an engagement"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the finding title with a unique name"
+      },
+      {
+        "type": "action",
+        "description": "Select a severity level"
+      },
+      {
+        "type": "action",
+        "description": "Select an open finding status"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the root cause notes"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the recommendation notes"
+      },
+      {
+        "type": "action",
+        "description": "Submit the form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new finding appears in the findings register"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC009",
+    "title": "Create and link a signal to an engagement",
+    "description": "This test verifies that a user can create a new signal with its details optionally link it to an engagement and see it added to the list.",
+    "category": "Audit Signals",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /signals"
+      },
+      {
+        "type": "action",
+        "description": "Create a new signal"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the source and type"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the title description and entity reference"
+      },
+      {
+        "type": "action",
+        "description": "Select a severity"
+      },
+      {
+        "type": "action",
+        "description": "Optionally link the signal to an engagement"
+      },
+      {
+        "type": "action",
+        "description": "Submit the form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new signal is displayed in the list"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC010",
+    "title": "Generate a report from a template",
+    "description": "This test verifies that a user can select an engagement and template, generate a report, and see the generated sections inline.",
+    "category": "Report Builder",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /reports"
+      },
+      {
+        "type": "action",
+        "description": "Select an engagement"
+      },
+      {
+        "type": "action",
+        "description": "Select a report template"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the report title with a unique value"
+      },
+      {
+        "type": "action",
+        "description": "Generate the report"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the generated report sections are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the saved report appears in the report list"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC011",
+    "title": "Ingest bulk transactions for anomaly review",
+    "description": "This test verifies that a user can ingest bulk transactions and see generated anomaly flags for review.",
+    "category": "Anomaly Detection",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /anomalies"
+      },
+      {
+        "type": "action",
+        "description": "Open the bulk ingest area"
+      },
+      {
+        "type": "action",
+        "description": "Fill in transaction data for ingestion"
+      },
+      {
+        "type": "action",
+        "description": "Submit the ingest request"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify generated anomaly flags are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC012",
+    "title": "Update a risk item mitigation details",
+    "description": "This test verifies that a user can edit a risk item's residual scores and mitigation notes and see the updated details saved.",
+    "category": "Risk Register",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /risk"
+      },
+      {
+        "type": "action",
+        "description": "Open a risk item for editing"
+      },
+      {
+        "type": "action",
+        "description": "Update the residual likelihood"
+      },
+      {
+        "type": "action",
+        "description": "Update the residual impact"
+      },
+      {
+        "type": "action",
+        "description": "Fill in mitigation notes with a valid update"
+      },
+      {
+        "type": "action",
+        "description": "Save the changes"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the updated risk details are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC013",
+    "title": "Update an anomaly flag disposition and notes",
+    "description": "This test verifies that a user can review a flagged item, set its disposition, add analyst notes, and see the updated status persist in the queue.",
+    "category": "Anomaly Detection",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /anomalies"
+      },
+      {
+        "type": "action",
+        "description": "Open a flagged item for review"
+      },
+      {
+        "type": "action",
+        "description": "Set the disposition to reviewed, cleared, or escalated"
+      },
+      {
+        "type": "action",
+        "description": "Add analyst notes"
+      },
+      {
+        "type": "action",
+        "description": "Save the changes"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the updated status is reflected in the queue"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the analyst notes are retained"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC014",
+    "title": "Update a control test result and exception count",
+    "description": "This test verifies that a user can update a control test's status, result, and exception count and see the saved record reflected in the UI.",
+    "category": "Control Testing",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /testing"
+      },
+      {
+        "type": "action",
+        "description": "Open an existing control test"
+      },
+      {
+        "type": "action",
+        "description": "Update the test status"
+      },
+      {
+        "type": "action",
+        "description": "Update the test result"
+      },
+      {
+        "type": "action",
+        "description": "Update the exception count with a valid value"
+      },
+      {
+        "type": "action",
+        "description": "Save the changes"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the updated test record is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC015",
+    "title": "Update a control test result and exceptions",
+    "description": "This test verifies that a user can open an existing control test, update its status result exception count and notes, and see the saved record reflect the changes.",
+    "category": "Control Testing",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /testing"
+      },
+      {
+        "type": "action",
+        "description": "Open an existing control test"
+      },
+      {
+        "type": "action",
+        "description": "Update the test status"
+      },
+      {
+        "type": "action",
+        "description": "Update the test result"
+      },
+      {
+        "type": "action",
+        "description": "Update the exception count"
+      },
+      {
+        "type": "action",
+        "description": "Add test notes"
+      },
+      {
+        "type": "action",
+        "description": "Save the changes"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the updated test record is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the exception count is reflected"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC016",
+    "title": "Create a control in the library",
+    "description": "This test verifies that a user can create a new control and see it added to the control list.",
+    "category": "Controls & Framework Mapping",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /controls"
+      },
+      {
+        "type": "action",
+        "description": "Open the control creation form"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the control name with a unique value"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the control description with a valid description"
+      },
+      {
+        "type": "action",
+        "description": "Select a framework"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the control owner with a valid name"
+      },
+      {
+        "type": "action",
+        "description": "Select a control frequency"
+      },
+      {
+        "type": "action",
+        "description": "Set the automated flag as needed"
+      },
+      {
+        "type": "action",
+        "description": "Submit the form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new control appears in the control list"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC017",
+    "title": "Disposition an anomaly flag as reviewed",
+    "description": "This test verifies that a user can mark an anomaly flag as reviewed with notes and see the disposition reflected in the UI.",
+    "category": "Anomaly Detection",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /anomalies"
+      },
+      {
+        "type": "action",
+        "description": "Open an anomaly flag"
+      },
+      {
+        "type": "action",
+        "description": "Set the disposition to reviewed"
+      },
+      {
+        "type": "action",
+        "description": "Fill in review notes with a valid comment"
+      },
+      {
+        "type": "action",
+        "description": "Save the disposition"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the reviewed disposition is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC018",
+    "title": "Update a signal status and link",
+    "description": "This test verifies that a user can review an existing signal update its status link it to an engagement or finding and see the updated details persist.",
+    "category": "Audit Signals",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /signals"
+      },
+      {
+        "type": "action",
+        "description": "Open an existing signal for review"
+      },
+      {
+        "type": "action",
+        "description": "Update the signal status"
+      },
+      {
+        "type": "action",
+        "description": "Link the signal to an engagement or finding"
+      },
+      {
+        "type": "action",
+        "description": "Save the changes"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the updated signal details are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new link is retained"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC019",
+    "title": "Create a signal for triage",
+    "description": "This test verifies that a user can create a signal and see it added to the signals list for later triage.",
+    "category": "Audit Signals",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /signals"
+      },
+      {
+        "type": "action",
+        "description": "Open the signal creation form"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the signal title with a unique name"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the signal description with a valid description"
+      },
+      {
+        "type": "action",
+        "description": "Select a signal source"
+      },
+      {
+        "type": "action",
+        "description": "Select a signal type"
+      },
+      {
+        "type": "action",
+        "description": "Submit the form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new signal appears in the signals list"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC020",
+    "title": "Create a control mapping with coverage status",
+    "description": "This test verifies that a user can map a control to a framework requirement with a coverage status and see it added to the mappings table.",
+    "category": "Controls & Framework Mapping",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /controls"
+      },
+      {
+        "type": "action",
+        "description": "Open the control mapping form"
+      },
+      {
+        "type": "action",
+        "description": "Select a control"
+      },
+      {
+        "type": "action",
+        "description": "Select a framework requirement"
+      },
+      {
+        "type": "action",
+        "description": "Select a coverage status"
+      },
+      {
+        "type": "action",
+        "description": "Submit the form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new control mapping appears in the mappings table"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC021",
+    "title": "Disposition an anomaly flag as escalated",
+    "description": "This test verifies that a user can escalate an anomaly flag with notes and see the escalated disposition reflected in the UI.",
+    "category": "Anomaly Detection",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /anomalies"
+      },
+      {
+        "type": "action",
+        "description": "Open an anomaly flag"
+      },
+      {
+        "type": "action",
+        "description": "Set the disposition to escalated"
+      },
+      {
+        "type": "action",
+        "description": "Fill in review notes with a valid comment"
+      },
+      {
+        "type": "action",
+        "description": "Save the disposition"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the escalated disposition is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC022",
+    "title": "Create a framework requirement",
+    "description": "This test verifies that a user can create a new framework requirement and see it added to the framework list.",
+    "category": "Controls & Framework Mapping",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /controls"
+      },
+      {
+        "type": "action",
+        "description": "Open the framework requirement creation form"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the requirement code with a unique code"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the requirement title with a valid title"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the requirement description with a valid description"
+      },
+      {
+        "type": "action",
+        "description": "Select a framework"
+      },
+      {
+        "type": "action",
+        "description": "Submit the form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new framework requirement appears in the framework list"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC023",
+    "title": "Update a saved report review",
+    "description": "This test verifies that a user can update a saved report review and see the changes reflected in the saved report view.",
+    "category": "Report Builder",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /reports"
+      },
+      {
+        "type": "action",
+        "description": "Open a saved report"
+      },
+      {
+        "type": "action",
+        "description": "Update the review notes"
+      },
+      {
+        "type": "action",
+        "description": "Save the report review"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the updated saved report review is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC024",
+    "title": "Disposition an anomaly flag as cleared",
+    "description": "This test verifies that a user can clear an anomaly flag with notes and see the cleared disposition reflected in the UI.",
+    "category": "Anomaly Detection",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /anomalies"
+      },
+      {
+        "type": "action",
+        "description": "Open an anomaly flag"
+      },
+      {
+        "type": "action",
+        "description": "Set the disposition to cleared"
+      },
+      {
+        "type": "action",
+        "description": "Fill in review notes with a valid comment"
+      },
+      {
+        "type": "action",
+        "description": "Save the disposition"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the cleared disposition is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC025",
+    "title": "Update a finding status from the dashboard",
+    "description": "This test verifies that a user can update a finding's status and see the updated status reflected in the findings table.",
+    "category": "Audit Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Open the findings table"
+      },
+      {
+        "type": "action",
+        "description": "Update a finding status"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the updated status is reflected in the findings table"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC026",
+    "title": "Validate the control testing record remains available after refresh",
+    "description": "This test verifies that a created control test persists in the testing list after returning to the list view within the same session.",
+    "category": "Control Testing",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /testing"
+      },
+      {
+        "type": "action",
+        "description": "Open the control test creation form"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the test title with a unique name"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the test objective with a valid description"
+      },
+      {
+        "type": "action",
+        "description": "Select a test status"
+      },
+      {
+        "type": "action",
+        "description": "Submit the form"
+      },
+      {
+        "type": "action",
+        "description": "Return to the testing list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the created test record remains visible in the testing list"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC027",
+    "title": "Review the current anomaly flag queue",
+    "description": "This test verifies that a user can open the anomaly flags view and see flagged items with their severity, confidence, and status.",
+    "category": "Anomaly Detection",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /anomalies"
+      },
+      {
+        "type": "action",
+        "description": "Open the anomaly flags view"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify flagged items are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify severity confidence and status are shown for each flag"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC028",
+    "title": "Review audit intelligence summary metrics",
+    "description": "This test verifies that the audit intelligence dashboard shows the key summary metrics and trend movement for cross-engagement performance.",
+    "category": "Audit Intelligence",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /intelligence"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the summary KPI metrics are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the finding trend movement is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC029",
+    "title": "Review computed risk scores",
+    "description": "This test verifies that a user can review a risk item's inherent and residual scores and see the computed values displayed.",
+    "category": "Risk Register",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /risk"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify inherent and residual risk scores are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC030",
+    "title": "Review the current signals queue",
+    "description": "This test verifies that a user can open the signals view and see the current queue with source type title severity and status information.",
+    "category": "Audit Signals",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /signals"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify signals are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify source type title severity and status are shown"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC031",
+    "title": "Generate an executive summary for an engagement",
+    "description": "This test verifies that a user can request an AI-generated executive summary for an engagement and review the generated report summary.",
+    "category": "Audit Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Select an engagement for report generation"
+      },
+      {
+        "type": "action",
+        "description": "Request an executive summary"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a generated report summary is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC032",
+    "title": "Link a signal to an engagement or risk",
+    "description": "This test verifies that a user can link a signal to another record and see the link reflected in the signal details.",
+    "category": "Audit Signals",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /signals"
+      },
+      {
+        "type": "action",
+        "description": "Open an existing signal"
+      },
+      {
+        "type": "action",
+        "description": "Link the signal to a related record"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the signal link is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC033",
+    "title": "Create a report template",
+    "description": "This test verifies that a user can create a new report template and see it added to the template list.",
+    "category": "Report Builder",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /reports"
+      },
+      {
+        "type": "action",
+        "description": "Create a new report template"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the template name with a unique value"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the template description with a short purpose statement"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the template sections with multiple valid section names"
+      },
+      {
+        "type": "action",
+        "description": "Submit the template form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new template appears in the template list"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC034",
+    "title": "Generate evidence request recommendations with AI",
+    "description": "This test verifies that a user can request AI evidence recommendations for an engagement and review the generated request list.",
+    "category": "Audit Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Select an engagement for AI drafting"
+      },
+      {
+        "type": "action",
+        "description": "Request evidence recommendations"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a generated evidence request list is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC035",
+    "title": "Select an engagement and review its risks",
+    "description": "This test verifies that a user can select an engagement in the risk register and see the risks filtered for that engagement.",
+    "category": "Risk Register",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /risk"
+      },
+      {
+        "type": "action",
+        "description": "Select an engagement"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the risk register is filtered for the selected engagement"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC036",
+    "title": "Compare recurring control failures across controls",
+    "description": "This test verifies that the recurring control failures view presents comparable failure rates for controls.",
+    "category": "Audit Intelligence",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /intelligence"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the recurring control failures table is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify failure rate data is displayed for controls"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC037",
+    "title": "Generate AI risk suggestions from the dashboard",
+    "description": "This test verifies that a user can request AI risk suggestions and review the suggested risks, controls, and test ideas.",
+    "category": "Audit Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Select an engagement for AI suggestions"
+      },
+      {
+        "type": "action",
+        "description": "Request risk suggestions"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify suggested risks, controls, and test ideas are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC038",
+    "title": "Update a signal triage status",
+    "description": "This test verifies that a user can change a signal's triage status and see the updated status reflected in the UI.",
+    "category": "Audit Signals",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /signals"
+      },
+      {
+        "type": "action",
+        "description": "Open an existing signal"
+      },
+      {
+        "type": "action",
+        "description": "Update the triage status"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the updated triage status is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC039",
+    "title": "Draft a finding from observation notes",
+    "description": "This test verifies that a user can enter observation notes and generate a drafted finding from the dashboard AI copilot.",
+    "category": "Audit Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Open the finding drafting area"
+      },
+      {
+        "type": "action",
+        "description": "Fill in observation notes with a short audit observation"
+      },
+      {
+        "type": "action",
+        "description": "Request AI drafting"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify drafted finding content is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC040",
+    "title": "Review owner responsiveness across engagements",
+    "description": "This test verifies that the owner responsiveness view shows overdue request counts and responsiveness scores for engagements.",
+    "category": "Audit Intelligence",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /intelligence"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the owner responsiveness table is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify overdue counts and responsiveness scores are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC041",
+    "title": "Review recurring control failure insights",
+    "description": "This test verifies that a user can review recurring control failure insights in the intelligence dashboard.",
+    "category": "Audit Intelligence",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /intelligence"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify recurring control failure insights are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC042",
+    "title": "Compare cycle time benchmarks across engagements",
+    "description": "This test verifies that the cycle time benchmarks view shows engagement-level days open, findings count, and open findings.",
+    "category": "Audit Intelligence",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /intelligence"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the cycle time benchmarks table is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify days open and findings data are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC043",
+    "title": "Filter anomaly flags after ingest",
+    "description": "This test verifies that a user can filter generated anomaly flags and see the list update to match the chosen filter.",
+    "category": "Anomaly Detection",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /anomalies"
+      },
+      {
+        "type": "action",
+        "description": "Open the anomaly filters"
+      },
+      {
+        "type": "action",
+        "description": "Select a flag filter"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the anomaly list updates to match the selected filter"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC044",
+    "title": "Review the audit intelligence dashboard trends",
+    "description": "This test verifies that a user can open the intelligence dashboard and review trend tables for cross-engagement activity.",
+    "category": "Audit Intelligence",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /intelligence"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify cross-engagement trend data is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC045",
+    "title": "Filter anomaly flags to a specific subset",
+    "description": "This test verifies that a user can filter anomaly flags by status or flag type and see the list narrow to matching items.",
+    "category": "Anomaly Detection",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /anomalies"
+      },
+      {
+        "type": "action",
+        "description": "Open the anomaly flags view"
+      },
+      {
+        "type": "action",
+        "description": "Filter flags by status or flag type"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the flag list is narrowed to the selected subset"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC046",
+    "title": "Review requirements in a selected framework tab",
+    "description": "This test verifies that a user can switch framework tabs and review the requirements for that framework.",
+    "category": "Controls & Framework Mapping",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /controls"
+      },
+      {
+        "type": "action",
+        "description": "Switch to a framework tab"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the requirements for the selected framework are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC047",
+    "title": "Filter audit signals to a specific subset",
+    "description": "This test verifies that a user can filter signals by status source or type and see the list narrow to matching items.",
+    "category": "Audit Signals",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /signals"
+      },
+      {
+        "type": "action",
+        "description": "Filter signals by status source or type"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the signals list is narrowed to the selected subset"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC048",
+    "title": "Review owner responsiveness benchmarks",
+    "description": "This test verifies that a user can review owner responsiveness and cycle benchmark metrics in the intelligence dashboard.",
+    "category": "Audit Intelligence",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /intelligence"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify owner responsiveness and cycle benchmark data are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC049",
+    "title": "Review gap analysis for unmapped requirements",
+    "description": "This test verifies that a user can review the gap analysis view and identify unmapped or partially mapped requirements.",
+    "category": "Controls & Framework Mapping",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /controls"
+      },
+      {
+        "type": "action",
+        "description": "Open the gap analysis view"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify unmapped or partially mapped requirements are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC050",
+    "title": "Filter control tests by engagement",
+    "description": "This test verifies that a user can narrow the control tests list to a selected engagement and review the matching records.",
+    "category": "Control Testing",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /testing"
+      },
+      {
+        "type": "action",
+        "description": "Select an engagement filter"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the control tests list shows only matching engagement records"
+      }
+    ],
+    "priority": "Medium"
+  }
+]

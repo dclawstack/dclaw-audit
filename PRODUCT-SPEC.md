@@ -1,23 +1,25 @@
 # PRODUCT-SPEC: DClaw Audit
-> Version: 1.3 — updated 2026-05-28
 
 ## Overview
 
 **App Name:** DClaw Audit  
-**Domain:** Internal audit and compliance operations  
-**Target Users:** Internal auditors, IT audit teams, compliance managers, audit directors
+**Version:** 1.4 (May 2026)  
+**Domain:** AI-native internal audit and compliance operations platform  
+**Target Users:** Internal auditors, IT audit teams, compliance managers, audit directors  
+**Design System:** One Convergence Vol. 01 — Dark `#1F2937` · Purple `#7030A0` · White `#FFFFFF` · Manrope/Inter/JetBrains Mono  
+**Backend Port:** 8037 · **Frontend Port:** 3037
 
-## Product Thesis
+---
 
-DClaw Audit is an **AI-native evidence-to-finding operating system** for internal audit teams. It turns fragmented evidence collection, control testing, and remediation follow-up into a single AI-assisted system of record — compressing audit cycle time without adding headcount.
+## Deployment Targets
 
-## Beachhead Customer
+| Target | Directory | URL |
+|--------|-----------|-----|
+| **Docker (local / K8s)** | `web/` (Next.js) + `backend/` (FastAPI) | http://localhost:3037 |
+| **Backend API** | `backend/` | http://localhost:8037 · `/docs` for Swagger |
+| **Vercel (cloud frontend)** | `web/` | Configured via `NEXT_PUBLIC_API_URL` |
 
-Mid-market and upper mid-market companies with:
-- lean internal audit teams (2–15 people)
-- recurring SOX / operational / ITGC audits
-- evidence spread across cloud apps, spreadsheets, and manual email requests
-- strong need to reduce audit cycle time without adding headcount
+---
 
 ## Core Entities
 
@@ -27,8 +29,8 @@ AuditEngagement
 ├── id: UUID (PK)
 ├── title: str (required)
 ├── client_name: str (required)
-├── status: enum ["planned", "in_progress", "reporting", "completed"]
-├── risk_level: enum ["low", "medium", "high", "critical"]
+├── status: enum ["planned", "in_progress", "reporting", "completed"] (default: "planned")
+├── risk_level: enum ["low", "medium", "high", "critical"] (default: "medium")
 ├── owner_name: str (optional)
 ├── description: str (optional)
 ├── audit_period_start: date (optional)
@@ -46,8 +48,38 @@ EvidenceRequest
 ├── description: str (optional)
 ├── request_owner: str (optional)
 ├── due_date: date (optional)
-├── status: enum ["draft", "sent", "received", "overdue"]
+├── status: enum ["draft", "sent", "received", "overdue"] (default: "draft")
+├── source_system: str (optional)  ← "Okta", "Salesforce", "SharePoint", etc.
+├── created_at: datetime
+└── updated_at: datetime
+```
+
+### EvidenceVersionLog
+```
+EvidenceVersionLog
+├── id: UUID (PK)
+├── evidence_request_id: UUID (FK → EvidenceRequest, ondelete=CASCADE)
+├── action: enum ["created", "updated", "status_changed", "file_attached", "note_added", "reminder_sent"]
+├── previous_value: str (optional)
+├── new_value: str (optional)
+├── actor_name: str (optional)
+├── note: str (optional)
+└── created_at: datetime
+```
+
+### EvidenceFile
+```
+EvidenceFile
+├── id: UUID (PK)
+├── evidence_request_id: UUID (FK → EvidenceRequest, ondelete=CASCADE)
+├── filename: str (required)
+├── file_path: str (optional)         ← MinIO object path
+├── file_size: int (optional)
+├── content_type: str (optional)
 ├── source_system: str (optional)
+├── uploaded_by: str (optional)
+├── version: int (default=1)
+├── notes: str (optional)
 ├── created_at: datetime
 └── updated_at: datetime
 ```
@@ -59,15 +91,13 @@ Finding
 ├── engagement_id: UUID (FK → AuditEngagement, ondelete=CASCADE)
 ├── title: str (required)
 ├── description: str (optional)
-├── severity: enum ["low", "medium", "high", "critical"]
-├── status: enum ["open", "in_progress", "remediated", "verified"]
+├── severity: enum ["low", "medium", "high", "critical"] (default: "medium")
+├── status: enum ["open", "in_progress", "remediated", "verified"] (default: "open")
 ├── root_cause: str (optional)
 ├── recommendation: str (optional)
 ├── remediation_plan: str (optional)
-├── management_action_plan: str (optional)
 ├── owner_name: str (optional)
 ├── due_date: date (optional)
-├── remediation_confidence_score: float (optional)  ← AI-scored
 ├── created_at: datetime
 └── updated_at: datetime
 ```
@@ -78,38 +108,10 @@ Control
 ├── id: UUID (PK)
 ├── name: str (required)
 ├── description: str (optional)
-├── framework: str (optional)
+├── framework: enum ["sox", "iso_27001", "nist", "pci_dss"] (optional)
 ├── control_owner: str (optional)
-├── frequency: str (optional)
-├── automated: bool
-├── created_at: datetime
-└── updated_at: datetime
-```
-
-### Risk
-```
-Risk
-├── id: UUID (PK)
-├── engagement_id: UUID (FK → AuditEngagement, ondelete=CASCADE)
-├── title: str (required)
-├── description: str (optional)
-├── likelihood: enum ["low", "medium", "high"]
-├── impact: enum ["low", "medium", "high"]
-├── inherent_risk_score: float (computed)
-├── owner_name: str (optional)
-├── status: enum ["identified", "assessed", "mitigated", "accepted"]
-├── related_control_ids: list[UUID] (optional)
-├── created_at: datetime
-└── updated_at: datetime
-```
-
-### Framework
-```
-Framework
-├── id: UUID (PK)
-├── name: str (required)            ← "SOX", "ISO 27001", "NIST", "PCI-DSS"
-├── description: str (optional)
-├── version: str (optional)
+├── frequency: str (optional)   ← "Daily", "Quarterly", "Annual"
+├── automated: bool (default: false)
 ├── created_at: datetime
 └── updated_at: datetime
 ```
@@ -118,283 +120,495 @@ Framework
 ```
 FrameworkRequirement
 ├── id: UUID (PK)
-├── framework_id: UUID (FK → Framework)
-├── code: str (required)            ← "CC6.1", "A.9.1.1", etc.
+├── framework: enum ["sox", "iso_27001", "nist", "pci_dss"]
+├── requirement_code: str (required)   ← "CC6.1", "A.9.2.1", "AC-2", etc.
 ├── title: str (required)
 ├── description: str (optional)
-└── created_at: datetime
+├── created_at: datetime
+└── updated_at: datetime
 ```
 
 ### ControlMapping
 ```
 ControlMapping
 ├── id: UUID (PK)
-├── control_id: UUID (FK → Control)
-├── requirement_id: UUID (FK → FrameworkRequirement)
+├── control_id: UUID (FK → Control, ondelete=CASCADE)
+├── framework_requirement_id: UUID (FK → FrameworkRequirement, ondelete=CASCADE)
+├── coverage_status: enum ["full", "partial", "planned"] (default: "partial")
+├── notes: str (optional)
+├── created_at: datetime
+└── updated_at: datetime
+
+Unique constraint: (control_id, framework_requirement_id)
+```
+
+### RiskItem
+```
+RiskItem
+├── id: UUID (PK)
+├── engagement_id: UUID (FK → AuditEngagement, ondelete=CASCADE)
+├── title: str (required)
+├── description: str (optional)
+├── category: str (optional)            ← "Access Control", "Change Management", etc.
+├── likelihood: int (1–5, default: 3)
+├── impact: int (1–5, default: 3)
+├── risk_score: float (likelihood × impact, default: 9.0)
+├── residual_likelihood: int (optional)
+├── residual_impact: int (optional)
+├── residual_score: float (optional)
+├── owner_name: str (optional)
+├── status: enum ["open", "mitigated", "accepted"] (default: "open")
+├── mitigation_notes: str (optional)
+├── created_at: datetime
+└── updated_at: datetime
+```
+
+### ControlTest
+```
+ControlTest
+├── id: UUID (PK)
+├── engagement_id: UUID (FK → AuditEngagement, ondelete=CASCADE)
+├── control_id: UUID (FK → Control, nullable)
+├── title: str (required)
+├── test_type: enum ["manual", "automated", "sample_based"]
+├── scheduled_date: date (optional)
+├── completed_date: date (optional)
+├── status: enum ["planned", "in_progress", "completed", "exception"]
+├── overall_result: enum ["pass", "fail", "exception", "not_applicable"] (optional)
+├── sample_size: int (optional)
+├── exceptions_found: int (optional)
+├── test_objective: str (optional)
+├── test_procedure: str (optional)
+├── test_notes: str (optional)
+├── owner_name: str (optional)
+├── reviewer_name: str (optional)
+├── created_at: datetime
+└── updated_at: datetime
+```
+
+### ControlTestSample
+```
+ControlTestSample
+├── id: UUID (PK)
+├── test_id: UUID (FK → ControlTest, ondelete=CASCADE)
+├── item_reference: str (required)   ← document/transaction reference
+├── item_description: str (optional)
+├── result: enum ["pass", "fail", "exception", "not_applicable"] (optional)
+├── exception_notes: str (optional)
 └── created_at: datetime
 ```
 
-### EvidenceFile
+### Workpaper
 ```
-EvidenceFile
+Workpaper
 ├── id: UUID (PK)
-├── request_id: UUID (FK → EvidenceRequest, ondelete=CASCADE)
-├── filename: str (required)
-├── source_system: str (optional)
-├── upload_url: str (optional)
-├── version: int (default=1)
-├── uploaded_by: str (optional)
-├── provenance_notes: str (optional)
+├── engagement_id: UUID (FK → AuditEngagement, ondelete=CASCADE)
+├── title: str (required)
+├── content: str (optional)            ← rich text or markdown body
+├── status: enum ["draft", "in_review", "approved", "archived"]
+├── preparer_name: str (optional)
+├── reviewer_name: str (optional)
+├── reviewed_at: datetime (optional)
+├── approved_at: datetime (optional)
+├── version: int (default: 1)
+├── notes: str (optional)
 ├── created_at: datetime
 └── updated_at: datetime
 ```
 
-### ControlTestResult
+### RemediationPlan
 ```
-ControlTestResult
+RemediationPlan
 ├── id: UUID (PK)
-├── control_id: UUID (FK → Control)
-├── engagement_id: UUID (FK → AuditEngagement)
-├── test_date: date (required)
-├── result: enum ["pass", "fail", "exception", "not_tested"]
-├── sample_size: int (optional)
-├── exception_count: int (optional)
+├── finding_id: UUID (FK → Finding, ondelete=CASCADE)
+├── engagement_id: UUID (FK → AuditEngagement, ondelete=CASCADE)
+├── title: str (required)
+├── action_items: str (optional)       ← structured action steps
+├── owner_name: str (optional)
+├── due_date: date (optional)
+├── status: enum ["open", "in_progress", "completed", "overdue", "cancelled"]
+├── progress_pct: int (0–100, default: 0)
+├── ai_generated: bool (default: false)
 ├── notes: str (optional)
-├── tester_name: str (optional)
 ├── created_at: datetime
 └── updated_at: datetime
+```
+
+### ReportTemplate
+```
+ReportTemplate
+├── id: UUID (PK)
+├── name: str (required)
+├── description: str (optional)
+├── sections: list[str]               ← ["executive_summary", "scope", "findings", ...]
+├── default_prompt: str (optional)
+├── created_at: datetime
+└── updated_at: datetime
+```
+
+### SavedReport
+```
+SavedReport
+├── id: UUID (PK)
+├── engagement_id: UUID (FK → AuditEngagement, ondelete=CASCADE)
+├── template_id: UUID (FK → ReportTemplate)
+├── title: str (required)
+├── status: enum ["draft", "generating", "completed"]
+├── sections: JSON                    ← {section_name: content_text}
+├── generated_summary: str (optional)
+├── created_at: datetime
+└── updated_at: datetime
+```
+
+### AnomalyTransaction
+```
+AnomalyTransaction
+├── id: UUID (PK)
+├── engagement_id: UUID (FK → AuditEngagement, nullable)
+├── transaction_date: date (optional)
+├── amount: float (optional)
+├── description: str (optional)
+├── account_code: str (optional)
+├── party_name: str (optional)
+├── source_system: str (optional)
+├── batch_id: str (optional)
+└── created_at: datetime
+```
+
+### AnomalyFlag
+```
+AnomalyFlag
+├── id: UUID (PK)
+├── transaction_id: UUID (FK → AnomalyTransaction, ondelete=CASCADE)
+├── flag_type: enum ["statistical", "rule_based"]
+├── severity: str
+├── description: str (required)
+├── confidence_score: float (optional, 0.0–1.0)
+├── status: enum ["flagged", "reviewed", "cleared", "escalated"]
+├── analyst_notes: str (optional)
+├── reviewed_by: str (optional)
+├── reviewed_at: datetime (optional)
+└── created_at: datetime
 ```
 
 ### AuditSignal
 ```
 AuditSignal
 ├── id: UUID (PK)
-├── engagement_id: UUID (FK → AuditEngagement, nullable)
-├── source_system: str (required)    ← "ERP", "IAM", "cloud", "ticketing"
-├── signal_type: str (required)      ← "access_change", "config_drift", etc.
-├── severity: enum ["low", "medium", "high", "critical"]
+├── signal_source: enum ["erp", "iam", "ticketing", "cloud", "manual"]
+├── signal_type: enum ["control_deviation", "access_change", "config_change",
+│                      "threshold_breach", "anomaly"]
+├── title: str (required)
 ├── description: str (optional)
-├── raw_payload: JSON (optional)
-├── status: enum ["new", "reviewed", "escalated", "dismissed"]
-├── created_at: datetime
-└── updated_at: datetime
+├── entity_ref: str (optional)        ← system object reference
+├── severity: str (required)
+├── status: enum ["new", "reviewed", "dismissed", "escalated"]
+├── engagement_id: UUID (FK → AuditEngagement, nullable)
+├── finding_id: UUID (FK → Finding, nullable)
+├── reviewed_by: str (optional)
+├── reviewed_at: datetime (optional)
+└── created_at: datetime
 ```
 
-### Anomaly
+### ActivityEvent
 ```
-Anomaly
+ActivityEvent
 ├── id: UUID (PK)
-├── engagement_id: UUID (FK → AuditEngagement)
-├── detection_method: enum ["rule", "statistical", "cluster"]
-├── description: str (required)
-├── transaction_ref: str (optional)
-├── amount: float (optional)
-├── risk_score: float (optional)
-├── status: enum ["flagged", "reviewed", "confirmed", "dismissed"]
-├── analyst_notes: str (optional)
-├── created_at: datetime
-└── updated_at: datetime
+├── engagement_id: UUID (FK → AuditEngagement, nullable)
+├── entity_type: str (required)    ← "finding", "evidence_request", etc.
+├── entity_id: UUID (optional)
+├── action: str (required)         ← "created", "updated", "status_changed"
+├── actor_name: str (optional)
+├── details: str (optional)
+└── created_at: datetime
 ```
 
-## User Stories / Screens
+---
 
-### Screen 1: Audit Dashboard
-- Summary cards: total engagements, in-progress, critical-risk, overdue requests
-- Recent engagements feed
-- Status and risk breakdown
-- Open finding counts by severity
-- Quick action: create engagement
+## Screens
 
-### Screen 2: Engagements
-- Table/list of audit engagements
-- Create engagement form
-- Filter by status, owner, and risk
-- View recent activity per engagement
+### Screen 1: Landing (`/`)
+- Marketing page: hero section, feature grid (12 capability cards), architecture overview, demo CTA
+- Navigation links to all app sections
+- GitHub repo link
 
-### Screen 3: Evidence Requests
-- Create and track evidence requests by engagement
-- Request status board: draft / sent / received / overdue
-- Due dates and request owners
-- Link requests to findings and controls
-- Evidence file versioning and provenance view
+### Screen 2: Dashboard (`/dashboard`)
+- KPI cards: total engagements, in-progress count, critical-risk count, open findings
+- Status breakdown: planned / in_progress / reporting / completed
+- Risk breakdown: low / medium / high / critical
+- Finding severity breakdown with aging buckets (0–30, 31–60, 61–90, 91+ days)
+- Overdue evidence requests count
+- Recent engagements, evidence requests, findings, and controls feeds
+- AI Copilot sidebar for risk brainstorming and evidence drafting
 
-### Screen 4: Findings
-- Finding register by engagement
-- Severity and remediation lifecycle tracking
-- Recommendation, remediation plan, management action plan, and owner assignment
-- AI-scored remediation confidence
-- Aging and verification workflow
+### Screen 3: Controls & Framework Mapping (`/controls`)
+- Control inventory table: name, framework badge, owner, frequency, automated indicator
+- Framework filter (SOX / ISO 27001 / NIST / PCI-DSS)
+- Gap analysis view: requirements without mapped controls, coverage status per requirement
+- Control detail with mapped requirements list
 
-### Screen 5: Controls & Framework Mapping
-- Control inventory
-- Framework alignment across SOX / ISO 27001 / NIST / PCI-DSS
-- Gap view for uncovered requirements
-- Control test history and pass/fail trend
+### Screen 4: Risk Register (`/risk`)
+- Risk items by engagement with likelihood × impact matrix
+- Risk score badge (colour-coded: low / medium / high / critical)
+- Residual risk after mitigation
+- Status lifecycle: open → mitigated → accepted
+- Inline edit: owner, mitigation notes, status update
 
-### Screen 6: Risk Planning Workspace
-- Risk register per engagement
-- Inheritable risk scores (likelihood × impact)
-- Scoped control coverage recommendations
-- Planner UX for converting risks into test plans
+### Screen 5: Audit Signals (`/signals`)
+- Signal triage queue: source badge, type, severity, status
+- Filter by source (ERP / IAM / cloud / ticketing) and status
+- Review action: dismiss, escalate, link to engagement or finding
+- Signal breakdown stats by source and type
 
-### Screen 7: Evidence Vault
-- Upload metadata and source references
-- Version history per evidence file
-- Evidence linked to requests, controls, tests, and findings
-- Provenance and citation fields for AI outputs
+### Screen 6: Anomaly Detection (`/anomalies`)
+- Transaction import (bulk ingest) and individual transaction entry
+- Anomaly flag queue with confidence score, flag type badge, severity
+- Analyst review workflow: clear, escalate, add notes
+- Filter by status (flagged / reviewed / cleared / escalated) and flag type
 
-### Screen 8: Report Builder
-- Structured sections derived from live engagement data
-- Finding summaries by severity, owner, framework, and remediation status
-- Export-ready narratives
-- AI-drafted report sections with citation links
+### Screen 7: Remediation Tracking (`/remediation`)
+- Remediation plans per finding and engagement
+- Progress bar with % completion, owner, due date, status
+- AI-generate button: drafts plan from finding context
+- Status lifecycle: open → in_progress → completed / overdue
 
-### Screen 9: Team Workflow & Accountability
-- Request owners and reviewer assignments
-- Due date / SLA indicators
-- Activity timeline
-- Notifications backbone
+### Screen 8: Report Builder (`/reports`)
+- Template selector (pre-built or custom sections list)
+- Saved reports per engagement with status (draft / generating / completed)
+- AI generation: trigger report build from engagement data
+- HTML export download for completed reports
 
-### Screen 10: AI Copilot Panel
-- Risk brainstorming from engagement context
-- Draft evidence request lists
-- Draft findings with evidence citations
-- Summarize control testing results
-- Confidence and source reference explanations
+### Screen 9: Workpapers (`/workpapers`)
+- Workpaper list per engagement with status badge and version number
+- Create / edit workpaper with rich content field
+- Review and approval workflow: draft → in_review → approved → archived
+- Preparer and reviewer assignment
 
-### Screen 11: Anomaly Detection
-- Transaction ingestion and review queue
-- Rule-based + statistical outlier flags
-- Cluster-based anomaly grouping
-- Analyst review and feedback loop
+### Screen 10: Control Testing (`/testing`)
+- Test plan list per engagement with type badge and status
+- Sample management: add items, record pass/fail/exception per sample
+- Test completion: overall result, exceptions found count, reviewer sign-off
+- Filter by test type (manual / automated / sample_based) and status
 
-### Screen 12: Audit Intelligence
-- Cross-engagement trend detection
-- Recurring control failure tracking
-- Control owner responsiveness analytics
-- Cycle time benchmarking across audit types
+### Screen 11: Intelligence (`/intelligence`)
+- Recurring control failures: control name, total tests, failure rate
+- Owner responsiveness: requests assigned, overdue count, avg days open, responsiveness score
+- Cycle time benchmarks: engagement duration, open vs total findings
+- Summary KPIs: avg finding age, high-risk engagement count, 30-day and 60-day finding trends
 
-## AI Features
+---
 
-- **AI request drafting:** Generate evidence request lists based on audit scope and risk areas
-- **Risk copilot:** Suggest key risks, controls, and test ideas for an engagement
-- **Finding drafting:** Convert structured evidence and exceptions into draft findings with citations
-- **Control test summarization:** Summarize test results and highlight exceptions with source references
-- **Remediation scoring:** Score management action plan confidence and flag stale remediation
-- **Anomaly detection:** Flag unusual transactions or outliers for substantive testing using rule-based and statistical methods
-- **Continuous audit signals:** Ingest and triage signals from ERP, IAM, cloud, and ticketing systems
-- **Report generation:** Draft audit report sections from engagement status, findings, and remediation plans
-- **Audit intelligence:** Surface cross-engagement trends, recurring failures, and cycle time benchmarks
+## AI Feature Summary
 
-## API Endpoints
+| # | Endpoint | Trigger | Output |
+|---|---------|---------|--------|
+| 1 | `/ai/draft-evidence` | Button on engagement | Suggested evidence request list |
+| 2 | `/ai/risk-copilot` | Button on engagement | Key risks, control gaps, test ideas |
+| 3 | `/ai/draft-finding` | Observation text input | Structured finding: title, description, root cause, recommendation, severity |
+| 4 | `/ai/generate-report` | Button on engagement | Executive summary, key observations, overall risk rating |
+| 5 | `/ai/check-evidence-completeness` | Evidence review | Coverage gaps against engagement scope |
+| 6 | `/ai/prioritize-findings` | Findings list | Risk-ranked finding order with rationale |
+| 7 | `/ai/generate-remediation-plan` | Finding ID | Action items, owner suggestion, estimated timeline |
+| 8 | `/saved-reports/generate` | Report template + engagement | Full AI-generated report sections |
+
+All AI endpoints return `503 Service Unavailable` when no LLM provider is configured. Non-AI workflows are always available.
+
+---
+
+## API Endpoints (v1.4 — Complete)
 
 ```
-GET    /health/                                → Service health
+# Health
+GET    /health/                                              → {"status": "ok"}
+
+# Dashboard
+GET    /api/v1/dashboard/summary                            → KPI summary
 
 # Engagements
-GET    /api/v1/engagements                    → List audit engagements
-POST   /api/v1/engagements                    → Create audit engagement
-GET    /api/v1/engagements/{id}               → Get audit engagement detail
-PATCH  /api/v1/engagements/{id}               → Update audit engagement
-DELETE /api/v1/engagements/{id}               → Delete audit engagement
+GET    /api/v1/engagements                                  → List (filterable)
+POST   /api/v1/engagements                                  → Create
+GET    /api/v1/engagements/{id}                             → Detail
+PATCH  /api/v1/engagements/{id}                             → Update
+DELETE /api/v1/engagements/{id}                             → Delete (204)
 
 # Evidence Requests
-GET    /api/v1/evidence-requests              → List evidence requests
-POST   /api/v1/evidence-requests              → Create evidence request
-GET    /api/v1/evidence-requests/{id}         → Get evidence request detail
-PATCH  /api/v1/evidence-requests/{id}         → Update evidence request
-DELETE /api/v1/evidence-requests/{id}         → Delete evidence request
+GET    /api/v1/evidence-requests                            → List (optional ?engagement_id=)
+POST   /api/v1/evidence-requests                            → Create
+GET    /api/v1/evidence-requests/{id}                       → Detail
+PATCH  /api/v1/evidence-requests/{id}                       → Update status / fields
+DELETE /api/v1/evidence-requests/{id}                       → Delete (204)
+GET    /api/v1/evidence-requests/{id}/version-log           → Audit trail
+POST   /api/v1/evidence-requests/{id}/version-log           → Append log entry
 
 # Evidence Files
-GET    /api/v1/evidence-files                 → List evidence files
-POST   /api/v1/evidence-files                 → Upload evidence file metadata
-GET    /api/v1/evidence-files/{id}            → Get evidence file detail
-DELETE /api/v1/evidence-files/{id}            → Delete evidence file
+GET    /api/v1/evidence-files                               → List (optional ?evidence_request_id=)
+POST   /api/v1/evidence-files/upload                        → Upload file to MinIO + create record
+GET    /api/v1/evidence-files/{id}                          → Detail
+DELETE /api/v1/evidence-files/{id}                          → Delete (204)
 
 # Findings
-GET    /api/v1/findings                       → List findings
-POST   /api/v1/findings                       → Create finding
-GET    /api/v1/findings/{id}                  → Get finding detail
-PATCH  /api/v1/findings/{id}                  → Update finding lifecycle / fields
-DELETE /api/v1/findings/{id}                  → Delete finding
+GET    /api/v1/findings                                     → List (optional ?engagement_id=)
+POST   /api/v1/findings                                     → Create
+GET    /api/v1/findings/{id}                                → Detail
+PATCH  /api/v1/findings/{id}                                → Update lifecycle / fields
+DELETE /api/v1/findings/{id}                                → Delete (204)
 
-# Controls & Framework Mapping
-GET    /api/v1/controls                       → List controls
-POST   /api/v1/controls                       → Create control
-GET    /api/v1/controls/{id}                  → Get control detail
-PATCH  /api/v1/controls/{id}                  → Update control
-DELETE /api/v1/controls/{id}                  → Delete control
-GET    /api/v1/frameworks                     → List frameworks
-POST   /api/v1/frameworks                     → Create framework
-GET    /api/v1/frameworks/{id}/requirements   → List requirements for a framework
-POST   /api/v1/control-mappings               → Map control to framework requirement
-DELETE /api/v1/control-mappings/{id}          → Remove mapping
+# Controls
+GET    /api/v1/controls                                     → List (optional ?framework=)
+POST   /api/v1/controls                                     → Create
+GET    /api/v1/controls/{id}                                → Detail
+GET    /api/v1/controls/{id}/with-mappings                  → Detail + mapped requirements
+DELETE /api/v1/controls/{id}                                → Delete (204)
+GET    /api/v1/controls/gap-analysis                        → Requirements without full coverage
+
+# Framework Requirements
+GET    /api/v1/framework-requirements                       → List (optional ?framework=)
+POST   /api/v1/framework-requirements                       → Create
+GET    /api/v1/framework-requirements/{id}                  → Detail
+GET    /api/v1/framework-requirements/{id}/with-mappings    → Detail + mapped controls
+DELETE /api/v1/framework-requirements/{id}                  → Delete (204)
+
+# Control Mappings
+GET    /api/v1/control-mappings                             → List (optional ?control_id= ?framework_requirement_id=)
+POST   /api/v1/control-mappings                             → Create
+GET    /api/v1/control-mappings/{id}                        → Detail
+DELETE /api/v1/control-mappings/{id}                        → Delete (204)
 
 # Risk Register
-GET    /api/v1/risks                          → List risks
-POST   /api/v1/risks                          → Create risk
-GET    /api/v1/risks/{id}                     → Get risk detail
-PATCH  /api/v1/risks/{id}                     → Update risk
-DELETE /api/v1/risks/{id}                     → Delete risk
+GET    /api/v1/risk-items                                   → List (optional ?engagement_id= ?status=)
+POST   /api/v1/risk-items                                   → Create
+GET    /api/v1/risk-items/{id}                              → Detail
+PATCH  /api/v1/risk-items/{id}                              → Update score / status
+DELETE /api/v1/risk-items/{id}                              → Delete (204)
 
 # Control Testing
-GET    /api/v1/control-test-results           → List test results
-POST   /api/v1/control-test-results           → Record test result
-GET    /api/v1/control-test-results/{id}      → Get test result detail
-PATCH  /api/v1/control-test-results/{id}      → Update test result
+GET    /api/v1/control-tests                                → List (optional ?engagement_id= ?control_id= ?status=)
+POST   /api/v1/control-tests                                → Create
+GET    /api/v1/control-tests/{id}                           → Detail with samples
+PATCH  /api/v1/control-tests/{id}                           → Update result / status
+DELETE /api/v1/control-tests/{id}                           → Delete (204)
+GET    /api/v1/control-tests/{id}/samples                   → List samples
+POST   /api/v1/control-tests/{id}/samples                   → Add sample
 
-# Anomaly Detection
-GET    /api/v1/anomalies                      → List anomalies
-POST   /api/v1/anomalies/detect               → Run anomaly detection on ingested data
-PATCH  /api/v1/anomalies/{id}                 → Update anomaly review status
+# Workpapers
+GET    /api/v1/workpapers                                   → List (optional ?engagement_id= ?status=)
+POST   /api/v1/workpapers                                   → Create
+GET    /api/v1/workpapers/{id}                              → Detail
+PATCH  /api/v1/workpapers/{id}                              → Update content / status
+DELETE /api/v1/workpapers/{id}                              → Delete (204)
+
+# Remediation Plans
+GET    /api/v1/remediation-plans                            → List (optional ?engagement_id= ?finding_id= ?status=)
+POST   /api/v1/remediation-plans                            → Create manually
+POST   /api/v1/remediation-plans/ai-generate                → AI-draft from finding context
+GET    /api/v1/remediation-plans/{id}                       → Detail
+PATCH  /api/v1/remediation-plans/{id}                       → Update progress / status
+DELETE /api/v1/remediation-plans/{id}                       → Delete (204)
+
+# Anomaly Transactions & Flags
+GET    /api/v1/anomaly-transactions                         → List (optional ?engagement_id= ?batch_id=)
+POST   /api/v1/anomaly-transactions                         → Create single transaction
+POST   /api/v1/anomaly-transactions/bulk-ingest             → Bulk import + optional detection
+POST   /api/v1/anomaly-transactions/{id}/detect             → Run detection on single transaction
+GET    /api/v1/anomaly-flags                                → List (optional ?status= ?flag_type=)
+PATCH  /api/v1/anomaly-flags/{id}                           → Analyst review (status, notes)
 
 # Audit Signals
-GET    /api/v1/signals                        → List audit signals
-POST   /api/v1/signals                        → Ingest audit signal
-PATCH  /api/v1/signals/{id}                   → Update signal status
+GET    /api/v1/audit-signals                                → List (optional ?engagement_id= ?status= ?signal_source= ?signal_type=)
+POST   /api/v1/audit-signals                                → Ingest signal
+GET    /api/v1/audit-signals/{id}                           → Detail
+PATCH  /api/v1/audit-signals/{id}                           → Update status / link to engagement or finding
+DELETE /api/v1/audit-signals/{id}                           → Delete (204)
+GET    /api/v1/audit-signals/stats/breakdown                → Count by source and type
 
-# Dashboard & Reporting
-GET    /api/v1/dashboard/summary              → Dashboard metrics
-GET    /api/v1/reports/{engagement_id}        → Structured report data for an engagement
+# Activity Events
+GET    /api/v1/activity-events                              → List (optional ?engagement_id= ?entity_type=)
+POST   /api/v1/activity-events                              → Append event
+
+# Intelligence
+GET    /api/v1/intelligence/summary                         → Trends, responsiveness, cycle times
+
+# Report Templates
+GET    /api/v1/report-templates                             → List
+POST   /api/v1/report-templates                             → Create
+GET    /api/v1/report-templates/{id}                        → Detail
+DELETE /api/v1/report-templates/{id}                        → Delete (204)
+
+# Saved Reports
+GET    /api/v1/saved-reports                                → List (optional ?engagement_id=)
+POST   /api/v1/saved-reports                                → Create (draft)
+POST   /api/v1/saved-reports/generate                       → Create + trigger AI generation
+GET    /api/v1/saved-reports/{id}                           → Detail with template
+PATCH  /api/v1/saved-reports/{id}                           → Update sections / status
+DELETE /api/v1/saved-reports/{id}                           → Delete (204)
+GET    /api/v1/saved-reports/{id}/export                    → HTML export
 
 # AI Copilot
-POST   /api/v1/ai/draft-requests             → Generate evidence request list
-POST   /api/v1/ai/draft-finding              → Draft finding from evidence
-POST   /api/v1/ai/suggest-risks              → Suggest risks for engagement
-POST   /api/v1/ai/summarize-tests            → Summarize control test results
-POST   /api/v1/ai/score-remediation          → Score remediation confidence
+POST   /api/v1/ai/draft-evidence                            → Evidence request list for engagement
+POST   /api/v1/ai/risk-copilot                              → Risks, controls, test ideas
+POST   /api/v1/ai/draft-finding                             → Draft finding from observation text
+POST   /api/v1/ai/generate-report                           → Executive summary from engagement
+POST   /api/v1/ai/check-evidence-completeness               → Evidence gap analysis
+POST   /api/v1/ai/prioritize-findings                       → Risk-ranked finding list
+POST   /api/v1/ai/generate-remediation-plan                 → Draft remediation plan
+
+# Demo
+GET    /api/v1/demo/status                                   → Demo mode status
+POST   /api/v1/demo/seed                                     → Load demo data
+DELETE /api/v1/demo/reset                                    → Wipe demo data
 ```
 
-## Feature Roadmap
+---
 
-| Complexity | Item | Description |
-|---|---|---|
-| 0 | Platform alignment | Port/identity/Docker consistency |
-| 0 | AuditEngagement CRUD | Persistent engagement entity, migration, tests |
-| 0 | Dashboard metrics | Live summary stats from PostgreSQL |
-| 0 | Evidence request workflow | EvidenceRequest entity with status lifecycle |
-| 0 | Product docs | Correct PRODUCT-SPEC, README, entity docs |
-| 1 | Risk planning workspace | Risk register, risk scoring, planner UX |
-| 1 | Control library + framework mapping | SOX / ISO 27001 / NIST / PCI-DSS starter |
-| 1 | Evidence vault | Upload metadata, versioning, provenance |
-| 1 | Findings + remediation lifecycle | MAP, due dates, owners, verification |
-| 1 | Report builder | Structured sections, exportable narratives |
-| 1 | Team workflow | Owners, reviewers, SLAs, activity timeline |
-| 2 | AI copilot (grounded outputs) | Request drafting, finding drafting, citations |
-| 2 | Anomaly detection | Rule + statistical + cluster-based flagging |
-| 2 | Continuous audit connectors | ERP / IAM / cloud / ticketing ingestion |
-| 2 | Control testing automation | Scheduled tests, sample selection, exceptions |
-| 2 | Audit intelligence layer | Cross-engagement trends, cycle benchmarking |
+## LLM Provider Architecture
+
+```
+OPENROUTER_API_KEY set?
+  Yes → OpenRouter API → configured OPENROUTER_MODEL
+  No  → OLLAMA_URL set?
+          Yes → Ollama (local) → OLLAMA_MODEL (default: llama3.1)
+          No  → raise AIServiceError → endpoint returns 503
+
+All AI calls: try/except wrapper → endpoints return 503 if AI unavailable
+Non-AI endpoints: always available regardless of LLM configuration
+```
+
+All LLM calls go through `backend/app/services/ai_service.py`. API routes never import provider SDKs directly.
+
+---
 
 ## Non-Functional Requirements
 
-- PostgreSQL-backed persistence only (no SQLite, no mock data in primary flows)
-- Async SQLAlchemy + repository pattern
-- Pydantic v2 schemas with `from_attributes=True`
-- Alembic migration for every new model/table
-- Backend test coverage for all new routes
-- Responsive Next.js frontend using scaffold UI components
-- Docker / Compose config aligned with backend `8037` and frontend `3037`
-- Default database: `dclaw_audit`
-- AI outputs must include confidence indicators and source citations (explainability)
-- Audit trail integrity: all entity mutations are timestamped
+| Requirement | Spec |
+|-------------|------|
+| **Persistence** | PostgreSQL 16 only — no in-memory mocks, no SQLite |
+| **ORM** | Async SQLAlchemy 2.0 — `Mapped`, `mapped_column`, `relationship` |
+| **Schemas** | Pydantic v2 with `model_config = ConfigDict(from_attributes=True)` |
+| **Migrations** | Every schema change via Alembic — `alembic upgrade head` before first start |
+| **Backend tests** | `pytest-asyncio` + `httpx.AsyncClient` + `ASGITransport`; DB override via `get_db` DI |
+| **Auth** | Logto JWT with JWKS validation (`LOGTO_ENDPOINT`). `DISABLE_AUTH=true` in dev only. See `PLAN-v1.4.md` for production hardening requirements |
+| **Design system** | One Convergence Vol. 01 — primary dark `#1F2937`, accent purple `#7030A0`, Manrope/Inter/JetBrains Mono |
+| **Frontend** | Responsive; Tailwind CSS; shadcn/ui-style components; strict TypeScript |
+| **Docker** | `docker compose up -d` — all services. Non-root containers |
+| **Object storage** | MinIO — evidence file uploads to `dclaw-audit-files` bucket |
+| **Cache** | Redis 7 — available for rate limiting and session caching |
+| **Audit trail** | All entity mutations must be timestamped via `created_at`/`updated_at`; activity events for user-facing actions |
+| **AI resilience** | All AI calls in try/except — endpoints return 503 if LLM unavailable; non-AI data always accessible |
+| **AI outputs** | Findings and evidence suggestions must include confidence indicators |
+
+---
+
+## Known Open Defects (v1.4 — Target Fix)
+
+| ID | Severity | Description | File |
+|----|----------|-------------|------|
+| TF-01 | Critical | `disable_auth: bool = True` is default — all 135 endpoints unauthenticated out of box | `backend/app/core/config.py:18` |
+| TF-02 | Critical | JWT payload base64-decoded but signature never cryptographically verified | `backend/app/core/auth.py:36–79` |
+| TF-03 | High | `fetchJson()` has no timeout — all API calls hang indefinitely under backend degradation | `web/src/lib/api.ts:14` |
+| TF-04 | High | CORS `allow_origins=["*"]` with `allow_credentials=True` | `backend/app/api/main.py:27` |
+| TF-05 | High | No rate limiting on any endpoint — `slowapi` absent from `requirements.txt` | `backend/app/api/main.py` |
+| TF-06 | High | No observability — no Sentry, no `structlog`, no APM | `requirements.txt`, `web/package.json` |
+| TF-07 | Medium | Frontend has zero tests — no `vitest` in `web/package.json` | `web/package.json` |
+| TF-08 | Medium | Mutation score 27/100 — tests assert status codes, not computed values | `backend/tests/` |
+
+See `PLAN-v1.4.md` for full remediation steps and implementation order.

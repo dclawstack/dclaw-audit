@@ -1,0 +1,107 @@
+{
+  "generationId": "gen_mpts0irp",
+  "cluster": "mixed-top-severity",
+  "provider": {
+    "primary": "anthropic/claude-sonnet-4.6",
+    "fallback": "moonshotai/kimi-k2.6",
+    "base": "https://openrouter.ai/api/v1",
+    "local": false,
+    "byok": false
+  },
+  "generatedAt": "2026-05-31T12:49:01.189Z",
+  "durationMs": 38842,
+  "generationMs": 35244,
+  "runMs": 3598,
+  "requested": 3,
+  "processed": 3,
+  "results": [
+    {
+      "finding": {
+        "rule": "No observability stack detected",
+        "title": "No observability stack detected"
+      },
+      "file": {
+        "filename": "no-observability-stack-detected-src-l0.test.ts",
+        "content": "import { describe, it, expect } from \"vitest\";\n\n// Simulates a minimal package.json dependencies object as it might appear in a real project.\n// The foot-gun: no APM or error-tracking libraries present.\n// The fix: at least one recognised observability dependency is present.\n\nconst APM_PACKAGES = [\n  \"@opentelemetry/api\",\n  \"@opentelemetry/sdk-node\",\n  \"dd-trace\",\n  \"newrelic\",\n  \"@honeycombio/opentelemetry-node\",\n];\n\nconst ERROR_TRACKING_PACKAGES = [\n  \"@sentry/node\",\n  \"@sentry/browser\",\n  \"@sentry/nextjs\",\n  \"rollbar\",\n  \"bugsnag\",\n  \"@bugsnag/js\",\n];\n\nfunction hasObservability(\n  deps: Record<string, string>,\n  devDeps: Record<string, string> = {}\n): { hasAPM: boolean; hasErrorTracking: boolean } {\n  const allDeps = { ...deps, ...devDeps };\n  const keys = Object.keys(allDeps);\n  const hasAPM = APM_PACKAGES.some((pkg) => keys.includes(pkg));\n  const hasErrorTracking = ERROR_TRACKING_PACKAGES.some((pkg) =>\n    keys.includes(pkg)\n  );\n  return { hasAPM, hasErrorTracking };\n}\n\nfunction observabilityReport(\n  deps: Record<string, string>,\n  devDeps: Record<string, string> = {}\n): string[] {\n  const { hasAPM, hasErrorTracking } = hasObservability(deps, devDeps);\n  const issues: string[] = [];\n  if (!hasAPM) {\n    issues.push(\n      \"No APM library detected (OpenTelemetry/Datadog/NewRelic/Honeycomb). Add one for distributed tracing.\"\n    );\n  }\n  if (!hasErrorTracking) {\n    issues.push(\n      \"No error-tracking library detected (Sentry/Rollbar/Bugsnag). Add @sentry/node for crash visibility.\"\n    );\n  }\n  return issues;\n}\n\ndescribe(\"Observability stack detection\", () => {\n  it(\"foot-gun: reports missing APM and error tracking when no observability deps are present\", () => {\n    // A typical bare-bones project with no observability tooling\n    const dependencies: Record<string, string> = {\n      express: \"^4.18.2\",\n      lodash: \"^4.17.21\",\n      axios: \"^1.4.0\",\n    };\n    const devDependencies: Record<string, string> = {\n      typescript: \"^5.0.0\",\n      vitest: \"^1.0.0\",\n    };\n\n    const { hasAPM, hasErrorTracking } = hasObservability(\n      dependencies,\n      devDependencies\n    );\n    const issues = observabilityReport(dependencies, devDependencies);\n\n    expect(hasAPM).toBe(false);\n    expect(hasErrorTracking).toBe(false);\n    expect(issues).toHaveLength(2);\n    expect(issues[0]).toMatch(/APM/i);\n    expect(issues[1]).toMatch(/error.tracking|sentry/i);\n  });\n\n  it(\"safe fix: no issues reported when both Sentry and OpenTelemetry are present\", () => {\n    const dependencies: Record<string, string> = {\n      express: \"^4.18.2\",\n      \"@sentry/node\": \"^7.80.0\",\n      \"@opentelemetry/api\": \"^1.6.0\",\n      \"@opentelemetry/sdk-node\": \"^0.45.0\",\n    };\n    const devDependencies: Record<string, string> = {\n      typescript: \"^5.0.0\",\n    };\n\n    const { hasAPM, hasErrorTracking } = hasObservability(\n      dependencies,\n      devDependencies\n    );\n    const issues = observabilityReport(dependencies, devDependencies);\n\n    expect(hasAPM).toBe(true);\n    expect(hasErrorTracking).toBe(true);\n    expect(issues).toHaveLength(0);\n  });\n\n  it(\"safe fix: Datadog dd-trace + Rollbar also satisfies both requirements\", () => {\n    const dependencies: Record<string, string> = {\n      \"dd-trace\": \"^4.10.0\",\n      rollbar: \"^2.26.0\",\n      fastify: \"^4.0.0\",\n    };\n\n    const { hasAPM, hasErrorTracking } = hasObservability(dependencies);\n    const issues = observabilityReport(dependencies);\n\n    expect(hasAPM).toBe(true);\n    expect(hasErrorTracking).toBe(true);\n    expect(issues).toHaveLength(0);\n  });\n\n  it(\"partial foot-gun: only error tracking present still flags missing APM\", () => {\n    const dependencies: Record<string, string> = {\n      \"@sentry/nextjs\": \"^7.80.0\",\n      next: \"^14.0.0\",\n    };\n\n    const { hasAPM, hasErrorTracking } = hasObservability(dependencies);\n    const issues = observabilityReport(dependencies);\n\n    expect(hasAPM).toBe(false);\n    expect(hasErrorTracking).toBe(true);\n    expect(issues).toHaveLength(1);\n    expect(issues[0]).toMatch(/APM/i);\n  });\n});\n",
+        "reasoning": "Tests exercise a synthetic dependency-map checker that mirrors the static-analysis rule: it verifies that a project lacking APM and error-tracking packages is correctly flagged, while a project that adds Sentry + OpenTelemetry (or equivalent) passes cleanly.",
+        "language": "js"
+      },
+      "attempts": [
+        {
+          "model": "anthropic/claude-sonnet-4.6",
+          "ok": true,
+          "durationMs": 21707
+        }
+      ]
+    },
+    {
+      "finding": {
+        "rule": "No product analytics dependency",
+        "title": "No product analytics dependency"
+      },
+      "file": {
+        "filename": "no-product-analytics-dependency-src-l0.test.ts",
+        "content": "import { describe, it, expect } from \"vitest\";\n\n// Synthetic simulation of a minimal analytics client and event tracking\n// to demonstrate the foot-gun (no telemetry) vs the safe fix (instrumented events).\n\ntype AnalyticsEvent = {\n  event: string;\n  properties?: Record<string, unknown>;\n};\n\nclass NoOpAnalytics {\n  private events: AnalyticsEvent[] = [];\n\n  capture(_event: string, _properties?: Record<string, unknown>): void {\n    // foot-gun: silently does nothing — no telemetry recorded\n  }\n\n  getCapturedEvents(): AnalyticsEvent[] {\n    return this.events;\n  }\n}\n\nclass PostHogLikeAnalytics {\n  private events: AnalyticsEvent[] = [];\n  private initialized = false;\n\n  init(apiKey: string): void {\n    if (!apiKey || apiKey.trim() === \"\") {\n      throw new Error(\"Analytics init requires a valid API key\");\n    }\n    this.initialized = true;\n  }\n\n  capture(event: string, properties?: Record<string, unknown>): void {\n    if (!this.initialized) {\n      throw new Error(\"Analytics not initialized. Call init() first.\");\n    }\n    if (!event || event.trim() === \"\") {\n      throw new Error(\"Event name must not be empty\");\n    }\n    this.events.push({ event, properties });\n  }\n\n  getCapturedEvents(): AnalyticsEvent[] {\n    return [...this.events];\n  }\n\n  isInitialized(): boolean {\n    return this.initialized;\n  }\n}\n\n// Simulates a user journey through key product moments\nfunction simulateUserJourney(analytics: PostHogLikeAnalytics): void {\n  analytics.capture(\"signup\", { method: \"email\" });\n  analytics.capture(\"activation\", { feature: \"dashboard\" });\n  analytics.capture(\"first_value_moment\", { action: \"created_first_report\" });\n  analytics.capture(\"retention\", { day: 7 });\n  analytics.capture(\"churn_signal\", { reason: \"no_activity_14d\" });\n}\n\ndescribe(\"Product Analytics Telemetry\", () => {\n  it(\"demonstrates the foot-gun: NoOpAnalytics silently swallows all events, leaving zero visibility into user journeys\", () => {\n    const analytics = new NoOpAnalytics();\n\n    // These calls succeed without error but record nothing\n    analytics.capture(\"signup\", { method: \"email\" });\n    analytics.capture(\"activation\", { feature: \"dashboard\" });\n    analytics.capture(\"first_value_moment\", { action: \"created_first_report\" });\n    analytics.capture(\"retention\", { day: 7 });\n    analytics.capture(\"churn_signal\", { reason: \"no_activity_14d\" });\n\n    const recorded = analytics.getCapturedEvents();\n\n    // Foot-gun: zero events were actually recorded — no telemetry, no insight\n    expect(recorded).toHaveLength(0);\n    // There is no way to know if users signed up, activated, or churned\n    expect(recorded.find((e) => e.event === \"signup\")).toBeUndefined();\n    expect(recorded.find((e) => e.event === \"churn_signal\")).toBeUndefined();\n  });\n\n  it(\"safe fix: PostHogLikeAnalytics properly initializes and captures all key lifecycle events\", () => {\n    const analytics = new PostHogLikeAnalytics();\n\n    // Safe fix: initialize with a valid API key before capturing\n    analytics.init(\"phc_test_api_key_abc123\");\n    expect(analytics.isInitialized()).toBe(true);\n\n    simulateUserJourney(analytics);\n\n    const recorded = analytics.getCapturedEvents();\n\n    // All 5 key events are captured\n    expect(recorded).toHaveLength(5);\n\n    const eventNames = recorded.map((e) => e.event);\n    expect(eventNames).toContain(\"signup\");\n    expect(eventNames).toContain(\"activation\");\n    expect(eventNames).toContain(\"first_value_moment\");\n    expect(eventNames).toContain(\"retention\");\n    expect(eventNames).toContain(\"churn_signal\");\n\n    // Properties are preserved for downstream analysis\n    const signupEvent = recorded.find((e) => e.event === \"signup\");\n    expect(signupEvent?.properties).toEqual({ method: \"email\" });\n\n    const churnEvent = recorded.find((e) => e.event === \"churn_signal\");\n    expect(churnEvent?.properties).toEqual({ reason: \"no_activity_14d\" });\n  });\n\n  it(\"safe fix: analytics client throws on missing init, preventing silent misconfiguration\", () => {\n    const analytics = new PostHogLikeAnalytics();\n\n    // Attempting to capture without init should throw — fail loudly, not silently\n    expect(() => analytics.capture(\"signup\")).toThrowError(\n      \"Analytics not initialized. Call init() first.\"\n    );\n  });\n\n  it(\"safe fix: analytics client throws on empty API key, preventing misconfigured deployments\", () => {\n    const analytics = new PostHogLikeAnalytics();\n\n    expect(() => analytics.init(\"\")).toThrowError(\n      \"Analytics init requires a valid API key\"\n    );\n    expect(analytics.isInitialized()).toBe(false);\n  });\n\n  it(\"safe fix: analytics client throws on empty event name, enforcing event naming discipline\", () => {\n    const analytics = new PostHogLikeAnalytics();\n    analytics.init(\"phc_test_api_key_abc123\");\n\n    expect(() => analytics.capture(\"\")).toThrowError(\n      \"Event name must not be empty\"\n    );\n\n    // No phantom empty events recorded\n    expect(analytics.getCapturedEvents()).toHaveLength(0);\n  });\n});\n",
+        "reasoning": "Tests contrast a no-op analytics stub (the foot-gun where all capture calls silently vanish) against a properly initialized PostHog-like client that records signup, activation, first-value-moment, retention, and churn-signal events and enforces correct initialization and non-empty event names.",
+        "language": "js"
+      },
+      "attempts": [
+        {
+          "model": "anthropic/claude-sonnet-4.6",
+          "ok": true,
+          "durationMs": 24091
+        }
+      ]
+    },
+    {
+      "finding": {
+        "rule": "Auth Endpoints Not Rate Limited",
+        "title": "Auth Endpoints Not Rate Limited"
+      },
+      "file": {
+        "filename": "auth-endpoints-not-rate-limited-src-l0.test.ts",
+        "content": "import { describe, it, expect } from \"vitest\";\n\n// Synthetic in-memory rate limiter implementations\n\n// --- Foot-gun: No rate limiting on auth endpoint ---\nfunction createUnprotectedAuthHandler() {\n  let attemptLog: { ip: string; timestamp: number }[] = [];\n\n  return function handleAuth(ip: string, password: string): { success: boolean; status: number } {\n    // No rate limiting — every request is processed regardless of frequency\n    attemptLog.push({ ip, timestamp: Date.now() });\n    // Simulate password check (only \"correct\" is valid)\n    if (password === \"correct\") {\n      return { success: true, status: 200 };\n    }\n    return { success: false, status: 401 };\n  };\n}\n\n// --- Safe fix: Rate-limited auth handler ---\ninterface RateLimitStore {\n  [ip: string]: { count: number; windowStart: number; locked: boolean; lockCount: number };\n}\n\nfunction createRateLimitedAuthHandler({\n  maxAttemptsPerWindow = 5,\n  windowMs = 60_000,\n  lockThreshold = 10,\n}: {\n  maxAttemptsPerWindow?: number;\n  windowMs?: number;\n  lockThreshold?: number;\n} = {}) {\n  const store: RateLimitStore = {};\n\n  return function handleAuth(\n    ip: string,\n    password: string,\n    now: number = Date.now()\n  ): { success: boolean; status: number; reason?: string } {\n    if (!store[ip]) {\n      store[ip] = { count: 0, windowStart: now, locked: false, lockCount: 0 };\n    }\n\n    const entry = store[ip];\n\n    // Check account lock\n    if (entry.locked) {\n      return { success: false, status: 423, reason: \"account_locked\" };\n    }\n\n    // Reset window if expired\n    if (now - entry.windowStart > windowMs) {\n      entry.count = 0;\n      entry.windowStart = now;\n    }\n\n    // Enforce per-window rate limit\n    if (entry.count >= maxAttemptsPerWindow) {\n      return { success: false, status: 429, reason: \"rate_limit_exceeded\" };\n    }\n\n    entry.count += 1;\n\n    if (password === \"correct\") {\n      return { success: true, status: 200 };\n    }\n\n    // Track cumulative failures for account locking\n    entry.lockCount += 1;\n    if (entry.lockCount >= lockThreshold) {\n      entry.locked = true;\n    }\n\n    return { success: false, status: 401 };\n  };\n}\n\ndescribe(\"Auth Endpoints Rate Limiting\", () => {\n  describe(\"Foot-gun: unprotected auth handler allows unlimited attempts\", () => {\n    it(\"should allow an attacker to make unlimited auth attempts without any throttling\", () => {\n      const handleAuth = createUnprotectedAuthHandler();\n      const attackerIp = \"192.168.1.100\";\n      const results: number[] = [];\n\n      // Simulate 50 rapid brute-force attempts\n      for (let i = 0; i < 50; i++) {\n        const result = handleAuth(attackerIp, `wrong_password_${i}`);\n        results.push(result.status);\n      }\n\n      // All 50 attempts are processed — no 429 or 423 ever returned\n      const rateLimitedCount = results.filter((s) => s === 429 || s === 423).length;\n      expect(rateLimitedCount).toBe(0);\n\n      // Every single attempt gets a real 401 response (auth system is fully exposed)\n      const processedCount = results.filter((s) => s === 401).length;\n      expect(processedCount).toBe(50);\n    });\n\n    it(\"should allow the correct password to succeed even after many failures (no lockout)\", () => {\n      const handleAuth = createUnprotectedAuthHandler();\n      const attackerIp = \"10.0.0.1\";\n\n      // 100 failed attempts\n      for (let i = 0; i < 100; i++) {\n        handleAuth(attackerIp, \"wrong\");\n      }\n\n      // Still succeeds — no lockout mechanism\n      const result = handleAuth(attackerIp, \"correct\");\n      expect(result.status).toBe(200);\n      expect(result.success).toBe(true);\n    });\n  });\n\n  describe(\"Safe fix: rate-limited auth handler enforces attempt limits\", () => {\n    it(\"should allow up to maxAttemptsPerWindow attempts and then return 429\", () => {\n      const handleAuth = createRateLimitedAuthHandler({ maxAttemptsPerWindow: 5, windowMs: 60_000 });\n      const ip = \"192.168.1.200\";\n      const baseTime = 1_000_000;\n\n      const results: number[] = [];\n\n      // Make 8 attempts within the same window\n      for (let i = 0; i < 8; i++) {\n        const result = handleAuth(ip, \"wrong\", baseTime + i * 100); // 100ms apart, same window\n        results.push(result.status);\n      }\n\n      // First 5 should be 401 (processed but failed)\n      expect(results.slice(0, 5).every((s) => s === 401)).toBe(true);\n\n      // Attempts 6-8 should be rate-limited with 429\n      expect(results.slice(5).every((s) => s === 429)).toBe(true);\n    });\n\n    it(\"should reset the rate limit counter after the time window expires\", () => {\n      const handleAuth = createRateLimitedAuthHandler({ maxAttemptsPerWindow: 5, windowMs: 60_000 });\n      const ip = \"192.168.1.201\";\n      const baseTime = 2_000_000;\n\n      // Exhaust the window\n      for (let i = 0; i < 5; i++) {\n        handleAuth(ip, \"wrong\", baseTime + i * 100);\n      }\n\n      // Next attempt in same window is rate-limited\n      const blockedResult = handleAuth(ip, \"wrong\", baseTime + 500);\n      expect(blockedResult.status).toBe(429);\n\n      // After window expires (61 seconds later), attempts are allowed again\n      const afterWindowResult = handleAuth(ip, \"wrong\", baseTime + 61_000);\n      expect(afterWindowResult.status).toBe(401); // processed, not rate-limited\n    });\n\n    it(\"should lock the account after reaching the lockThreshold cumulative failures\", () => {\n      const handleAuth = createRateLimitedAuthHandler({\n        maxAttemptsPerWindow: 5,\n        windowMs: 60_000,\n        lockThreshold: 10,\n      });\n      const ip = \"192.168.1.202\";\n      let baseTime = 3_000_000;\n\n      // Make 10 failed attempts across two windows to trigger lockout\n      for (let window = 0; window < 2; window++) {\n        for (let i = 0; i < 5; i++) {\n          handleAuth(ip, \"wrong\", baseTime + i * 100);\n        }\n        baseTime += 61_000; // advance to next window\n      }\n\n      // Account should now be locked\n      const lockedResult = handleAuth(ip, \"correct\", baseTime + 100);\n      expect(lockedResult.status).toBe(423);\n      expect(lockedResult.reason).toBe(\"account_locked\");\n      expect(lockedResult.success).toBe(false);\n    });\n\n    it(\"should allow a successful login within the rate limit window\", () => {\n      const handleAuth = createRateLimitedAuthHandler({ maxAttemptsPerWindow: 5, windowMs: 60_000 });\n      const ip = \"192.168.1.203\";\n      const baseTime = 4_000_000;\n\n      // 2 failed attempts then a correct one\n      handleAuth(ip, \"wrong\", baseTime);\n      handleAuth(ip, \"wrong\", baseTime + 100);\n      const result = handleAuth(ip, \"correct\", baseTime + 200);\n\n      expect(result.status).toBe(200);\n      expect(result.success).toBe(true);\n    });\n\n    it(\"should isolate rate limits per IP address\", () => {\n      const handleAuth = createRateLimitedAuthHandler({ maxAttemptsPerWindow: 5, windowMs: 60_000 });\n      const attackerIp = \"10.0.0.99\";\n      const legitimateIp = \"10.0.0.1\";\n      const baseTime = 5_000_000;\n\n      // Attacker exhausts their limit\n      for (let i = 0; i < 5; i++) {\n        handleAuth(attackerIp, \"wrong\", baseTime + i * 10);\n      }\n      const attackerBlocked = handleAuth(attackerIp, \"wrong\", baseTime + 100);\n      expect(attackerBlocked.status).toBe(429);\n\n      // Legitimate user from different IP is unaffected\n      const legitimateResult = handleAuth(legitimateIp, \"correct\", baseTime + 100);\n      expect(legitimateResult.status).toBe(200);\n      expect(legitimateResult.success).toBe(true);\n    });\n  });\n});\n",
+        "reasoning": "Tests demonstrate that an unprotected auth handler allows unlimited brute-force attempts with no throttling or lockout, while the safe rate-limited handler correctly enforces per-IP attempt windows, resets after expiry, locks accounts after cumulative failures, and isolates limits per IP.",
+        "language": "js"
+      },
+      "attempts": [
+        {
+          "model": "anthropic/claude-sonnet-4.6",
+          "ok": true,
+          "durationMs": 35241
+        }
+      ]
+    }
+  ],
+  "run": {
+    "runId": "run_mpts0fzr",
+    "success": true,
+    "numTotalTests": 16,
+    "numPassedTests": 16,
+    "numFailedTests": 0,
+    "durationMs": 3598,
+    "files": [
+      {
+        "filename": "auth-endpoints-not-rate-limited-src-l0.test.ts",
+        "status": "passed",
+        "numPassed": 7,
+        "numFailed": 0,
+        "failureMessages": []
+      },
+      {
+        "filename": "no-observability-stack-detected-src-l0.test.ts",
+        "status": "passed",
+        "numPassed": 4,
+        "numFailed": 0,
+        "failureMessages": []
+      },
+      {
+        "filename": "no-product-analytics-dependency-src-l0.test.ts",
+        "status": "passed",
+        "numPassed": 5,
+        "numFailed": 0,
+        "failureMessages": []
+      }
+    ]
+  }
+}

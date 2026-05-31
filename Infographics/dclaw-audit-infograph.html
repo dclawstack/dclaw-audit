@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>DClaw Audit — Infographic · One Convergence × DKube</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ── OC Design Tokens ─────────────────────────── */
+:root {
+  --p25:   #FAF6FD;
+  --p50:   #F5EEFB;
+  --p100:  #E7D8F4;
+  --p300:  #B180F8;
+  --p500:  #7030A0;
+  --p700:  #4A1F6C;
+  --p900:  #2B0E45;
+  --dk:    #6E55A4;
+  --dl:    #9783C0;
+  --dfl:   #D5D5D5;
+  /* Audit identity — dark slate */
+  --audit: #1F2937;
+  --audit2:#374151;
+  --audit3:#6B7280;
+  --ink:   #141414;
+  --ink2:  #2A2A2A;
+  --ink3:  #5A5A5A;
+  --ink4:  #8A8A8A;
+  --rule:  #E5E5E5;
+  --paper: #FFFFFF;
+  --cool:  #F6F5F7;
+  --warm:  #FAF8F4;
+  --ok:    #18A957;
+  --warn:  #C2870B;
+  --err:   #C2240C;
+  --info:  #2563EB;
+  --display: "Manrope", "Inter", sans-serif;
+  --sans:    "Inter", sans-serif;
+  --mono:    "JetBrains Mono", monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+@page { size: 1200px 5800px; margin: 0; }
+
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--paper);
+  width: 1200px;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.sec { width: 1200px; padding: 0 64px; }
+.sec-inner { padding: 56px 0; border-bottom: 1px solid var(--rule); }
+.sec-inner.no-border { border-bottom: none; }
+
+.ey {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink4);
+  margin-bottom: 10px;
+}
+.ey.purple { color: var(--p500); }
+.ey.light  { color: rgba(255,255,255,0.5); }
+.ey.audit  { color: #9CA3AF; }
+
+h1 { font-family: var(--display); font-size: 80px; font-weight: 800; line-height: 0.9; letter-spacing: -0.05em; }
+h2 { font-family: var(--display); font-size: 40px; font-weight: 700; line-height: 1.05; letter-spacing: -0.03em; }
+h3 { font-family: var(--sans); font-size: 22px; font-weight: 600; line-height: 1.2; letter-spacing: -0.01em; }
+h4 { font-family: var(--sans); font-size: 15px; font-weight: 600; line-height: 1.3; }
+p  { font-family: var(--sans); font-size: 14px; line-height: 1.65; color: var(--ink3); }
+
+.stat-num {
+  font-family: var(--display);
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--p500);
+}
+.stat-num.white { color: var(--paper); }
+.stat-num.audit { color: #93C5FD; }
+.stat-lbl {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink4);
+  margin-top: 4px;
+}
+.stat-lbl.light { color: rgba(255,255,255,0.45); }
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  background: var(--p50);
+  color: var(--p500);
+  border: 1px solid var(--p100);
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--sans);
+  padding: 3px 9px;
+  border-radius: 2px;
+}
+.tag.dark    { background: rgba(177,128,248,.1); color: var(--p300); border-color: rgba(177,128,248,.25); }
+.tag.ok      { background: #ECF8F0; color: var(--ok); border-color: #B7DFCB; }
+.tag.warn    { background: #FEF3C7; color: var(--warn); border-color: #FCD34D; }
+.tag.err     { background: #FEF2F2; color: var(--err); border-color: #FECACA; }
+.tag.info    { background: #EFF6FF; color: var(--info); border-color: #BFDBFE; }
+.tag.ink     { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.tag.neutral { background: var(--cool); color: var(--ink3); border-color: var(--rule); }
+.tag.audit   { background: rgba(31,41,55,0.08); color: var(--audit); border-color: rgba(31,41,55,0.2); }
+
+hr { border: none; border-top: 1px solid var(--rule); }
+hr.ink-rule { border-top: 1px solid var(--ink); }
+hr.light    { border-top: 1px solid rgba(255,255,255,0.12); }
+
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+.g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+.row { display: flex; align-items: flex-start; gap: 40px; }
+
+.cell {
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 20px 22px;
+  background: var(--paper);
+}
+.cell.ink-border { border-color: var(--ink); }
+.cell.purple-bg  { background: var(--p25); border-color: var(--p100); }
+.cell.audit-bg   { background: rgba(31,41,55,0.04); border-color: rgba(31,41,55,0.15); }
+
+.bar-track { height: 6px; background: var(--rule); border-radius: 0; margin-top: 6px; }
+.bar-fill  { height: 6px; background: var(--p500); }
+.bar-fill.err  { background: var(--err); }
+.bar-fill.warn { background: var(--warn); }
+.bar-fill.ok   { background: var(--ok); }
+
+.accent { border-left: 3px solid var(--p500); padding-left: 14px; }
+.accent-audit { border-left: 3px solid var(--audit); padding-left: 14px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead th {
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink4);
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--ink);
+}
+tbody td { padding: 10px 12px; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+tbody tr:last-child td { border-bottom: none; }
+.mono { font-family: var(--mono); }
+
+.feat-icon {
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--p50);
+  border: 1px solid var(--p100);
+  border-radius: 2px;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.div-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--ink4);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.div-label::before, .div-label::after {
+  content: '';
+  flex: 1;
+  border-top: 1px solid var(--rule);
+}
+
+.dot { display: inline-block; width: 8px; height: 8px; border-radius: 0; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 1 — HERO
+══════════════════════════════════════════════ -->
+<div style="background:var(--audit);width:1200px;padding:0 64px;">
+  <div style="padding:56px 0 40px;">
+
+    <!-- Top bar -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,0.1);">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <svg width="40" height="40" viewBox="0 0 64 64" fill="none">
+          <polygon points="32,4 60,20 60,44 32,60 4,44 4,20" fill="#6E55A4"/>
+          <polygon points="32,4 60,20 32,36 4,20" fill="#9783C0"/>
+          <polygon points="4,20 32,36 32,60 4,44" fill="#D5D5D5" opacity="0.6"/>
+        </svg>
+        <div>
+          <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.15em;color:rgba(255,255,255,0.4);margin-bottom:2px;">One Convergence · DKube</div>
+          <div style="font-family:var(--display);font-size:14px;font-weight:700;color:rgba(255,255,255,0.9);letter-spacing:-0.01em;">Product Intelligence Report</div>
+        </div>
+      </div>
+      <div style="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:0.08em;">MAY 2026 · v1.4 · CONFIDENTIAL</div>
+    </div>
+
+    <!-- Hero text -->
+    <div style="display:flex;align-items:flex-end;gap:60px;">
+      <div style="flex:1;">
+        <div class="ey light" style="margin-bottom:16px;">AI-native internal audit platform</div>
+        <h1 style="color:var(--paper);margin-bottom:8px;">DClaw<br/>Audit</h1>
+        <div style="width:56px;height:2px;background:var(--p300);margin:24px 0;"></div>
+        <p style="font-size:17px;line-height:1.6;color:rgba(255,255,255,0.65);max-width:480px;">
+          Evidence collection, control testing, anomaly detection, and AI-assisted
+          finding generation — from engagement kickoff to board-ready report in
+          a single system of record.
+        </p>
+      </div>
+
+      <!-- Hero stats -->
+      <div style="flex:0 0 340px;display:flex;flex-direction:column;gap:1px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.06);">
+          <div style="background:var(--p500);padding:24px 20px;">
+            <div class="stat-num white" style="font-size:48px;">135</div>
+            <div class="stat-lbl light">API endpoints</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);padding:24px 20px;">
+            <div class="stat-num audit" style="font-size:48px;">16</div>
+            <div class="stat-lbl light">Domain entities</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);padding:24px 20px;">
+            <div class="stat-num audit" style="font-size:48px;">7</div>
+            <div class="stat-lbl light">AI features</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);padding:24px 20px;">
+            <div class="stat-num audit" style="font-size:48px;">11</div>
+            <div class="stat-lbl light">Frontend pages</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tag row -->
+    <div style="display:flex;gap:8px;margin-top:40px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.08);flex-wrap:wrap;">
+      <span class="tag dark">FastAPI · Python 3.11</span>
+      <span class="tag dark">Next.js 14 App Router</span>
+      <span class="tag dark">PostgreSQL 16 · Redis 7 · MinIO</span>
+      <span class="tag dark">Docker · Kubernetes · Helm</span>
+      <span class="tag dark">OpenRouter · Ollama fallback</span>
+      <span class="tag dark">Tailwind CSS · shadcn/ui</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 2 — WHAT IS DCLAW AUDIT
+══════════════════════════════════════════════ -->
+<div class="sec" style="background:var(--warm);">
+  <div class="sec-inner">
+    <div class="row" style="gap:56px;align-items:center;">
+      <div style="flex:0 0 420px;">
+        <div class="ey purple">The platform</div>
+        <h2 style="margin-bottom:16px;">One system.<br/>Audit start to report.</h2>
+        <p style="margin-bottom:20px;">
+          DClaw Audit is an AI-native evidence-to-finding operating system for
+          internal audit teams. It compresses audit cycle time without adding
+          headcount by wiring AI into every step — from drafting evidence requests
+          to generating the final board report.
+        </p>
+        <p>
+          Built on the One Convergence design system and deployed on the DKube
+          infrastructure philosophy: your data, your infrastructure, full control.
+        </p>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--paper);border:1px solid var(--rule);border-radius:2px;">
+          <span style="font-size:22px;">📋</span>
+          <div><h4>Engagement &amp; evidence management</h4><p style="font-size:12px;margin:0;">Full CRUD for audit engagements, evidence requests (with version log), file uploads to MinIO, overdue tracking.</p></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--paper);border:1px solid var(--p100);border-left:3px solid var(--p500);border-radius:2px;">
+          <span style="font-size:22px;">🤖</span>
+          <div><h4 style="color:var(--p500);">AI at every audit decision point</h4><p style="font-size:12px;margin:0;">Draft evidence requests, brainstorm risks, structure findings, prioritize by risk, generate remediation plans, and write the final report — all from context.</p></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--paper);border:1px solid var(--rule);border-radius:2px;">
+          <span style="font-size:22px;">🔬</span>
+          <div><h4>Anomaly detection &amp; continuous signals</h4><p style="font-size:12px;margin:0;">Ingest transactions for rule + statistical anomaly flagging. Triage ERP, IAM, and cloud signals before fieldwork starts.</p></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--paper);border:1px solid var(--rule);border-radius:2px;">
+          <span style="font-size:22px;">📊</span>
+          <div><h4>Cross-engagement intelligence</h4><p style="font-size:12px;margin:0;">Recurring control failures, owner responsiveness analytics, and cycle time benchmarks across all past engagements.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 3 — 7 AI FEATURES
+══════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-inner">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;">
+      <div>
+        <div class="ey purple">AI feature set · v1.4 · All in production</div>
+        <h2>7 AI capabilities, zero manual drafting.</h2>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <span class="tag ok" style="font-size:10px;">Planning</span>
+        <span class="tag" style="font-size:10px;">Fieldwork</span>
+        <span class="tag neutral" style="font-size:10px;">Reporting</span>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+      <div class="cell" style="border-left:3px solid var(--p500);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <div class="feat-icon">📝</div>
+          <span class="tag ok" style="font-size:9px;">Planning</span>
+        </div>
+        <h4 style="margin-bottom:4px;">Draft Evidence Requests</h4>
+        <p style="font-size:12px;">Generates a full evidence request list from audit scope. One button from engagement context.</p>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--p500);margin-top:8px;">POST /ai/draft-evidence</div>
+      </div>
+
+      <div class="cell" style="border-left:3px solid var(--p500);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <div class="feat-icon">🧭</div>
+          <span class="tag ok" style="font-size:9px;">Planning</span>
+        </div>
+        <h4 style="margin-bottom:4px;">Risk Copilot</h4>
+        <p style="font-size:12px;">Brainstorm key risks, control gaps, and test ideas for an engagement in seconds.</p>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--p500);margin-top:8px;">POST /ai/risk-copilot</div>
+      </div>
+
+      <div class="cell" style="border-left:3px solid var(--p500);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <div class="feat-icon">🔎</div>
+          <span class="tag" style="font-size:9px;">Fieldwork</span>
+        </div>
+        <h4 style="margin-bottom:4px;">Evidence Completeness Check</h4>
+        <p style="font-size:12px;">Flags gaps in collected evidence against the audit scope. Prevents incomplete fieldwork.</p>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--p500);margin-top:8px;">POST /ai/check-evidence-completeness</div>
+      </div>
+
+      <div class="cell" style="border-left:3px solid var(--p500);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <div class="feat-icon">⚡</div>
+          <span class="tag" style="font-size:9px;">Fieldwork</span>
+        </div>
+        <h4 style="margin-bottom:4px;">Draft Finding</h4>
+        <p style="font-size:12px;">Convert an observation into a structured finding: title, root cause, recommendation, severity.</p>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--p500);margin-top:8px;">POST /ai/draft-finding</div>
+      </div>
+
+      <div class="cell" style="background:var(--cool);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <div class="feat-icon">📊</div>
+          <span class="tag neutral" style="font-size:9px;">Fieldwork</span>
+        </div>
+        <h4 style="margin-bottom:4px;">Prioritize Findings</h4>
+        <p style="font-size:12px;">Risk-rank all open findings with rationale. Guides auditor attention to what matters most.</p>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--p500);margin-top:8px;">POST /ai/prioritize-findings</div>
+      </div>
+
+      <div class="cell" style="background:var(--cool);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <div class="feat-icon">🛠</div>
+          <span class="tag neutral" style="font-size:9px;">Fieldwork</span>
+        </div>
+        <h4 style="margin-bottom:4px;">Generate Remediation Plan</h4>
+        <p style="font-size:12px;">Drafts action items, owner suggestion, and timeline from finding context. AI-flagged in record.</p>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--p500);margin-top:8px;">POST /remediation-plans/ai-generate</div>
+      </div>
+
+      <div class="cell" style="background:var(--cool);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <div class="feat-icon">📄</div>
+          <span class="tag neutral" style="font-size:9px;">Reporting</span>
+        </div>
+        <h4 style="margin-bottom:4px;">Generate Audit Report</h4>
+        <p style="font-size:12px;">AI-writes executive summary, key observations, and overall risk rating from engagement data.</p>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--p500);margin-top:8px;">POST /saved-reports/generate</div>
+      </div>
+
+      <div style="border:1px solid var(--p100);background:var(--p25);padding:20px 22px;border-radius:2px;">
+        <div class="ey purple" style="margin-bottom:8px;">AI resilience strategy</div>
+        <p style="font-size:12px;line-height:1.7;">
+          <span style="font-weight:600;color:var(--p500);">OpenRouter</span> primary provider.<br/>
+          <span style="font-weight:600;color:var(--p500);">Ollama</span> local dev fallback.<br/>
+          <span style="font-weight:600;color:var(--ink);">503</span> returned on LLM failure.<br/>
+          Non-AI workflows always on.<br/>
+          All calls in try/except wrappers.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 4 — AUDIT WORKFLOW
+══════════════════════════════════════════════ -->
+<div class="sec" style="background:var(--audit);">
+  <div class="sec-inner no-border">
+    <div class="ey light" style="margin-bottom:8px;">Audit lifecycle · end-to-end workflow</div>
+    <h2 style="color:var(--paper);margin-bottom:32px;">From engagement kickoff to board report.</h2>
+
+    <!-- Workflow pipeline -->
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:32px;">
+      <div style="background:var(--p500);padding:20px 16px;">
+        <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.6);margin-bottom:8px;">01 · Plan</div>
+        <div style="font-size:13px;font-weight:600;color:var(--paper);margin-bottom:6px;">Engagement</div>
+        <p style="font-size:11px;color:rgba(255,255,255,0.65);line-height:1.5;">Create engagement, define scope, risk level, audit period.</p>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--p300);margin-top:8px;">AI: Risk Copilot</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);padding:20px 16px;border:1px solid rgba(255,255,255,0.08);">
+        <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.4);margin-bottom:8px;">02 · Request</div>
+        <div style="font-size:13px;font-weight:600;color:var(--paper);margin-bottom:6px;">Evidence Requests</div>
+        <p style="font-size:11px;color:rgba(255,255,255,0.5);line-height:1.5;">AI-drafted list sent to stakeholders. Version log tracks every update.</p>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--p300);margin-top:8px;">AI: Draft Evidence</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);padding:20px 16px;border:1px solid rgba(255,255,255,0.08);">
+        <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.4);margin-bottom:8px;">03 · Test</div>
+        <div style="font-size:13px;font-weight:600;color:var(--paper);margin-bottom:6px;">Control Testing</div>
+        <p style="font-size:11px;color:rgba(255,255,255,0.5);line-height:1.5;">Sample-based or automated tests. Pass/fail/exception per item. Reviewer sign-off.</p>
+        <div style="font-family:var(--mono);font-size:9px;color:rgba(255,255,255,0.25);margin-top:8px;">Manual</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);padding:20px 16px;border:1px solid rgba(255,255,255,0.08);">
+        <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.4);margin-bottom:8px;">04 · Detect</div>
+        <div style="font-size:13px;font-weight:600;color:var(--paper);margin-bottom:6px;">Anomaly Detection</div>
+        <p style="font-size:11px;color:rgba(255,255,255,0.5);line-height:1.5;">Bulk transaction ingest. Rule + statistical flags. Analyst review queue.</p>
+        <div style="font-family:var(--mono);font-size:9px;color:rgba(255,255,255,0.25);margin-top:8px;">Statistical + rules</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);padding:20px 16px;border:1px solid rgba(255,255,255,0.08);">
+        <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.4);margin-bottom:8px;">05 · Find</div>
+        <div style="font-size:13px;font-weight:600;color:var(--paper);margin-bottom:6px;">Findings</div>
+        <p style="font-size:11px;color:rgba(255,255,255,0.5);line-height:1.5;">AI-drafted from observations. Severity lifecycle: open → remediated → verified.</p>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--p300);margin-top:8px;">AI: Draft Finding</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);padding:20px 16px;border:1px solid rgba(255,255,255,0.08);">
+        <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.4);margin-bottom:8px;">06 · Fix</div>
+        <div style="font-size:13px;font-weight:600;color:var(--paper);margin-bottom:6px;">Remediation</div>
+        <p style="font-size:11px;color:rgba(255,255,255,0.5);line-height:1.5;">AI-generated action items. Owner assignment, due dates, progress %.</p>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--p300);margin-top:8px;">AI: Gen. Plan</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);padding:20px 16px;border:1px solid rgba(255,255,255,0.08);">
+        <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.4);margin-bottom:8px;">07 · Report</div>
+        <div style="font-size:13px;font-weight:600;color:var(--paper);margin-bottom:6px;">Saved Reports</div>
+        <p style="font-size:11px;color:rgba(255,255,255,0.5);line-height:1.5;">Template-based AI report. HTML export. Executive summary + risk rating.</p>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--p300);margin-top:8px;">AI: Gen. Report</div>
+      </div>
+    </div>
+
+    <!-- Supplementary capabilities -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.06);">
+      <div style="background:rgba(255,255,255,0.03);padding:20px 24px;">
+        <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.35);margin-bottom:8px;">Controls &amp; Frameworks</div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6;">SOX · ISO 27001 · NIST · PCI-DSS mapping. Gap analysis — requirements with no full-coverage control.</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);padding:20px 24px;">
+        <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.35);margin-bottom:8px;">Audit Signals</div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6;">ERP · IAM · cloud · ticketing signal ingestion. New → reviewed → escalated triage. Link to engagement or finding.</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);padding:20px 24px;">
+        <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.35);margin-bottom:8px;">Intelligence Layer</div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6;">Recurring control failures · owner responsiveness · cycle time benchmarks. Cross-engagement trends.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 5 — ENTITY & API OVERVIEW
+══════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-inner">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;">
+      <div>
+        <div class="ey purple">Data model · 16 entities · 135 endpoints</div>
+        <h2>Every audit object. Fully persisted.</h2>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;">
+      <div class="cell" style="background:var(--p25);border-color:var(--p100);">
+        <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:var(--p500);margin-bottom:10px;">Core</div>
+        <div style="display:flex;flex-direction:column;gap:5px;font-size:12px;">
+          <div style="font-weight:600;">AuditEngagement</div>
+          <div style="color:var(--ink3);">EvidenceRequest</div>
+          <div style="color:var(--ink3);">EvidenceVersionLog</div>
+          <div style="color:var(--ink3);">EvidenceFile</div>
+          <div style="color:var(--ink3);">Finding</div>
+        </div>
+      </div>
+      <div class="cell">
+        <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink4);margin-bottom:10px;">Controls</div>
+        <div style="display:flex;flex-direction:column;gap:5px;font-size:12px;">
+          <div style="font-weight:600;">Control</div>
+          <div style="color:var(--ink3);">FrameworkRequirement</div>
+          <div style="color:var(--ink3);">ControlMapping</div>
+          <div style="color:var(--ink3);">ControlTest</div>
+          <div style="color:var(--ink3);">ControlTestSample</div>
+        </div>
+      </div>
+      <div class="cell">
+        <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink4);margin-bottom:10px;">Ops</div>
+        <div style="display:flex;flex-direction:column;gap:5px;font-size:12px;">
+          <div style="font-weight:600;">RiskItem</div>
+          <div style="color:var(--ink3);">Workpaper</div>
+          <div style="color:var(--ink3);">RemediationPlan</div>
+          <div style="color:var(--ink3);">ReportTemplate</div>
+          <div style="color:var(--ink3);">SavedReport</div>
+        </div>
+      </div>
+      <div class="cell">
+        <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink4);margin-bottom:10px;">Intel</div>
+        <div style="display:flex;flex-direction:column;gap:5px;font-size:12px;">
+          <div style="font-weight:600;">AnomalyTransaction</div>
+          <div style="color:var(--ink3);">AnomalyFlag</div>
+          <div style="color:var(--ink3);">AuditSignal</div>
+          <div style="color:var(--ink3);">ActivityEvent</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- API surface -->
+    <div style="background:var(--ink);border-radius:2px;padding:20px 24px;">
+      <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.3);margin-bottom:12px;">REST API surface · /api/v1 · 135 endpoints</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <span class="tag dark" style="font-size:10px;">GET /dashboard/summary</span>
+        <span class="tag dark" style="font-size:10px;">GET|POST /engagements</span>
+        <span class="tag dark" style="font-size:10px;">GET|POST /evidence-requests</span>
+        <span class="tag dark" style="font-size:10px;">GET|POST /evidence-requests/{id}/version-log</span>
+        <span class="tag dark" style="font-size:10px;">POST /evidence-files/upload</span>
+        <span class="tag dark" style="font-size:10px;">GET|POST /findings</span>
+        <span class="tag dark" style="font-size:10px;">GET /controls/gap-analysis</span>
+        <span class="tag dark" style="font-size:10px;">GET|POST /control-mappings</span>
+        <span class="tag dark" style="font-size:10px;">GET|POST /risk-items</span>
+        <span class="tag dark" style="font-size:10px;">GET|POST /control-tests/{id}/samples</span>
+        <span class="tag dark" style="font-size:10px;">GET|POST /workpapers</span>
+        <span class="tag dark" style="font-size:10px;">POST /remediation-plans/ai-generate</span>
+        <span class="tag dark" style="font-size:10px;">POST /anomaly-transactions/bulk-ingest</span>
+        <span class="tag dark" style="font-size:10px;">PATCH /anomaly-flags/{id}</span>
+        <span class="tag dark" style="font-size:10px;">GET|POST /audit-signals</span>
+        <span class="tag dark" style="font-size:10px;">GET /audit-signals/stats/breakdown</span>
+        <span class="tag dark" style="font-size:10px;">GET /intelligence/summary</span>
+        <span class="tag dark" style="font-size:10px;">POST /saved-reports/generate</span>
+        <span class="tag dark" style="font-size:10px;">GET /saved-reports/{id}/export</span>
+        <span class="tag dark" style="font-size:10px;">POST /ai/draft-evidence</span>
+        <span class="tag dark" style="font-size:10px;">POST /ai/risk-copilot</span>
+        <span class="tag dark" style="font-size:10px;">POST /ai/draft-finding</span>
+        <span class="tag dark" style="font-size:10px;">POST /ai/prioritize-findings</span>
+        <span class="tag dark" style="font-size:10px;">POST /ai/generate-remediation-plan</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 6 — TECH STACK + ARCHITECTURE
+══════════════════════════════════════════════ -->
+<div class="sec" style="background:var(--cool);">
+  <div class="sec-inner">
+    <div class="ey purple" style="margin-bottom:8px;">Technology stack · Architecture lock</div>
+    <h2 style="margin-bottom:28px;">Every layer, specified.</h2>
+
+    <div class="g4" style="gap:14px;margin-bottom:20px;">
+      <div class="cell" style="background:var(--p25);border-color:var(--p100);">
+        <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.12em;color:var(--p500);margin-bottom:10px;">Frontend · Port 3037</div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div style="font-size:12px;font-weight:600;">Next.js 14 App Router</div>
+          <div style="font-size:11px;color:var(--ink3);">Tailwind CSS</div>
+          <div style="font-size:11px;color:var(--ink3);">shadcn/ui components</div>
+          <div style="font-size:11px;color:var(--ink3);">AICopilotSidebar</div>
+          <div style="font-size:11px;color:var(--ink3);">TypeScript · strict mode</div>
+          <div style="font-size:11px;color:var(--ink3);">node:20-alpine Docker</div>
+        </div>
+      </div>
+      <div class="cell" style="background:var(--p25);border-color:var(--p100);">
+        <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.12em;color:var(--p500);margin-bottom:10px;">Backend · Port 8037</div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div style="font-size:12px;font-weight:600;">FastAPI · Python 3.11</div>
+          <div style="font-size:11px;color:var(--ink3);">SQLAlchemy 2.0 async</div>
+          <div style="font-size:11px;color:var(--ink3);">Pydantic v2 · ConfigDict</div>
+          <div style="font-size:11px;color:var(--ink3);">14 route modules</div>
+          <div style="font-size:11px;color:var(--ink3);">Alembic migrations</div>
+          <div style="font-size:11px;color:var(--ink3);">python:3.11-slim · non-root</div>
+        </div>
+      </div>
+      <div class="cell">
+        <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink4);margin-bottom:10px;">AI &amp; Storage</div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div style="font-size:12px;font-weight:600;">ai_service.py gateway</div>
+          <div style="font-size:11px;color:var(--ink3);">OpenRouter (primary)</div>
+          <div style="font-size:11px;color:var(--ink3);">Ollama (local fallback)</div>
+          <div style="font-size:11px;color:var(--ink3);">MinIO evidence files</div>
+          <div style="font-size:11px;color:var(--ink3);">Redis 7 (rate limit / cache)</div>
+          <div style="font-size:11px;color:var(--ink3);">PostgreSQL 16</div>
+        </div>
+      </div>
+      <div class="cell">
+        <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink4);margin-bottom:10px;">Deploy</div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div style="font-size:12px;font-weight:600;">Docker Compose</div>
+          <div style="font-size:11px;color:var(--ink3);">5 services (see ports)</div>
+          <div style="font-size:11px;color:var(--ink3);">Helm chart in helm/</div>
+          <div style="font-size:11px;color:var(--ink3);">CloudNativePG operator</div>
+          <div style="font-size:11px;color:var(--ink3);">Logto JWT auth</div>
+          <div style="font-size:11px;color:var(--ink3);">K8s namespace-isolated</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ports strip -->
+    <div style="background:var(--ink);border-radius:2px;padding:16px 24px;display:flex;gap:32px;align-items:center;">
+      <span style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.3);">Service Ports →</span>
+      <span class="tag dark" style="font-size:10px;">Frontend :3037</span>
+      <span class="tag dark" style="font-size:10px;">Backend :8037</span>
+      <span class="tag dark" style="font-size:10px;">PostgreSQL :5435</span>
+      <span class="tag dark" style="font-size:10px;">Redis :6379</span>
+      <span class="tag dark" style="font-size:10px;">MinIO API :9000</span>
+      <span class="tag dark" style="font-size:10px;">MinIO Console :9001</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 7 — DESIGN SYSTEM
+══════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-inner">
+    <div class="row" style="gap:56px;align-items:flex-start;">
+      <div style="flex:0 0 360px;">
+        <div class="ey purple">Design system · One Convergence Vol. 01</div>
+        <h2 style="font-size:32px;margin-bottom:16px;">Dark slate on white.<br/>Editorial restraint.</h2>
+        <p style="margin-bottom:20px;">
+          DClaw Audit implements OC design tokens with a governance colour palette:
+          dark `#1F2937` as the identity colour, OC purple `#7030A0` for AI and action,
+          Manrope 800 for headlines, Inter for body, JetBrains Mono for labels and code.
+          Sharp 2px corners, 1px rules, no decorative shadows.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;gap:0;">
+            <div style="width:48px;height:48px;background:#1F2937;"></div>
+            <div style="width:48px;height:48px;background:#374151;"></div>
+            <div style="width:48px;height:48px;background:#6B7280;"></div>
+            <div style="width:48px;height:48px;background:#7030A0;"></div>
+            <div style="width:48px;height:48px;background:#B180F8;"></div>
+            <div style="width:48px;height:48px;background:#18A957;"></div>
+            <div style="width:48px;height:48px;background:#C2240C;"></div>
+            <div style="width:48px;height:48px;background:#FFFFFF;border:1px solid #E5E5E5;"></div>
+          </div>
+          <div style="display:flex;gap:0;">
+            <div style="font-family:var(--mono);font-size:8px;color:var(--ink4);width:48px;text-align:center;padding-top:3px;">Audit</div>
+            <div style="font-family:var(--mono);font-size:8px;color:var(--ink4);width:48px;text-align:center;padding-top:3px;">Audit2</div>
+            <div style="font-family:var(--mono);font-size:8px;color:var(--ink4);width:48px;text-align:center;padding-top:3px;">Audit3</div>
+            <div style="font-family:var(--mono);font-size:8px;color:var(--ink4);width:48px;text-align:center;padding-top:3px;">P500</div>
+            <div style="font-family:var(--mono);font-size:8px;color:var(--ink4);width:48px;text-align:center;padding-top:3px;">P300</div>
+            <div style="font-family:var(--mono);font-size:8px;color:var(--ink4);width:48px;text-align:center;padding-top:3px;">Ok</div>
+            <div style="font-family:var(--mono);font-size:8px;color:var(--ink4);width:48px;text-align:center;padding-top:3px;">Err</div>
+            <div style="font-family:var(--mono);font-size:8px;color:var(--ink4);width:48px;text-align:center;padding-top:3px;">Paper</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="flex:1;display:flex;flex-direction:column;gap:20px;">
+        <!-- Type scale -->
+        <div>
+          <hr class="ink-rule" style="margin-bottom:12px;"/>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--rule);">
+              <span style="font-family:var(--display);font-size:36px;font-weight:800;letter-spacing:-0.04em;line-height:1;">Display / H1</span>
+              <span class="mono" style="font-size:10px;color:var(--ink4);">Manrope 800 · 36–80px · −0.04em</span>
+            </div>
+            <div style="display:flex;align-items:baseline;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--rule);">
+              <span style="font-family:var(--display);font-size:24px;font-weight:700;letter-spacing:-0.03em;">Heading H2</span>
+              <span class="mono" style="font-size:10px;color:var(--ink4);">Manrope 700 · 24–40px · −0.03em</span>
+            </div>
+            <div style="display:flex;align-items:baseline;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--rule);">
+              <span style="font-family:var(--sans);font-size:17px;font-weight:400;line-height:1.55;">Body text — precise, audit-grade, no ambiguity.</span>
+              <span class="mono" style="font-size:10px;color:var(--ink4);">Inter 400 · 14–17px</span>
+            </div>
+            <div style="display:flex;align-items:baseline;justify-content:space-between;padding:8px 0;">
+              <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink4);">EYEBROW · LABEL · METADATA · ENDPOINT</span>
+              <span class="mono" style="font-size:10px;color:var(--ink4);">JetBrains Mono · 9–11px · uppercase</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Status badge system -->
+        <div>
+          <div class="ey" style="margin-bottom:10px;">Status badge system</div>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px;">
+            <span class="tag neutral">planned</span>
+            <span class="tag info">in_progress</span>
+            <span class="tag warn">reporting</span>
+            <span class="tag ok">completed</span>
+            <span style="width:1px;height:20px;background:var(--rule);"></span>
+            <span class="tag neutral" style="background:#F3F4F6;color:#374151;border-color:#D1D5DB;">low</span>
+            <span class="tag warn">medium</span>
+            <span class="tag" style="background:#FFF7ED;color:#C2410C;border-color:#FED7AA;">high</span>
+            <span class="tag err">critical</span>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+            <span class="tag err">flagged</span>
+            <span class="tag info">reviewed</span>
+            <span class="tag ok">cleared</span>
+            <span class="tag" style="background:var(--p50);color:var(--p500);border-color:var(--p100);">escalated</span>
+            <span style="width:1px;height:20px;background:var(--rule);"></span>
+            <span class="tag ok">pass</span>
+            <span class="tag err">fail</span>
+            <span class="tag warn">exception</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 8 — FOOTER
+══════════════════════════════════════════════ -->
+<div style="background:var(--audit);width:1200px;padding:0 64px;">
+  <div style="padding:40px 0;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,0.08);">
+    <div style="display:flex;align-items:center;gap:16px;">
+      <svg width="32" height="32" viewBox="0 0 64 64" fill="none">
+        <polygon points="32,4 60,20 60,44 32,60 4,44 4,20" fill="#6E55A4"/>
+        <polygon points="32,4 60,20 32,36 4,20" fill="#9783C0"/>
+        <polygon points="4,20 32,36 32,60 4,44" fill="#D5D5D5" opacity="0.6"/>
+      </svg>
+      <div>
+        <div style="font-family:var(--display);font-size:15px;font-weight:700;color:var(--paper);">DClaw Audit</div>
+        <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.35);margin-top:2px;">DKube — an MLOps platform by One Convergence</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:40px;">
+      <div style="text-align:center;">
+        <div style="font-family:var(--display);font-size:28px;font-weight:800;color:var(--p300);letter-spacing:-0.04em;">135</div>
+        <div style="font-family:var(--mono);font-size:9px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.08em;margin-top:2px;">Endpoints</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:var(--display);font-size:28px;font-weight:800;color:var(--p300);letter-spacing:-0.04em;">16</div>
+        <div style="font-family:var(--mono);font-size:9px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.08em;margin-top:2px;">Entities</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:var(--display);font-size:28px;font-weight:800;color:var(--p300);letter-spacing:-0.04em;">7</div>
+        <div style="font-family:var(--mono);font-size:9px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.08em;margin-top:2px;">AI Features</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:var(--display);font-size:28px;font-weight:800;color:var(--p300);letter-spacing:-0.04em;">11</div>
+        <div style="font-family:var(--mono);font-size:9px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.08em;margin-top:2px;">Pages</div>
+      </div>
+    </div>
+
+    <div style="text-align:right;">
+      <div style="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,0.4);">localhost:3037</div>
+      <div style="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,0.25);margin-top:3px;">© 2026 One Convergence · Confidential</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

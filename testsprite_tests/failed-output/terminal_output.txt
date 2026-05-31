@@ -1,0 +1,33 @@
+
+⢰⡾⢶⣤⡀⠀⠀⣀⣴⠾⢶⡂⠀⠀⢠⣤⣤⣤⣤⣤⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⢀⣠⣤⣤⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣤⠀⢀⡀⠀⠀⠀⠀⠀⠀
+⢽⡃⠀⢈⣛⡷⣾⣙⠁⠀⢼⡏⠀⠀⠈⠈⢸⡿⠁⢡⣵⢴⣤⡄⢀⡴⠴⣤⡄⣦⣿⣷⡄⢾⣏⣀⡈⠛⠣⣦⣄⣴⣴⣤⡀⣴⣄⣤⡦⣰⡵⢰⣽⣿⡄⢀⣴⡴⣤⡄
+⢹⣇⣶⠟⠋⠁⠈⠛⠷⢆⣘⠃⠀⠀⠀⠀⢽⡇⢠⣿⢦⢦⠾⡗⠹⢿⣶⣬⡁⢨⣿⠀⠀⡈⠙⠛⠻⣿⡄⣺⡏⠀⠀⢽⡇⢸⣿⠀⠀⣻⡇⠀⣿⠅⢠⣿⢧⠦⡾⠿
+⠀⠉⠲⢶⣤⣀⣄⣴⠾⠛⠁⠀⠀⠀⠀⠠⢿⠃⠈⠿⡦⡦⠶⠂⠷⡦⡦⠿⠁⠼⢷⢴⠘⠿⡶⡴⡴⠟⠀⣾⡿⢦⠾⠟⠁⢸⠟⠀⠀⡿⠃⠐⡿⢵⠈⠿⡦⡦⠶⠃
+⠀⠀⠀⠀⠈⠉⠉⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢐⣿⠀⠀⠀⠀⠀⠀⠀⠀
+
+Starting test execution...
+[2026-05-28T07:26:26.576Z] [ERROR] Failed to generate and execute tests: Error: Backend error: 403 - {"statusCode":403,"message":"You don't have enought credits. Visit [REDACTED]testsprite/testsprite-mcp/dist/index.js:71265:19)
+    at TestSpriteAPIClient.postJSON (file:///home/chandraja/.npm/_npx/8ddf6bea01b2519d/node_modules/@testsprite/testsprite-mcp/dist/index.js:71282:24)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async TestSpriteAPIClient.runFrontendTest (file:///home/chandraja/.npm/_npx/8ddf6bea01b2519d/node_modules/@testsprite/testsprite-mcp/dist/index.js:71427:26)
+    at async _generateCodeAndExecute (file:///home/chandraja/.npm/_npx/8ddf6bea01b2519d/node_modules/@testsprite/testsprite-mcp/dist/index.js:144659:31)
+    at async file:///home/chandraja/.npm/_npx/8ddf6bea01b2519d/node_modules/@testsprite/testsprite-mcp/dist/index.js:144079:24
+    at async Command.<anonymous> (file:///home/chandraja/.npm/_npx/8ddf6bea01b2519d/node_modules/@testsprite/testsprite-mcp/dist/index.js:149389:9)
+    at async Command.parseAsync (file:///home/chandraja/.npm/_npx/8ddf6bea01b2519d/node_modules/@testsprite/testsprite-mcp/dist/index.js:147649:6)
+    at async main (file:///home/chandraja/.npm/_npx/8ddf6bea01b2519d/node_modules/@testsprite/testsprite-mcp/dist/index.js:149617:9)
+[31mTest execution failed:[0m Error: Failed to generate and execute tests: Error: Backend error: 403 - {"statusCode":403,"message":"You don't have enought credits. Visit https://www.testsprite.com/dashboard/settings/billing for more information."}
+    at TestSpriteAPIClient.handleError (file:///home/chandraja/.npm/_npx/8ddf6bea01b2519d/node_modules/@testsprite/testsprite-mcp/dist/index.js:71265:19)
+    at TestSpriteAPIClient.postJSON (file:///home/chandraja/.npm/_npx/8ddf6bea01b2519d/node_modules/@testsprite/testsprite-mcp/dist/index.js:71282:24)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async TestSpriteAPIClient.runFrontendTest (file:///home/chandraja/.npm/_npx/8ddf6bea01b2519d/node_modules/@testsprite/testsprite-mcp/dist/index.js:71427:26)
+    at async _generateCodeAndExecute (file:///home/chandraja/.npm/_npx/8ddf6bea01b2519d/node_modules/@testsprite/testsprite-mcp/dist/index.js:144659:31)
+    at async file:///home/chandraja/.npm/_npx/8ddf6bea01b2519d/node_modules/@testsprite/testsprite-mcp/dist/index.js:144079:24
+    at async Command.<anonymous> (file:///home/chandraja/.npm/_npx/8ddf6bea01b2519d/node_modules/@testsprite/testsprite-mcp/dist/index.js:149389:9)
+    at async Command.parseAsync (file:///home/chandraja/.npm/_npx/8ddf6bea01b2519d/node_modules/@testsprite/testsprite-mcp/dist/index.js:147649:6)
+    at async main (file:///home/chandraja/.npm/_npx/8ddf6bea01b2519d/node_modules/@testsprite/testsprite-mcp/dist/index.js:149617:9)
+    at _generateCodeAndExecute (file:///home/chandraja/.npm/_npx/8ddf6bea01b2519d/node_modules/@testsprite/testsprite-mcp/dist/index.js:144836:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async file:///home/chandraja/.npm/_npx/8ddf6bea01b2519d/node_modules/@testsprite/testsprite-mcp/dist/index.js:144079:24
+    at async Command.<anonymous> (file:///home/chandraja/.npm/_npx/8ddf6bea01b2519d/node_modules/@testsprite/testsprite-mcp/dist/index.js:149389:9)
+    at async Command.parseAsync (file:///home/chandraja/.npm/_npx/8ddf6bea01b2519d/node_modules/@testsprite/testsprite-mcp/dist/index.js:147649:6)
+    at async main (file:///home/chandraja/.npm/_npx/8ddf6bea01b2519d/node_modules/@testsprite/testsprite-mcp/dist/index.js:149617:9)
