@@ -1093,6 +1093,190 @@ function Advanced() {
   );
 }
 
+// ── Roadmap ───────────────────────────────────────────────────────────────────
+
+const ROADMAP_LIVE = [
+  "Audit engagement lifecycle — planned → in progress → reporting → completed",
+  "Evidence requests with version log, owners, due dates, and file upload",
+  "Finding management — severity, root cause, recommendation, and owner assignment",
+  "Control library with SOX, ISO 27001, NIST CSF, and PCI-DSS framework mapping",
+  "Gap analysis — uncovered framework requirements flagged instantly",
+  "Risk register — likelihood × impact scoring with residual risk tracking",
+  "Control testing — sample-level pass / fail / exception with reviewer sign-off",
+  "Workpaper management — draft → in-review → approved lifecycle",
+  "Remediation plans — manual and AI-generated with progress tracking",
+  "Anomaly detection — bulk ingest with rule-based and statistical flags",
+  "Audit signals — ERP, IAM, cloud, and ticketing system triage",
+  "Intelligence layer — recurring failures, owner responsiveness, cycle time",
+  "Report builder — AI-generated sections and board-ready HTML export",
+  "AI Copilot — 7 AI features accessible from every page",
+  "Activity feed — full audit trail across all entity mutations",
+];
+
+const ROADMAP_NEXT = [
+  "JWT authentication enforced by default with cryptographic signature verification",
+  "Rate limiting on all endpoints to guard against brute-force and agent storms",
+  "Sentry crash visibility and structlog JSON structured logging",
+  "API client request timeouts and explicit CORS origin restriction",
+  "Frontend test suite — vitest and React Testing Library",
+  "Evidence file upload fully wired to MinIO object storage end-to-end",
+  "Product analytics integration for feature adoption telemetry",
+  "DPanel manifest for DClaw platform registration",
+  "Accessibility improvements across all interactive surfaces",
+  "Continuous auditing — real-time control deviation monitoring and alerts",
+  "Fraud detection — pattern-based investigation workflow with evidence preservation",
+  "Bank and ERP connector — streaming ingestion via Temporal.io",
+  "Cross-tenant benchmarking of anonymised control failure patterns",
+];
+
+function Roadmap() {
+  return (
+    <section className="bg-white py-24 px-6">
+      <div className="mx-auto max-w-7xl">
+        <FadeUp className="mx-auto mb-16 max-w-2xl text-center">
+          <span
+            className="rounded-full bg-[#f3e8ff] px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-[#7030A0]"
+            style={{ fontFamily: "'Poppins', sans-serif" }}
+          >
+            What&apos;s shipping
+          </span>
+          <h2
+            className="mt-6 mb-4 text-5xl font-black md:text-6xl"
+            style={{ fontFamily: "'Raleway', sans-serif" }}
+          >
+            Roadmap
+          </h2>
+          <p
+            className="text-lg text-[#5A5A5A]"
+            style={{ fontFamily: "'Poppins', sans-serif" }}
+          >
+            What&apos;s live today and what&apos;s shipping next — tracked in{" "}
+            <span
+              className="font-semibold text-[#7030A0]"
+              style={{ fontFamily: "'JetBrains Mono', monospace" }}
+            >
+              PLAN-v1.4
+            </span>
+            .
+          </p>
+        </FadeUp>
+
+        <div className="grid gap-8 lg:grid-cols-2">
+          {/* ── Live ── */}
+          <FadeUp delay={0}>
+            <div className="flex h-full flex-col rounded-2xl border border-[#ece6f5] bg-white p-8">
+              {/* Phase badge */}
+              <div className="mb-6 flex items-center gap-2.5">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-60" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500" />
+                </span>
+                <span
+                  className="rounded-full bg-green-50 px-3 py-0.5 text-xs font-bold text-green-700"
+                  style={{ fontFamily: "'Poppins', sans-serif" }}
+                >
+                  Live
+                </span>
+              </div>
+
+              <h3
+                className="mb-1 text-2xl font-black text-[#222222]"
+                style={{ fontFamily: "'Raleway', sans-serif" }}
+              >
+                Shipped &amp; running
+              </h3>
+              <p
+                className="mb-6 text-sm text-[#8A8A8A]"
+                style={{ fontFamily: "'Poppins', sans-serif" }}
+              >
+                Everything available in{" "}
+                <span style={{ fontFamily: "'JetBrains Mono', monospace" }}>v1.3</span>{" "}
+                today.
+              </p>
+
+              <ul className="space-y-3">
+                {ROADMAP_LIVE.map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#7030A0]" />
+                    <span
+                      className="text-sm leading-relaxed text-[#444444]"
+                      style={{ fontFamily: "'Poppins', sans-serif" }}
+                    >
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </FadeUp>
+
+          {/* ── Next ── */}
+          <FadeUp delay={120}>
+            <div className="flex h-full flex-col rounded-2xl border border-[#ece6f5] bg-white p-8">
+              {/* Phase badge */}
+              <div className="mb-6 flex items-center gap-2.5">
+                <span
+                  className="rounded-full bg-[#f3e8ff] px-3 py-0.5 text-xs font-bold text-[#7030A0]"
+                  style={{ fontFamily: "'Poppins', sans-serif" }}
+                >
+                  Next
+                </span>
+              </div>
+
+              <h3
+                className="mb-1 text-2xl font-black text-[#222222]"
+                style={{ fontFamily: "'Raleway', sans-serif" }}
+              >
+                Up next
+              </h3>
+              <p
+                className="mb-6 text-sm text-[#8A8A8A]"
+                style={{ fontFamily: "'Poppins', sans-serif" }}
+              >
+                Security hardening, reliability, and agentic capabilities.
+              </p>
+
+              <ul className="space-y-3">
+                {ROADMAP_NEXT.map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-[#B180F8]" />
+                    <span
+                      className="text-sm leading-relaxed text-[#444444]"
+                      style={{ fontFamily: "'Poppins', sans-serif" }}
+                    >
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-8 rounded-xl border border-[#ece6f5] bg-[#faf6ff] px-5 py-4">
+                <p
+                  className="text-xs leading-relaxed text-[#777777]"
+                  style={{ fontFamily: "'Poppins', sans-serif" }}
+                >
+                  Full breakdown of priorities, sprint plan, and implementation
+                  order in{" "}
+                  <a
+                    href={GITHUB_URL + "/blob/main/PLAN-v1.4.md"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-[#7030A0] hover:underline"
+                    style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                  >
+                    PLAN-v1.4.md
+                  </a>
+                  .
+                </p>
+              </div>
+            </div>
+          </FadeUp>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ── CTA ───────────────────────────────────────────────────────────────────────
 
 function CTA() {
@@ -1322,6 +1506,7 @@ export default function LandingPage() {
         <Frameworks />
         <Advanced />
         <CTA />
+        <Roadmap />
         <Footer />
       </div>
     </>
