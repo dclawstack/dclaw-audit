@@ -1,16 +1,201 @@
 {
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/.mcp.json": {
+    "mtime": 1780132814.2393777,
+    "ast_hash": "ccfc931795953fde96310510131248c8",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/next-env.d.ts": {
+    "mtime": 1779332836.2434142,
+    "ast_hash": "b5ed9dd8b4c5ba8e5ab8e6a379c15838",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/package.json": {
+    "mtime": 1779515792.351195,
+    "ast_hash": "ece9a1b359a38a7f30f1c522d45d78b9",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/tsconfig.json": {
+    "mtime": 1779332836.244414,
+    "ast_hash": "3bd7a3770c6b44dbcaab1d2f175db8bd",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/postcss.config.mjs": {
+    "mtime": 1779332836.2434142,
+    "ast_hash": "fe13e972825095c90d22b2112d757993",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/tailwind.config.ts": {
+    "mtime": 1780145328.800203,
+    "ast_hash": "4048050b9e358945a8ee2a476a7bd9ca",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/next.config.js": {
+    "mtime": 1780150860.3391619,
+    "ast_hash": "ddc8edad598ca53f582b0ca7cf8e628e",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/.vercel/project.json": {
+    "mtime": 1779334684.3358288,
+    "ast_hash": "6b6fec543ebdeaf9c0accc14a124e8ae",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/public/dclaw-manifest.json": {
+    "mtime": 1780150869.7110562,
+    "ast_hash": "b5cc918344fa6bc1a9c461c8429f5bc1",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/app/page.tsx": {
+    "mtime": 1780248608.2935522,
+    "ast_hash": "fc96a63c5bd64036d5409232840abddc",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/app/layout.tsx": {
+    "mtime": 1780145363.9196846,
+    "ast_hash": "cf2ae88702a4baa600c5af524bdec92d",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/app/risk/page.tsx": {
+    "mtime": 1779942196.0830576,
+    "ast_hash": "4061447700bb96abb6768676242d0104",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/app/anomalies/page.tsx": {
+    "mtime": 1779942196.0930579,
+    "ast_hash": "68a2fc001aa2eeb0a88eb40f1747392a",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/app/reports/page.tsx": {
+    "mtime": 1780144506.855752,
+    "ast_hash": "521b9773794f90d069b470356780c8d2",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/app/signals/page.tsx": {
+    "mtime": 1779942196.097058,
+    "ast_hash": "b6d5d9f4fb794130fe029ab7eb3c08f3",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/app/controls/page.tsx": {
+    "mtime": 1779332836.2434142,
+    "ast_hash": "2ce657c14c8f5d8ced7f23642b22eda2",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/app/remediation/page.tsx": {
+    "mtime": 1780147060.5417433,
+    "ast_hash": "28ec2544e03aed74094658dd701de2a5",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/app/testing/page.tsx": {
+    "mtime": 1779942196.0880578,
+    "ast_hash": "da6603139171dff4307b0fc5e51bd590",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/app/intelligence/page.tsx": {
+    "mtime": 1779942196.100058,
+    "ast_hash": "b74bedd7fbf84c6bcb69adf71dca07b1",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/app/dashboard/page.tsx": {
+    "mtime": 1780144464.770435,
+    "ast_hash": "e795cfcb6197838da50697732d24bed3",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/app/workpapers/page.tsx": {
+    "mtime": 1780147044.5037246,
+    "ast_hash": "6ba2a71bed2a9c325d701162185b1da8",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/lib/utils.ts": {
+    "mtime": 1779332836.244414,
+    "ast_hash": "ea1c194ee828369e6fcdde84b4d8b8ba",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/lib/api.ts": {
+    "mtime": 1780144419.879127,
+    "ast_hash": "cf226b7132e225580b94c28fe79eabc8",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/components/DemoControls.tsx": {
+    "mtime": 1780144424.5721579,
+    "ast_hash": "334f6e3315e8fd50495298785a83515d",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/components/AICopilotSidebar.tsx": {
+    "mtime": 1780145715.9316604,
+    "ast_hash": "f39e98467487a7f0ccbe443069b34444",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/components/ui/label.tsx": {
+    "mtime": 1779332836.244414,
+    "ast_hash": "874216b95b72f23579a562f78955a276",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/components/ui/avatar.tsx": {
+    "mtime": 1779332836.244414,
+    "ast_hash": "cd70cb254ea891a7d55c64a2304a8196",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/components/ui/card.tsx": {
+    "mtime": 1779332836.244414,
+    "ast_hash": "7e91edc9bf303578c1e7bcdde9366134",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/components/ui/button.tsx": {
+    "mtime": 1780145352.4095266,
+    "ast_hash": "5f453a013bd5a5ca86bdb04c635ae389",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/components/ui/select.tsx": {
+    "mtime": 1779332836.244414,
+    "ast_hash": "e47ac9814247139df2ab1d7d233fa453",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/components/ui/table.tsx": {
+    "mtime": 1779332836.244414,
+    "ast_hash": "0d12893a077e8a94c0b4ec6b8d16e1dc",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/components/ui/badge.tsx": {
+    "mtime": 1779332836.244414,
+    "ast_hash": "b23999a2d3f73b74d46c949dfa469552",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/components/ui/tabs.tsx": {
+    "mtime": 1779332836.244414,
+    "ast_hash": "904ddb012cdbed3d5fedf566bfd08908",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/components/ui/dialog.tsx": {
+    "mtime": 1779332836.244414,
+    "ast_hash": "6394d8caae9db6ca79e465921a839982",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/src/components/ui/input.tsx": {
+    "mtime": 1779332836.244414,
+    "ast_hash": "20c7d814efed7c1cb30937a9bcca5089",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/testforge/tier2.json": {
+    "mtime": 1780231810.570858,
+    "ast_hash": "011ebf54a222c7123819c65135b66780",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/testforge/testforge-dclaw-audit.json": {
+    "mtime": 1780231715.6479669,
+    "ast_hash": "77dc6e9af4028aebbb41bd027ba7a107",
+    "semantic_hash": ""
+  },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/tests/__init__.py": {
     "mtime": 1778922865.58786,
     "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
     "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/tests/test_audit.py": {
-    "mtime": 1778926433.0267253,
-    "ast_hash": "e3e33dbccb0d82c8e60330ae0cce7c63",
+    "mtime": 1779332836.1074154,
+    "ast_hash": "864258436aaf7cd85af1957cd9246b65",
     "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/tests/conftest.py": {
-    "mtime": 1778924061.6588552,
+    "mtime": 1779332836.1074154,
     "ast_hash": "af292b64ea9a0bcc77e09e810e9c1ef3",
     "semantic_hash": "af292b64ea9a0bcc77e09e810e9c1ef3"
   },
@@ -30,9 +215,9 @@
     "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/api/main.py": {
-    "mtime": 1778924055.0717661,
-    "ast_hash": "87c027feedfe1401ed0278ddd4ba82d4",
-    "semantic_hash": "87c027feedfe1401ed0278ddd4ba82d4"
+    "mtime": 1780125901.2518907,
+    "ast_hash": "6d7ed4ed28ef0f51e615b6f05199fcf0",
+    "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/api/routes/__init__.py": {
     "mtime": 1778922865.5868602,
@@ -45,13 +230,68 @@
     "semantic_hash": "51f50cb90a70efb0f8cd954397c68f10"
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/api/v1/__init__.py": {
-    "mtime": 1778924049.8246953,
+    "mtime": 1779332836.1064153,
     "ast_hash": "211f68716625b35c49e164c2610c5137",
     "semantic_hash": "211f68716625b35c49e164c2610c5137"
   },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/api/v1/testing.py": {
+    "mtime": 1779939726.045235,
+    "ast_hash": "4f508ddb8e0c3e39fbe892f51bcbb698",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/api/v1/risk.py": {
+    "mtime": 1779939692.2228637,
+    "ast_hash": "21a66da815650d5673e29794ed8a3399",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/api/v1/report.py": {
+    "mtime": 1780125884.6276355,
+    "ast_hash": "e471c44263a2a0976fc18218f35a1df0",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/api/v1/signals.py": {
+    "mtime": 1779939736.5263503,
+    "ast_hash": "897003f157c478e61aa8d000b595a055",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/api/v1/workpapers.py": {
+    "mtime": 1780125884.6276355,
+    "ast_hash": "b2bb08c48f8bb1a7bd7f589cafa00774",
+    "semantic_hash": ""
+  },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/api/v1/audit.py": {
-    "mtime": 1778926255.6211257,
-    "ast_hash": "46281e66ae8ac320cc1219ac3a9dbe72",
+    "mtime": 1780125884.6276355,
+    "ast_hash": "6d204fe118df34010d25d6aa61f5af50",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/api/v1/activity.py": {
+    "mtime": 1779939697.8819258,
+    "ast_hash": "ba7fdf353da93e82389838a7960f9919",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/api/v1/intelligence.py": {
+    "mtime": 1779940469.4724953,
+    "ast_hash": "1641bbd66511877c12a0bdece7e43445",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/api/v1/anomalies.py": {
+    "mtime": 1779939713.3440955,
+    "ast_hash": "ff2867bfde7fd2780ac6baab6b8ff04c",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/api/v1/ai.py": {
+    "mtime": 1780125884.6276355,
+    "ast_hash": "dbd783cefc24570e1d6e7f4642dc4474",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/api/v1/remediation.py": {
+    "mtime": 1780125884.6276355,
+    "ast_hash": "ef81ae6c2b3d4642fabc7b4e5495c2fb",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/api/v1/demo.py": {
+    "mtime": 1780125884.6116352,
+    "ast_hash": "26f4c584e0cb004867dafec7bf8b039a",
     "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/core/__init__.py": {
@@ -65,9 +305,14 @@
     "semantic_hash": "a55a40e371b173ab887ebf5e27546850"
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/core/config.py": {
-    "mtime": 1778924059.1988218,
-    "ast_hash": "08be2461d7990655099e63d8774b4b56",
-    "semantic_hash": "08be2461d7990655099e63d8774b4b56"
+    "mtime": 1780125908.064997,
+    "ast_hash": "e67b9b6519b2f72dd2a45790d8a465ff",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/core/auth.py": {
+    "mtime": 1780125884.6276355,
+    "ast_hash": "7c7f2f862b083896cb35c83d53958fc2",
+    "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/core/utils.py": {
     "mtime": 1778922865.5868602,
@@ -79,14 +324,59 @@
     "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
     "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
   },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/services/ai_service.py": {
+    "mtime": 1780125884.6286354,
+    "ast_hash": "a270b13ed2fa21cd46b5c6fc3e934a72",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/services/demo.py": {
+    "mtime": 1780125884.6126354,
+    "ast_hash": "c83043774182052fca704f90df49e5d5",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/models/audit_signal.py": {
+    "mtime": 1779939563.9394665,
+    "ast_hash": "c2c7567f4fcac99fcc2a89ba2d7b1699",
+    "semantic_hash": ""
+  },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/models/__init__.py": {
-    "mtime": 1778926212.0240498,
-    "ast_hash": "233bf020505adfc78d5f24de08dfe530",
+    "mtime": 1780125884.6276355,
+    "ast_hash": "14976bdaf3bd6a4d6a28393564c5be5d",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/models/activity_event.py": {
+    "mtime": 1779939529.2100916,
+    "ast_hash": "f33164133863d8d7048a556b43141669",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/models/workpaper.py": {
+    "mtime": 1780125884.6286354,
+    "ast_hash": "0ac588497536807aa85e01925e0326aa",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/models/control_mapping.py": {
+    "mtime": 1779332836.1074154,
+    "ast_hash": "def713328e354dda847717abae6f864e",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/models/control.py": {
+    "mtime": 1779332836.1074154,
+    "ast_hash": "ebac30548e26e83a38184c50256178af",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/models/report.py": {
+    "mtime": 1779332836.1074154,
+    "ast_hash": "7cf43e244e0b7189e48d188741111540",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/models/remediation_plan.py": {
+    "mtime": 1780125884.6286354,
+    "ast_hash": "2bebac09ee4bc2c271f21a99e2b63bc0",
     "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/models/audit_engagement.py": {
-    "mtime": 1778926207.2821453,
-    "ast_hash": "a430adaa71ee2acb84a3e60e0577bcfb",
+    "mtime": 1779939583.6916804,
+    "ast_hash": "211371be4947c92258905b204d564cc7",
     "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/models/base.py": {
@@ -94,14 +384,44 @@
     "ast_hash": "6fbdbd7a1b1fbb8a6ce2ecf6f38450ff",
     "semantic_hash": "6fbdbd7a1b1fbb8a6ce2ecf6f38450ff"
   },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/models/control_test.py": {
+    "mtime": 1779939554.554365,
+    "ast_hash": "d6d7b68cc700be263f34f78d6dffb603",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/models/evidence_file.py": {
+    "mtime": 1780125884.6276355,
+    "ast_hash": "fd39584d642d842de05145ed5d92ddc7",
+    "semantic_hash": ""
+  },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/models/finding.py": {
-    "mtime": 1778926176.5657382,
+    "mtime": 1779332836.1074154,
     "ast_hash": "66abe505cf5df709e4d64172aa41e46d",
     "semantic_hash": ""
   },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/models/framework_requirement.py": {
+    "mtime": 1779332836.1074154,
+    "ast_hash": "299f6b7b378e82219c7fb03d18fca4c9",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/models/evidence_version_log.py": {
+    "mtime": 1779332836.1074154,
+    "ast_hash": "387dd7c93193a09a9141738e0ef5b84c",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/models/anomaly.py": {
+    "mtime": 1779939541.046219,
+    "ast_hash": "50c31325b02435c470c787adf25a10b7",
+    "semantic_hash": ""
+  },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/models/evidence_request.py": {
-    "mtime": 1778925279.7383547,
-    "ast_hash": "e488d643398c124bda405fffb6a73f82",
+    "mtime": 1779332836.1074154,
+    "ast_hash": "50b0e1e44e379818e8bff57d6f306df0",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/models/risk_item.py": {
+    "mtime": 1779939523.872034,
+    "ast_hash": "e1b91637b4d35452a60a5303178a96f8",
     "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/utils/__init__.py": {
@@ -109,49 +429,159 @@
     "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
     "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
   },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/schemas/audit_signal.py": {
+    "mtime": 1779939620.667082,
+    "ast_hash": "2d563241a29c2ff7ec1f3ce220b67bb9",
+    "semantic_hash": ""
+  },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/schemas/__init__.py": {
-    "mtime": 1778926223.9278054,
-    "ast_hash": "01c112ed95055d8fc3f75a22dabcefc7",
+    "mtime": 1779332836.1074154,
+    "ast_hash": "bf176fca7710e0dbd7cccfec26a3217e",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/schemas/activity_event.py": {
+    "mtime": 1779939596.400818,
+    "ast_hash": "7e8b2b50d12c9580a34d0a93e474ddfc",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/schemas/workpaper.py": {
+    "mtime": 1780125884.6286354,
+    "ast_hash": "7e0d0a7e551b4b7d954fd967455b6fb1",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/schemas/control.py": {
+    "mtime": 1779332836.1074154,
+    "ast_hash": "12e6cb6104cff325c2b73967c3441a04",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/schemas/report.py": {
+    "mtime": 1779332836.1074154,
+    "ast_hash": "47409c598ec475dbdcd128e62027c079",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/schemas/remediation_plan.py": {
+    "mtime": 1780125884.6286354,
+    "ast_hash": "ac41c954f6f0c4c233462875b6f667be",
     "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/schemas/audit_engagement.py": {
-    "mtime": 1778926229.966679,
-    "ast_hash": "0d8de59b3f4170650df2e95c6771e6e1",
+    "mtime": 1779332836.1074154,
+    "ast_hash": "b30378500e7de60145ddf618bdcb5e9c",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/schemas/control_test.py": {
+    "mtime": 1779939614.9390197,
+    "ast_hash": "19204618ba9076979386e4ce5ef0987b",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/schemas/evidence_file.py": {
+    "mtime": 1780125884.6286354,
+    "ast_hash": "fbcf4d0bd14bf3742bfa3137f4fc17ab",
     "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/schemas/finding.py": {
-    "mtime": 1778926186.106559,
+    "mtime": 1779332836.1074154,
     "ast_hash": "b86a7178977a5fecea533b25e68f2ada",
     "semantic_hash": ""
   },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/schemas/evidence_version_log.py": {
+    "mtime": 1779332836.1074154,
+    "ast_hash": "010cf39d172dd9ed7df03bdf610499a8",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/schemas/anomaly.py": {
+    "mtime": 1779939605.227914,
+    "ast_hash": "f726e083564879fdb4fe526272ed4b5b",
+    "semantic_hash": ""
+  },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/schemas/evidence_request.py": {
-    "mtime": 1778925279.7383547,
+    "mtime": 1779332836.1074154,
     "ast_hash": "efd90cfabadc528522bedae1f55f03dc",
     "semantic_hash": ""
   },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/schemas/risk_item.py": {
+    "mtime": 1779939592.0947714,
+    "ast_hash": "52a1c0df69606b56bc2e9ffdb3f90920",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/repositories/evidence_version_log_repository.py": {
+    "mtime": 1779332836.1074154,
+    "ast_hash": "ccef3fe4f4661fc96ecb5c3e866dc8a7",
+    "semantic_hash": ""
+  },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/repositories/__init__.py": {
-    "mtime": 1778926218.4469187,
+    "mtime": 1779332836.1074154,
     "ast_hash": "fd187e103e672336d0f88e0361fa2353",
     "semantic_hash": ""
   },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/repositories/risk_item_repository.py": {
+    "mtime": 1779939630.8131926,
+    "ast_hash": "95db9278fec9ec8c6c6977228bcfbd81",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/repositories/evidence_file_repository.py": {
+    "mtime": 1780125884.6286354,
+    "ast_hash": "916b41f8a0a71ed25e547d6ac96e4552",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/repositories/control_repository.py": {
+    "mtime": 1779332836.1074154,
+    "ast_hash": "ffa4b3487dc4147fd48e7c5c82afeedf",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/repositories/remediation_plan_repository.py": {
+    "mtime": 1780125884.6286354,
+    "ast_hash": "0881065139296d77a7b28d538b528722",
+    "semantic_hash": ""
+  },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/repositories/evidence_request_repository.py": {
-    "mtime": 1778925393.9759736,
+    "mtime": 1779332836.1074154,
     "ast_hash": "1603af8fb8d4f00a0c00e1f1bf0512a2",
     "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/repositories/finding_repository.py": {
-    "mtime": 1778926197.45334,
+    "mtime": 1779332836.1074154,
     "ast_hash": "654da01b2cf0aeabd5ab376032093589",
     "semantic_hash": ""
   },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/repositories/report_repository.py": {
+    "mtime": 1779332836.1074154,
+    "ast_hash": "03221142ed7e6811c82ef7234af38ace",
+    "semantic_hash": ""
+  },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/repositories/base_repo.py": {
-    "mtime": 1778926202.53224,
+    "mtime": 1779332836.1074154,
     "ast_hash": "e4fa17e61e935d165e0b3ba6b0cf6ce0",
     "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/repositories/audit_engagement_repository.py": {
-    "mtime": 1778926238.3415015,
-    "ast_hash": "ab7f1a91866bebcc519355b527a48a15",
+    "mtime": 1779332836.1074154,
+    "ast_hash": "379b070361c409393445810a457496e4",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/repositories/anomaly_repository.py": {
+    "mtime": 1779939660.7935197,
+    "ast_hash": "77616799069ef5749a2c9457e72d0021",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/repositories/control_test_repository.py": {
+    "mtime": 1779939671.3236349,
+    "ast_hash": "6601183069a72ef025fe5ef194c0ffec",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/repositories/activity_event_repository.py": {
+    "mtime": 1779939636.9492593,
+    "ast_hash": "745038e118a72e233ce65b5f250b054f",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/repositories/workpaper_repository.py": {
+    "mtime": 1780125884.6286354,
+    "ast_hash": "6df2a61d78ff5b0988f7220c251326e2",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/app/repositories/audit_signal_repository.py": {
+    "mtime": 1779939682.014752,
+    "ast_hash": "e687737818ef3e9d4f696edee7334aa5",
     "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/alembic/__init__.py": {
@@ -160,13 +590,28 @@
     "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/alembic/env.py": {
-    "mtime": 1778924063.50588,
+    "mtime": 1779332836.1064153,
     "ast_hash": "789e97506071c165bed90457d78e7436",
     "semantic_hash": "789e97506071c165bed90457d78e7436"
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/alembic/versions/20260528_0007_create_risk_items.py": {
+    "mtime": 1779939793.1259744,
+    "ast_hash": "17977c67243cd740570a792246363612",
+    "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/alembic/versions/20260516_0002_create_evidence_requests.py": {
     "mtime": 1778925279.7383547,
     "ast_hash": "7ab34c4fa7f896e3c254480051768155",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/alembic/versions/20260530_0014_create_evidence_files.py": {
+    "mtime": 1780125884.6266356,
+    "ast_hash": "552b2afa30a845588e7ed9840eb34c25",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/alembic/versions/20260530_0012_create_workpapers.py": {
+    "mtime": 1780125884.6266356,
+    "ast_hash": "577a575bdd4fea0235bf253ca78c99b2",
     "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/alembic/versions/20260516_0003_create_findings.py": {
@@ -174,10 +619,50 @@
     "ast_hash": "abbd9ec77b691297b16b1cf75fc096c4",
     "semantic_hash": ""
   },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/alembic/versions/20260528_0010_create_control_tests.py": {
+    "mtime": 1779939827.1213508,
+    "ast_hash": "43d608a98cf334646498b6d1816f8b5d",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/alembic/versions/20260516_0006_create_evidence_version_logs.py": {
+    "mtime": 1778930724.5165932,
+    "ast_hash": "ba2035166f59ad24ec99f8a9fc427830",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/alembic/versions/20260528_0009_create_anomaly_detection.py": {
+    "mtime": 1779939812.514189,
+    "ast_hash": "946a7d5d6f409083a1a2e3f980e3fa0b",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/alembic/versions/20260516_0005_create_reports.py": {
+    "mtime": 1778929750.9493735,
+    "ast_hash": "f520f7b67e7bf1d366aa04f7f209b1b7",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/alembic/versions/20260516_0004_create_controls.py": {
+    "mtime": 1778928234.0479295,
+    "ast_hash": "2a57154ae30aa672b426c762a5fb50d1",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/alembic/versions/20260528_0011_create_audit_signals.py": {
+    "mtime": 1779939839.5384884,
+    "ast_hash": "2cc4d83d9eea34c63006b44ec613290f",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/alembic/versions/20260528_0008_create_activity_events.py": {
+    "mtime": 1779939799.95405,
+    "ast_hash": "a5e0299bd3a68929f3af32956bae0244",
+    "semantic_hash": ""
+  },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/alembic/versions/20260516_0001_create_audit_engagements.py": {
     "mtime": 1778924037.1935248,
     "ast_hash": "5dad176978068214bf869c6f494b472c",
     "semantic_hash": "5dad176978068214bf869c6f494b472c"
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/alembic/versions/20260530_0013_create_remediation_plans.py": {
+    "mtime": 1780125884.6266356,
+    "ast_hash": "7988792188b27153a43ebcada89458bf",
+    "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/docs/meta.json": {
     "mtime": 1778922865.5888603,
@@ -185,134 +670,54 @@
     "semantic_hash": "505f11a74953e5d66feef5621386bdf1"
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/.claude/settings.local.json": {
-    "mtime": 1778923261.3360965,
-    "ast_hash": "16d8d023e94568cb9c0c0dd8bd37cfb8",
-    "semantic_hash": "16d8d023e94568cb9c0c0dd8bd37cfb8"
-  },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/frontend/next-env.d.ts": {
-    "mtime": 1778924250.5663989,
-    "ast_hash": "b5ed9dd8b4c5ba8e5ab8e6a379c15838",
-    "semantic_hash": "b5ed9dd8b4c5ba8e5ab8e6a379c15838"
-  },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/frontend/package.json": {
-    "mtime": 1778924128.9430592,
-    "ast_hash": "9cc8e77c701723a03c1e340145d77f5d",
-    "semantic_hash": "9cc8e77c701723a03c1e340145d77f5d"
-  },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/frontend/tsconfig.json": {
-    "mtime": 1778922865.5918603,
-    "ast_hash": "3bd7a3770c6b44dbcaab1d2f175db8bd",
-    "semantic_hash": "3bd7a3770c6b44dbcaab1d2f175db8bd"
-  },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/frontend/postcss.config.mjs": {
-    "mtime": 1778922865.5908601,
-    "ast_hash": "fe13e972825095c90d22b2112d757993",
-    "semantic_hash": "fe13e972825095c90d22b2112d757993"
-  },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/frontend/tailwind.config.ts": {
-    "mtime": 1778922865.5918603,
-    "ast_hash": "bcafbbf0cfe58aeb67034c286851441d",
-    "semantic_hash": "bcafbbf0cfe58aeb67034c286851441d"
-  },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/frontend/next.config.js": {
-    "mtime": 1778922865.5898602,
-    "ast_hash": "13fbb9936a12daacc1b5f95f1a1c602e",
-    "semantic_hash": "13fbb9936a12daacc1b5f95f1a1c602e"
-  },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/frontend/src/app/page.tsx": {
-    "mtime": 1778924128.9430592,
-    "ast_hash": "b9df0917c0439fc39b97f00f1da7b5b0",
-    "semantic_hash": "b9df0917c0439fc39b97f00f1da7b5b0"
-  },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/frontend/src/app/layout.tsx": {
-    "mtime": 1778924128.9430592,
-    "ast_hash": "7120584869d92a810e99a8b25671fd92",
-    "semantic_hash": "7120584869d92a810e99a8b25671fd92"
-  },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/frontend/src/app/dashboard/page.tsx": {
-    "mtime": 1778926381.5200872,
-    "ast_hash": "a96202c390817e673a2ac198781a9920",
+    "mtime": 1780272131.175464,
+    "ast_hash": "bf717c97472d248cf77143e9781cb069",
     "semantic_hash": ""
   },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/frontend/src/lib/utils.ts": {
-    "mtime": 1778922865.5918603,
-    "ast_hash": "ea1c194ee828369e6fcdde84b4d8b8ba",
-    "semantic_hash": "ea1c194ee828369e6fcdde84b4d8b8ba"
-  },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/frontend/src/lib/api.ts": {
-    "mtime": 1778926282.4795194,
-    "ast_hash": "bd6bbad3167840a5c21c0220f3c9c0bc",
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/testsprite_tests/testsprite_frontend_test_plan.json": {
+    "mtime": 1779953156.110706,
+    "ast_hash": "707fb0b26669fe15e50afb8c4dbde951",
     "semantic_hash": ""
   },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/frontend/src/components/ui/label.tsx": {
-    "mtime": 1778922865.5908601,
-    "ast_hash": "874216b95b72f23579a562f78955a276",
-    "semantic_hash": "874216b95b72f23579a562f78955a276"
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/testsprite_tests/standard_prd.json": {
+    "mtime": 1779953107.7786758,
+    "ast_hash": "a113e3f1edfa3dbeda5bae0c20a5cd3d",
+    "semantic_hash": ""
   },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/frontend/src/components/ui/avatar.tsx": {
-    "mtime": 1778922865.5908601,
-    "ast_hash": "cd70cb254ea891a7d55c64a2304a8196",
-    "semantic_hash": "cd70cb254ea891a7d55c64a2304a8196"
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/testsprite_tests/tmp/config.json": {
+    "mtime": 1779953180.3589387,
+    "ast_hash": "b3bc0c5ed2b170d081bc2f9c5b94aa23",
+    "semantic_hash": ""
   },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/frontend/src/components/ui/card.tsx": {
-    "mtime": 1778922865.5908601,
-    "ast_hash": "7e91edc9bf303578c1e7bcdde9366134",
-    "semantic_hash": "7e91edc9bf303578c1e7bcdde9366134"
-  },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/frontend/src/components/ui/button.tsx": {
-    "mtime": 1778922865.5908601,
-    "ast_hash": "97b90752432a6ed8629f9774424d2ebe",
-    "semantic_hash": "97b90752432a6ed8629f9774424d2ebe"
-  },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/frontend/src/components/ui/select.tsx": {
-    "mtime": 1778922865.5918603,
-    "ast_hash": "e47ac9814247139df2ab1d7d233fa453",
-    "semantic_hash": "e47ac9814247139df2ab1d7d233fa453"
-  },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/frontend/src/components/ui/table.tsx": {
-    "mtime": 1778922865.5918603,
-    "ast_hash": "0d12893a077e8a94c0b4ec6b8d16e1dc",
-    "semantic_hash": "0d12893a077e8a94c0b4ec6b8d16e1dc"
-  },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/frontend/src/components/ui/badge.tsx": {
-    "mtime": 1778922865.5908601,
-    "ast_hash": "b23999a2d3f73b74d46c949dfa469552",
-    "semantic_hash": "b23999a2d3f73b74d46c949dfa469552"
-  },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/frontend/src/components/ui/tabs.tsx": {
-    "mtime": 1778922865.5918603,
-    "ast_hash": "7d4fe584503dc4122d11418239e05f98",
-    "semantic_hash": "7d4fe584503dc4122d11418239e05f98"
-  },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/frontend/src/components/ui/dialog.tsx": {
-    "mtime": 1778922865.5908601,
-    "ast_hash": "6394d8caae9db6ca79e465921a839982",
-    "semantic_hash": "6394d8caae9db6ca79e465921a839982"
-  },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/frontend/src/components/ui/input.tsx": {
-    "mtime": 1778922865.5908601,
-    "ast_hash": "20c7d814efed7c1cb30937a9bcca5089",
-    "semantic_hash": "20c7d814efed7c1cb30937a9bcca5089"
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/helm/registry-entry.json": {
+    "mtime": 1780125884.6146352,
+    "ast_hash": "0bdd709bed57092a3357b16f85595914",
+    "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/PRODUCT-SPEC.md": {
-    "mtime": 1778926480.2234325,
-    "ast_hash": "73d48c9c64e95f474808efa40c558bb6",
+    "mtime": 1780245737.9379778,
+    "ast_hash": "bf0123258b8a26311c1474ed6d5372e2",
     "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/docker-compose.yml": {
-    "mtime": 1778924208.7499237,
-    "ast_hash": "2e040d51cfdaec832c9d5ac9ba4a6390",
-    "semantic_hash": "2e040d51cfdaec832c9d5ac9ba4a6390"
+    "mtime": 1780150881.2852318,
+    "ast_hash": "80f553550f7de715b4aa730bef2afe23",
+    "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/PATCHES.md": {
     "mtime": 1778922865.58486,
     "ast_hash": "991733c05665246cf2093b4e5727a8f8",
     "semantic_hash": "991733c05665246cf2093b4e5727a8f8"
   },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/RUN.md": {
+    "mtime": 1780151293.1265633,
+    "ast_hash": "a6f0503ab433a31baa65553cd7c1c597",
+    "semantic_hash": ""
+  },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/PLAN-v1.2.md": {
-    "mtime": 1778922865.58486,
-    "ast_hash": "1ddf7ecd5b86537f0bf5733de7d15a27",
-    "semantic_hash": "1ddf7ecd5b86537f0bf5733de7d15a27"
+    "mtime": 1779332836.1034155,
+    "ast_hash": "84746ec73dc259c62c3b3f2c9a288ee9",
+    "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/TEAM-ONBOARDING-GUIDE.md": {
     "mtime": 1778922865.5858603,
@@ -323,6 +728,16 @@
     "mtime": 1778922865.58486,
     "ast_hash": "575029013c93c0caddbb2c5fdcacda8b",
     "semantic_hash": "575029013c93c0caddbb2c5fdcacda8b"
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/PLAN-v1.4.md": {
+    "mtime": 1780244114.231501,
+    "ast_hash": "50018f2ccaef2474ca6182eab96efcea",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/REVISED-PRD.md": {
+    "mtime": 1779332836.1034155,
+    "ast_hash": "41e161abc8f7a15cc0595c0d8b60a238",
+    "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/AGENTS.md": {
     "mtime": 1778922865.58486,
@@ -335,12 +750,12 @@
     "semantic_hash": "9ca6f76d54df4d000849af7a3fcb54eb"
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/README.md": {
-    "mtime": 1778926505.5197246,
-    "ast_hash": "8bd349050bab9a0b6309841162a3ab52",
+    "mtime": 1780245626.5172467,
+    "ast_hash": "8f75928dd2708368c876574fae59d25f",
     "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/plan_v1.3.md": {
-    "mtime": 1778923986.2018363,
+    "mtime": 1779332836.1134152,
     "ast_hash": "d38564a57691ef4b4289e9d5f473c6b3",
     "semantic_hash": "d38564a57691ef4b4289e9d5f473c6b3"
   },
@@ -348,6 +763,31 @@
     "mtime": 1778922865.5858603,
     "ast_hash": "a0c71a78655fd06053a1109e3d85ebca",
     "semantic_hash": "a0c71a78655fd06053a1109e3d85ebca"
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/web/.vercel/README.txt": {
+    "mtime": 1779334684.3358288,
+    "ast_hash": "2b13c79d37d6ed82a3255b83b6815034",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/testforge/testforge-dclaw-audit.md": {
+    "mtime": 1780231714.569944,
+    "ast_hash": "6597cef98a366525e16a6327de3303f0",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/testforge/test_analysis.md": {
+    "mtime": 1780243766.7784204,
+    "ast_hash": "de5b17755319d8ae89ba65bde7a6141b",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/slides/deck-content.md": {
+    "mtime": 1780245868.1408513,
+    "ast_hash": "4ed4c538eb3d90794ccf4447d3a99b77",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/slides/dclaw-audit-deck.html": {
+    "mtime": 1780246484.4892218,
+    "ast_hash": "1377ce2ab398dbfe498be6db4d7c6ca4",
+    "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/backend/requirements.txt": {
     "mtime": 1778922865.58786,
@@ -444,59 +884,69 @@
     "ast_hash": "c5899ef9d92d7116f803687bbc85aebb",
     "semantic_hash": "c5899ef9d92d7116f803687bbc85aebb"
   },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/testsprite_tests/tmp/code_summary.yaml": {
+    "mtime": 1779953071.456653,
+    "ast_hash": "46c6800a8e54886fbb36a81e780150d1",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/testsprite_tests/tmp/prd_files/PRODUCT-SPEC.md": {
+    "mtime": 1779952932.953567,
+    "ast_hash": "bb95a3d2736b3be12ead71d646684a03",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/testsprite_tests/failed-output/terminal_output.txt": {
+    "mtime": 1779953186.885943,
+    "ast_hash": "85fa4b1db12589975daa5e1753bc976b",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/Infographics/architecture-diagram.md": {
+    "mtime": 1780245802.4528215,
+    "ast_hash": "4514f71ef8d4a6d87f8ce6bb7a0ec8d9",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/Infographics/dclaw-audit-infograph.html": {
+    "mtime": 1780246231.5549684,
+    "ast_hash": "4a0a7b6f3b868c48188ad8baa911ae0f",
+    "semantic_hash": ""
+  },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/helm/Chart.yaml": {
     "mtime": 1778922865.5918603,
     "ast_hash": "20f27ee6a57635f4794d3446b92ae70a",
     "semantic_hash": "20f27ee6a57635f4794d3446b92ae70a"
   },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/helm/values-prod.yaml": {
+    "mtime": 1780125884.6156354,
+    "ast_hash": "5134d0d9bf11ac79122fbd68dadd9fc1",
+    "semantic_hash": ""
+  },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/helm/values.yaml": {
-    "mtime": 1778922865.5918603,
-    "ast_hash": "e9bd0c4fefc7b1d9d44af643690d9ac2",
-    "semantic_hash": "e9bd0c4fefc7b1d9d44af643690d9ac2"
-  },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/helm/dclaw-audit/Chart.yaml": {
-    "mtime": 1778922865.5918603,
-    "ast_hash": "3a926da0a829eb507b839634d7a625d0",
-    "semantic_hash": "3a926da0a829eb507b839634d7a625d0"
-  },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/helm/dclaw-audit/values.yaml": {
-    "mtime": 1778922865.5918603,
-    "ast_hash": "f0621ece0ec94d2744c67c76666f64a8",
-    "semantic_hash": "f0621ece0ec94d2744c67c76666f64a8"
-  },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/helm/dclaw-audit/templates/serviceaccount.yaml": {
-    "mtime": 1778922865.5918603,
-    "ast_hash": "cbbbd52b1402bc409ba3eae5b8c8ddf3",
-    "semantic_hash": "cbbbd52b1402bc409ba3eae5b8c8ddf3"
-  },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/helm/dclaw-audit/templates/ingress.yaml": {
-    "mtime": 1778922865.5918603,
-    "ast_hash": "3ffd08f5930c9cfc0e075648a184e496",
-    "semantic_hash": "3ffd08f5930c9cfc0e075648a184e496"
-  },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/helm/dclaw-audit/templates/service.yaml": {
-    "mtime": 1778922865.5918603,
-    "ast_hash": "a2626574844252ed40cc67be6a8d0e53",
-    "semantic_hash": "a2626574844252ed40cc67be6a8d0e53"
-  },
-  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/helm/dclaw-audit/templates/deployment.yaml": {
-    "mtime": 1778922865.5918603,
-    "ast_hash": "3d5309375a1d3345c21d0de29045aecc",
-    "semantic_hash": "3d5309375a1d3345c21d0de29045aecc"
+    "mtime": 1780125884.6156354,
+    "ast_hash": "d2e9307a6bd1faf29f05b6d65108ab5c",
+    "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/helm/templates/NOTES.txt": {
     "mtime": 1778922865.5918603,
     "ast_hash": "0d8c686e4a08a665267d3d8fe03707c9",
     "semantic_hash": "0d8c686e4a08a665267d3d8fe03707c9"
   },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/helm/templates/ingress.yaml": {
+    "mtime": 1780125884.6146352,
+    "ast_hash": "d05f4cf520bc23e15275bc6792624498",
+    "semantic_hash": ""
+  },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/helm/templates/service.yaml": {
-    "mtime": 1778922865.5918603,
-    "ast_hash": "3c871e3de514581590418a3fc6aa7067",
-    "semantic_hash": "3c871e3de514581590418a3fc6aa7067"
+    "mtime": 1780125884.6156354,
+    "ast_hash": "425147ef6928ab0c52676d5b5de177ff",
+    "semantic_hash": ""
   },
   "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/helm/templates/deployment.yaml": {
-    "mtime": 1778922865.5918603,
-    "ast_hash": "d9e04cbcdbe7f1a0483040f90d4c07ae",
-    "semantic_hash": "d9e04cbcdbe7f1a0483040f90d4c07ae"
+    "mtime": 1780125884.6146352,
+    "ast_hash": "4115c452db229a2b8087003de4d2cda1",
+    "semantic_hash": ""
+  },
+  "/home/chandraja/AI_white_noise/dclaw/dclaw-audit/testforge/TestForge MCP \u2014 Local Analysis.pdf": {
+    "mtime": 1780231720.553071,
+    "ast_hash": "373d14ad7f376f2df2b0fa4623dcd3bf",
+    "semantic_hash": ""
   }
 }
